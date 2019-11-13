@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
+import { connect } from 'react-redux';
+import {register} from '../actions/auth';
 
 
 class RegisterDialog extends Component {
@@ -78,6 +80,12 @@ class RegisterDialog extends Component {
         this.setState({
             ensurance_id: e.target.value
         })
+    }
+
+    handleOnSubmit = () => {
+        this.props.register();
+        console.log('sub');
+        
     }
 
     render() {
@@ -181,7 +189,7 @@ class RegisterDialog extends Component {
                                 />
                                 </div>
                                 <div className="text-center">
-                                <MDBBtn >Login</MDBBtn>
+                                <MDBBtn onClick = {() => this.handleOnSubmit()} >Submit</MDBBtn>
                                 <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
 
                                 </div>
@@ -193,4 +201,4 @@ class RegisterDialog extends Component {
     }
 }
 
-export default RegisterDialog;
+export default connect(null, { register })(RegisterDialog);
