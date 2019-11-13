@@ -83,8 +83,8 @@ class RegisterDialog extends Component {
     }
 
     handleOnSubmit = () => {
-        this.props.register();
-        console.log('sub');
+        
+        this.props.register(this.state);
         
     }
 
