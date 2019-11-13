@@ -1,12 +1,17 @@
 import React from 'react';
-import NekaKomponenta from './components/NekaKomponenta';
+import { Router, Route } from 'react-router-dom';
+import history from './history';
 import './App.css';
+import Header from './components/Header';
+import LoginDialog from './components/LoginDialog';
 
 function App() {
   return (
     <div className="App">
-      <NekaKomponenta/>
-      
+      <Router history={history}>
+        <Header />
+        <Route path="/login" component = {LoginDialog} />
+      </Router>
     </div>
   );
 }
