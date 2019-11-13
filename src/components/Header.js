@@ -17,8 +17,7 @@ toggleCollapse = () => {
 }
 
 toggleLoginDialog = () => {
-    console.log('toggle');
-    
+   
     this.setState({
         logInDialog: !this.state.logInDialog
     });
@@ -55,7 +54,7 @@ render() {
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>
-      <LoginDialog show={this.state.logInDialog} toggle={this.toggleLogInDialog}  />
+      <LoginDialog show={this.state.logInDialog} toggle={this.toggleLoginDialog}  />
 
     </Router>
     );

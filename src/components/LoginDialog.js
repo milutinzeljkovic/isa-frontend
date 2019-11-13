@@ -71,7 +71,7 @@ class LoginDialog extends Component {
                             </div>
                             <div className="text-center">
                             <MDBBtn onClick = {this.onSubmit.bind(this)}>Login</MDBBtn>
-                            <MDBBtn outline color="danger" onClick = { ()=>this.props.toggle()}>Close</MDBBtn>
+                            <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
 
                             </div>
                         </form>
