@@ -5,11 +5,13 @@ MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggle
 import { BrowserRouter as Router } from 'react-router-dom';
 import history from '../history';
 import LoginDialog from './LoginDialog';
+import RegisterDialog from './RegisterDialog';
 
 class Header extends Component {
 state = {
   isOpen: false,
-  logInDialog: false
+  logInDialog: false,
+  registerDialog: false
 };
 
 toggleCollapse = () => {
@@ -17,10 +19,15 @@ toggleCollapse = () => {
 }
 
 toggleLoginDialog = () => {
-   
     this.setState({
         logInDialog: !this.state.logInDialog
     });
+}
+
+toggleRegisterDialog = () => {
+  this.setState({
+    registerDialog: !this.state.registerDialog
+  })
 }
 
 render() {
@@ -40,7 +47,7 @@ render() {
               <MDBNavLink to="/login" onClick = {this.toggleLoginDialog}>Login</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="#!">Pricing</MDBNavLink>
+              <MDBNavLink to="/register" onClick = {this.toggleRegisterDialog}>Register</MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>
@@ -55,7 +62,7 @@ render() {
         </MDBCollapse>
       </MDBNavbar>
       <LoginDialog show={this.state.logInDialog} toggle={this.toggleLoginDialog}  />
-
+      <RegisterDialog show={this.state.registerDialog} toggle={this.toggleRegisterDialog} />
     </Router>
     );
   }
