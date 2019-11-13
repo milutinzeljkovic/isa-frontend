@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBIcon,  MDBRow, MDBCol, MDBInput, MDBBtn} from 'mdbreact';
-import { Field, reduxForm, reset } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 
 class LoginDialog extends Component {
 
@@ -28,6 +26,12 @@ class LoginDialog extends Component {
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.email);
         event.preventDefault();
+    }
+
+    onCloseModalClick(){
+        console.log('close');
+        
+        this.props.toggle();
     }
     
     onSubmit() { 
@@ -67,6 +71,8 @@ class LoginDialog extends Component {
                             </div>
                             <div className="text-center">
                             <MDBBtn onClick = {this.onSubmit.bind(this)}>Login</MDBBtn>
+                            <MDBBtn outline color="danger" onClick = { ()=>this.props.toggle()}>Close</MDBBtn>
+
                             </div>
                         </form>
                 </MDBModalBody>
