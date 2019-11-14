@@ -3,11 +3,16 @@ const usersService = ServiceFactory.get('users');
 
 export const register = data => {
     return async dispatch => {
-        const response = await usersService.register(data);
-        if (response.status === 200) {
-            dispatch({ type: 'REGISTER' });
-        } else {
+        let response;
+        
+        response = await usersService.register(data);
+        
+        if(!response){
+            
             dispatch({ type: 'ERROR', payload: 'Failed to sign up' });
         }
+        if (response.status === 200) {
+            dispatch({ type: 'REGISTER' });
+        } 
     }
 }
