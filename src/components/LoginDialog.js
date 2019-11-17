@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
+import { connect } from 'react-redux';
+import { login } from '../actions/auth';
+
 
 class LoginDialog extends Component {
 
@@ -9,36 +12,24 @@ class LoginDialog extends Component {
             email: '',
             password: ''
         };
-    
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleEmailChange(event) {
+    handleEmailChange = event => {
         this.setState({email: event.target.value});
     }
 
-    handlePasswordChange(event) {
+    handlePasswordChange = event =>  {
         this.setState({password: event.target.value});
     }
     
-    handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.email);
-        event.preventDefault();
+    handleSubmit = () =>  {
+        this.props.login(this.state);
     }
 
-    onCloseModalClick(){
-        console.log('close');
-        
+    onCloseModalClick(){        
         this.props.toggle();
     }
     
-    onSubmit() { 
-        console.log(this.state.email, this.state.password);
-        
-    }
-
     render() {
         return (
             <MDBContainer>
@@ -49,7 +40,7 @@ class LoginDialog extends Component {
                     </div> 
                 </MDBModalHeader>
                 <MDBModalBody>
-                        <form onSubmit={this.handleSubmit}>
+                        <form onSubmit={() => this.handleSubmit()}>
                             <p className="h5 text-center mb-4">Sign in</p>
                             <div className="grey-text">
                             <MDBInput
@@ -59,18 +50,18 @@ class LoginDialog extends Component {
                                 validate
                                 error="wrong"
                                 success="right"
-                                onChange={this.handleEmailChange}
+                                onChange={(e) => this.handleEmailChange(e)}
                             />
                             <MDBInput
                                 label="Type your password"
                                 group
                                 type="password"
                                 validate
-                                onChange={this.handlePasswordChange}
+                                onChange={(e) => this.handlePasswordChange(e)}
                             />
                             </div>
                             <div className="text-center">
-                            <MDBBtn onClick = {this.onSubmit.bind(this)}>Login</MDBBtn>
+                            <MDBBtn onClick = {() => this.handleSubmit()}>Login</MDBBtn>
                             <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
 
                             </div>
@@ -82,4 +73,4 @@ class LoginDialog extends Component {
     }
 }
 
-export default LoginDialog;
+export default connect(null,{login})(LoginDialog);
