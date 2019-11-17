@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
+import { connect } from 'react-redux';
+import { login } from '../actions/auth';
+
 
 class LoginDialog extends Component {
 
@@ -12,31 +15,17 @@ class LoginDialog extends Component {
             passwordValid: true,
             emailErrorMessage: ''
         };
-    
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleEmailChange(event) {
+    handleEmailChange = event => {
         this.setState({email: event.target.value});
     }
 
-    handlePasswordChange(event) {
+    handlePasswordChange = event =>  {
         this.setState({password: event.target.value});
     }
     
-    handleSubmit(event) {
 
-        alert('A name was submitted: ' + this.state.email);
-        event.preventDefault();
-    }
-
-    onCloseModalClick(){
-        console.log('close');
-
-        this.props.toggle();
-    }
     
     onSubmit() { 
         const validEmail = RegExp(/.+@.+\.[A-Za-z]+$/);
@@ -60,6 +49,37 @@ class LoginDialog extends Component {
         console.log(this.state.email, this.state.password);
     }
 
+
+    handleSubmit = () =>  {
+        const validEmail = RegExp(/.+@.+\.[A-Za-z]+$/);
+        let err = false;
+        if(this.state.email === '' || !validEmail.test(this.state.email)){
+            if(this.state.email === ''){
+                this.setState({emailValid: false, emailErrorMessage: 'E-mail can not be empty'});
+                err = true;
+            }else {
+                err = true;
+                this.setState({emailValid: false, emailErrorMessage: 'E-mail is not valid'});
+            }
+        }else {
+            this.setState({emailValid: true});
+        }
+
+        if(this.state.password === ''){
+            err = true;
+            this.setState({passwordValid: false});
+        }else {
+            this.setState({passwordValid: true});
+        }
+        if(!err)
+            this.props.login(this.state);
+    }
+
+    onCloseModalClick(){        
+        this.props.toggle();
+    }
+    
+
     render() {
         return (
             <MDBContainer>
@@ -70,7 +90,9 @@ class LoginDialog extends Component {
                     </div> 
                 </MDBModalHeader>
                 <MDBModalBody>
-                        <form onSubmit={this.handleSubmit}>
+
+                        <form onSubmit={() => this.handleSubmit()}>
+                            <p className="h5 text-center mb-4">Sign in</p>
                             <div className="grey-text">
                             <MDBInput
                                 label="Type your email"
@@ -79,7 +101,7 @@ class LoginDialog extends Component {
                                 validate
                                 error="wrong"
                                 success="right"
-                                onChange={this.handleEmailChange}
+                                onChange={(e) => this.handleEmailChange(e)}
                             />
                             <div className="form-group col " style={{height: '2px'}}
 			                    hidden={this.state.emailValid}>
@@ -92,8 +114,10 @@ class LoginDialog extends Component {
                                 group
                                 type="password"
                                 validate
+
                                 required
-                                onChange={this.handlePasswordChange}
+
+                                onChange={(e) => this.handlePasswordChange(e)}
                             />
                             <div className="form-group col " style={{height: '2px', marginBottom: '2rem'}}
 			                    hidden={this.state.passwordValid}>
@@ -103,7 +127,7 @@ class LoginDialog extends Component {
 			                </div>
                             </div>
                             <div className="text-center">
-                            <MDBBtn onClick = {this.onSubmit.bind(this)}>Login</MDBBtn>
+                            <MDBBtn onClick = {() => this.handleSubmit()}>Login</MDBBtn>
                             <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
 
                             </div>
@@ -115,4 +139,4 @@ class LoginDialog extends Component {
     }
 }
 
-export default LoginDialog;
+export default connect(null,{login})(LoginDialog);
