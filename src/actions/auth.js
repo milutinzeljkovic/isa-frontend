@@ -29,12 +29,30 @@ export const login = data => {
         }catch(e){
             return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
         }
-        
         if(!response){
            return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
         }
-        if (response.status === 200) {
+        if (response.status === 200) {            
            return dispatch({ type: 'LOGIN', payload: response.data });
+        } 
+    }
+}
+
+export const me = () => {
+
+    return async dispatch => {
+        let response;
+        try{
+            response = await usersService.fetchCurrentUser();
+
+        }catch(e){
+            return dispatch({ type: 'ERROR', payload: 'Token invalid' });
+        }
+        if(!response){
+           return dispatch({ type: 'ERROR', payload: 'Token invalid' });
+        }
+        if (response.status === 200) {            
+           return dispatch({ type: 'ME', payload: response.data });
         } 
     }
 }

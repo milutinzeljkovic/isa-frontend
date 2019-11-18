@@ -11,8 +11,12 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, loginStatus: action.payload}
         break;
         case 'LOGIN':
-            console.log(action.payload);
+            localStorage.setItem('token',action.payload.access_token)            
+            return {...state, accessToken: action.payload.access_token}
         break;
+        case 'ME':
+            return {...state, currentUser: action.payload}
+            
         default:
             return state;
     }

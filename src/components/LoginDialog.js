@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 import { connect } from 'react-redux';
-import { login } from '../actions/auth';
+import { login, me } from '../actions/auth';
 
 
 class LoginDialog extends Component {
@@ -46,11 +46,10 @@ class LoginDialog extends Component {
             this.setState({passwordValid: true});
         }
 
-        console.log(this.state.email, this.state.password);
     }
 
 
-    handleSubmit = () =>  {
+    handleSubmit = async () =>  {
         const validEmail = RegExp(/.+@.+\.[A-Za-z]+$/);
         let err = false;
         if(this.state.email === '' || !validEmail.test(this.state.email)){
@@ -71,9 +70,14 @@ class LoginDialog extends Component {
         }else {
             this.setState({passwordValid: true});
         }
-        if(!err)
-            this.props.login(this.state);
-
+        if(!err){
+            let response;
+            response = await this.props.login(this.state);
+            if(response.type === 'LOGIN'){
+                this.props.toggle();                
+                this.props.me();
+            }
+        }
     }
 
     onCloseModalClick(){        
@@ -147,4 +151,4 @@ const mapStateToProps = (state) =>{
     }
 }
 
-export default connect(mapStateToProps,{login})(LoginDialog);
+export default connect(mapStateToProps,{login, me})(LoginDialog);
