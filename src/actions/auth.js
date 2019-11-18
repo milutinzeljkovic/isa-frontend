@@ -56,3 +56,22 @@ export const me = () => {
         } 
     }
 }
+
+export const logout = () => {
+
+    return async dispatch => {
+        let response;
+        try{
+            response = await usersService.logoutUser();
+
+        }catch(e){
+            return dispatch({ type: 'ERROR', payload: 'Token invalid' });
+        }
+        if(!response){
+           return dispatch({ type: 'ERROR', payload: 'Token invalid' });
+        }
+        if (response.status === 200) {            
+           return dispatch({ type: 'LOGOUT', payload: response });
+        } 
+    }
+}

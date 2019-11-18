@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import history from '../history';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
+import { logout } from '../actions/auth';
 
 class Header extends Component {
 state = {
@@ -32,6 +33,58 @@ toggleRegisterDialog = () => {
   });
 }
 
+handleLogoutButtonClick = () => {
+  this.props.logout();
+}
+
+renderRight = () => {
+  if(this.props.auth.currentUser === undefined ){
+    console.log(this.props.auth.currentUser);
+    
+    return(
+      <MDBNavbarNav right>
+        <MDBNavItem>
+          <MDBNavLink to="/login" onClick = {this.toggleLoginDialog}>Login</MDBNavLink>
+        </MDBNavItem>
+        <MDBNavItem>
+          <MDBNavLink to="/register" onClick = {this.toggleRegisterDialog}>Register</MDBNavLink>
+        </MDBNavItem>
+      </MDBNavbarNav>
+    )
+  }else{
+    console.log('nije undefined');
+    
+    return(
+      <MDBNavbarNav right>
+        <MDBNavItem>
+          <MDBNavLink to="/profile">{this.props.auth.currentUser.email}</MDBNavLink>
+        </MDBNavItem>
+        <MDBNavItem>
+          <MDBNavLink to="/" onClick = {()=> this.handleLogoutButtonClick()}>Logout</MDBNavLink>
+        </MDBNavItem>
+      </MDBNavbarNav>
+    )
+  }
+}
+
+renderLeft = () => {
+  if(this.props.auth.currentUser === undefined){
+    return(
+        <MDBNavbarNav left>
+          
+        </MDBNavbarNav>
+    )
+  }else{
+    return(
+        <MDBNavbarNav left>
+          <MDBNavItem>
+            <MDBNavLink to="/home">Home</MDBNavLink>
+          </MDBNavItem>
+        </MDBNavbarNav>
+    )
+  }
+}
+
 render() {
   return (
     <Router history = {history}>
@@ -41,26 +94,8 @@ render() {
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-          <MDBNavbarNav left>
-            <MDBNavItem active>
-              <MDBNavLink to="#!">Home</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="/login" onClick = {this.toggleLoginDialog}>Login</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="/register" onClick = {this.toggleRegisterDialog}>Register</MDBNavLink>
-            </MDBNavItem>
-          </MDBNavbarNav>
-          <MDBNavbarNav right>
-            <MDBNavItem>
-              <MDBFormInline waves>
-                <div className="md-form my-0">
-                  <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-                </div>
-              </MDBFormInline>
-            </MDBNavItem>
-          </MDBNavbarNav>
+          {this.renderLeft()}
+          {this.renderRight()}
         </MDBCollapse>
       </MDBNavbar>
       <LoginDialog show={this.state.logInDialog} toggle={this.toggleLoginDialog}  />
@@ -76,4 +111,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, {logout})(Header);

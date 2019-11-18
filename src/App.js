@@ -6,8 +6,15 @@ import LoginDialog from './components/LoginDialog';
 import RegisterDialog from './components/RegisterDialog';
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { me } from './actions/auth';
 
 class App extends Component {
+
+  componentDidMount(){
+    this.props.me();
+  }
+
   render() {
     return (
       <Router history={history}>
@@ -20,4 +27,4 @@ class App extends Component {
 }
 
 
-export default App;
+export default connect(null,{me})(App);
