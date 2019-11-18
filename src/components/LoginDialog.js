@@ -73,6 +73,7 @@ class LoginDialog extends Component {
         }
         if(!err)
             this.props.login(this.state);
+
     }
 
     onCloseModalClick(){        
@@ -90,8 +91,9 @@ class LoginDialog extends Component {
                     </div> 
                 </MDBModalHeader>
                 <MDBModalBody>
-
-                        <form onSubmit={() => this.handleSubmit()}>
+                        {
+                            this.props.auth.loginStatus === null ?
+                            <form onSubmit={() => this.handleSubmit()}>
                             <p className="h5 text-center mb-4">Sign in</p>
                             <div className="grey-text">
                             <MDBInput
@@ -131,7 +133,7 @@ class LoginDialog extends Component {
                             <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
 
                             </div>
-                        </form>
+                        </form> : <p> {this.props.auth.loginStatus} </p>}
                 </MDBModalBody>
             </MDBModal>
         </MDBContainer>
@@ -139,4 +141,10 @@ class LoginDialog extends Component {
     }
 }
 
-export default connect(null,{login})(LoginDialog);
+const mapStateToProps = (state) =>{
+    return{
+        auth: state.auth
+    }
+}
+
+export default connect(mapStateToProps,{login})(LoginDialog);

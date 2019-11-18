@@ -4,8 +4,12 @@ const usersService = ServiceFactory.get('users');
 export const register = data => {
     return async dispatch => {
         let response;
-        
-        response = await usersService.register(data);
+        try{
+            response = await usersService.register(data);
+        }catch(e){
+            console.log(response);
+            return dispatch({ type: 'ERROR', payload: 'Failed to sign up' });
+        }
         
         if(!response){
             dispatch({ type: 'ERROR', payload: 'Failed to sign up' });
@@ -19,14 +23,18 @@ export const register = data => {
 export const login = data => {
     return async dispatch => {
         let response;
-        
-        response = await usersService.login(data);
+        try{
+            response = await usersService.login(data);
+
+        }catch(e){
+            return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
+        }
         
         if(!response){
-            dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
+           return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
         }
         if (response.status === 200) {
-            dispatch({ type: 'LOGIN', payload: response.data });
+           return dispatch({ type: 'LOGIN', payload: response.data });
         } 
     }
 }
