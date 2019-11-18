@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {register} from '../actions/auth';
 
 
+
 class RegisterDialog extends Component {
 
     constructor(props) {
@@ -89,6 +90,113 @@ class RegisterDialog extends Component {
         
     }
 
+    renderModalBodyContent = () => {
+        if(this.props.auth.mailConfirmationPending === true){
+            return(
+                <p>Check your email address.</p>
+            )
+        }else{
+            return(
+                <form onSubmit={this.handleSubmit}>
+                    <p className="h5 text-center mb-4">Sign in</p>
+                    <div className="grey-text">
+                    <MDBInput
+                        label="Type your name"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handleNameChange(e)}
+                    />
+                    <MDBInput
+                        label="Type your last name"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handleLastNameChange(e)}
+                    />
+                    <MDBInput
+                        label="Type your email"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handleEmailChange(e)}
+                    />
+                    <MDBInput
+                        label="Type your phone number"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handlePhoneNumberChange(e)}
+                    />
+                    <MDBInput
+                        label="Type your address"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handleAddressChange(e)}
+                    />
+                    <MDBInput
+                        label="Type your city"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handleCityChange(e)}
+                    />
+                    <MDBInput
+                        label="Type your state"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handleStateChange(e)}
+                    />
+                    <MDBInput
+                        label="Type your ensurance id"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handleEnsuranceChange(e)}
+                    />
+                    <MDBInput
+                        label="Password"
+                        group
+                        type="password"
+                        validate
+                        onChange={(e) => this.handlePasswrodChange(e)}
+                    />
+                    <MDBInput
+                        label="Confirm password"
+                        group
+                        type="password"
+                        validate
+                        onChange={(e) => this.handlePasswrodConfirmationChange(e)}
+                    />
+                    </div>
+                    <div className="text-center">
+                    <MDBBtn onClick = {() => this.handleOnSubmit()} >Submit</MDBBtn>
+                    <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
+
+                    </div>
+                </form>
+            )
+        }
+    }
+
     render() {
         return (
             <MDBContainer>
@@ -99,102 +207,8 @@ class RegisterDialog extends Component {
                         </div> 
                     </MDBModalHeader>
                     <MDBModalBody>
-                            <form onSubmit={this.handleSubmit}>
-                                <p className="h5 text-center mb-4">Sign in</p>
-                                <div className="grey-text">
-                                <MDBInput
-                                    label="Type your name"
-                                    group
-                                    type="email"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                    onChange={(e) => this.handleNameChange(e)}
-                                />
-                                <MDBInput
-                                    label="Type your last name"
-                                    group
-                                    type="email"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                    onChange={(e) => this.handleLastNameChange(e)}
-                                />
-                                <MDBInput
-                                    label="Type your email"
-                                    group
-                                    type="email"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                    onChange={(e) => this.handleEmailChange(e)}
-                                />
-                                <MDBInput
-                                    label="Type your phone number"
-                                    group
-                                    type="email"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                    onChange={(e) => this.handlePhoneNumberChange(e)}
-                                />
-                                <MDBInput
-                                    label="Type your address"
-                                    group
-                                    type="email"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                    onChange={(e) => this.handleAddressChange(e)}
-                                />
-                                <MDBInput
-                                    label="Type your city"
-                                    group
-                                    type="email"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                    onChange={(e) => this.handleCityChange(e)}
-                                />
-                                <MDBInput
-                                    label="Type your state"
-                                    group
-                                    type="email"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                    onChange={(e) => this.handleStateChange(e)}
-                                />
-                                <MDBInput
-                                    label="Type your ensurance id"
-                                    group
-                                    type="email"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                    onChange={(e) => this.handleEnsuranceChange(e)}
-                                />
-                                <MDBInput
-                                    label="Password"
-                                    group
-                                    type="password"
-                                    validate
-                                    onChange={(e) => this.handlePasswrodChange(e)}
-                                />
-                                <MDBInput
-                                    label="Confirm password"
-                                    group
-                                    type="password"
-                                    validate
-                                    onChange={(e) => this.handlePasswrodConfirmationChange(e)}
-                                />
-                                </div>
-                                <div className="text-center">
-                                <MDBBtn onClick = {() => this.handleOnSubmit()} >Submit</MDBBtn>
-                                <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
-
-                                </div>
-                            </form>
+                            {this.renderModalBodyContent()}
+                            <p>{this.props.auth.mailAlreadyExists === true ? 'Email address already exists' : ''}</p>
                     </MDBModalBody>
                 </MDBModal>
             </MDBContainer>
@@ -202,4 +216,10 @@ class RegisterDialog extends Component {
     }
 }
 
-export default connect(null, { register })(RegisterDialog);
+const mapStateToProps = (state)=> {
+    return{
+        auth: state.auth
+    }
+}
+
+export default connect(mapStateToProps, { register })(RegisterDialog);

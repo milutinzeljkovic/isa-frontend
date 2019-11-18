@@ -83,6 +83,10 @@ class LoginDialog extends Component {
     onCloseModalClick(){        
         this.props.toggle();
     }
+
+    renderModalBodyContent = () => {
+        
+    }
     
 
     render() {
@@ -95,49 +99,47 @@ class LoginDialog extends Component {
                     </div> 
                 </MDBModalHeader>
                 <MDBModalBody>
-                        {
-                            this.props.auth.loginStatus === null ?
-                            <form onSubmit={() => this.handleSubmit()}>
-                            <p className="h5 text-center mb-4">Sign in</p>
-                            <div className="grey-text">
-                            <MDBInput
-                                label="Type your email"
-                                group
-                                type="email"
-                                validate
-                                error="wrong"
-                                success="right"
-                                onChange={(e) => this.handleEmailChange(e)}
-                            />
-                            <div className="form-group col " style={{height: '2px'}}
-			                    hidden={this.state.emailValid}>
-                                <div className="col-sm-11">
-                                    <small className="text-danger float-left">{this.state.emailErrorMessage}</small>
-                                </div>
-			                </div>
-                            <MDBInput
-                                label="Type your password"
-                                group
-                                type="password"
-                                validate
+                    <form onSubmit={() => this.handleSubmit()}>
+                    <p className="h5 text-center mb-4">Sign in</p>
+                    <div className="grey-text">
+                    <MDBInput
+                        label="Type your email"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handleEmailChange(e)}
+                    />
+                    <div className="form-group col " style={{height: '2px'}}
+                        hidden={this.state.emailValid}>
+                        <div className="col-sm-11">
+                            <small className="text-danger float-left">{this.state.emailErrorMessage}</small>
+                        </div>
+                    </div>
+                    <MDBInput
+                        label="Type your password"
+                        group
+                        type="password"
+                        validate
 
-                                required
+                        required
 
-                                onChange={(e) => this.handlePasswordChange(e)}
-                            />
-                            <div className="form-group col " style={{height: '2px', marginBottom: '2rem'}}
-			                    hidden={this.state.passwordValid}>
-                                <div className="col-sm-11">
-                                    <small className="text-danger float-left">Password can not be empty</small>
-                                </div>
-			                </div>
-                            </div>
-                            <div className="text-center">
-                            <MDBBtn onClick = {() => this.handleSubmit()}>Login</MDBBtn>
-                            <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
-
-                            </div>
-                        </form> : <p> {this.props.auth.loginStatus} </p>}
+                        onChange={(e) => this.handlePasswordChange(e)}
+                    />
+                    <div className="form-group col " style={{height: '2px', marginBottom: '2rem'}}
+                        hidden={this.state.passwordValid}>
+                        <div className="col-sm-11">
+                            <small className="text-danger float-left">Password can not be empty</small>
+                        </div>
+                    </div>
+                    </div>
+                    <div className="text-center">
+                    <MDBBtn onClick = {() => this.handleSubmit()}>Login</MDBBtn>
+                    <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
+                    <p>{this.props.auth.loginStatus === null ? '' : this.props.auth.loginStatus}</p>
+                    </div>
+                </form> 
                 </MDBModalBody>
             </MDBModal>
         </MDBContainer>

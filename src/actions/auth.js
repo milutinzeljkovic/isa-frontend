@@ -7,8 +7,12 @@ export const register = data => {
         try{
             response = await usersService.register(data);
         }catch(e){
-            console.log(response);
-            return dispatch({ type: 'ERROR', payload: 'Failed to sign up' });
+            if(e.response.status === 401){
+                return dispatch({ type: 'ERROR_MAIL_CONFIRMATION', payload: 'Failed to sign up' });
+            }
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+            }
         }
         
         if(!response){
@@ -27,10 +31,10 @@ export const login = data => {
             response = await usersService.login(data);
 
         }catch(e){
-            return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
-        }
-        if(!response){
-           return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
+            if(e.response.status === 401)
+                return dispatch({ type: 'ERROR', payload: 'Account not activated' });
+            if(e.response.status === 500)
+                return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
         }
         if (response.status === 200) {            
            return dispatch({ type: 'LOGIN', payload: response.data });
