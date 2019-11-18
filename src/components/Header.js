@@ -3,6 +3,7 @@ import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline
 } from "mdbreact";
 import { BrowserRouter as Router } from 'react-router-dom';
+import { connect } from 'react-redux';
 import history from '../history';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
@@ -69,4 +70,10 @@ render() {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return{
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Header);
