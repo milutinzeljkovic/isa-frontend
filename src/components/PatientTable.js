@@ -22,6 +22,12 @@ class PatientTable extends Component {
     this.props.fetchAll();
   }
 
+  hideMessageBox = () => {
+    this.setState({
+      showMessageBox: false
+    })
+  }
+
   onAddButtonClickHandel  = idx =>{
     this.setState({
       showMessageBox: true,
@@ -35,7 +41,7 @@ class PatientTable extends Component {
 
   renderDeclineForm(){
     return(
-      <MailForm id={this.state.id}/>
+      <MailForm id={this.state.id} hideMessageBox = {this.hideMessageBox}/>
     )
   }
 

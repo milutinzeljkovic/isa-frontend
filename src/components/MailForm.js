@@ -15,8 +15,10 @@ class MailForm extends Component{
         this.setState({mailText: event.target.value});
     }
 
-    handleOnSubmit = (id) => {
-        this.props.declineRegistration(id,this.state.mailText);
+    handleOnSubmit = (e) => {
+        e.preventDefault();
+        this.props.declineRegistration(this.props.id,this.state.mailText);
+        this.props.hideMessageBox()
         
     }
     
@@ -26,7 +28,7 @@ class MailForm extends Component{
             <MDBContainer >
               <MDBRow>
                 <MDBCol md="6">
-                  <form>
+                  <form onSubmit = {(e) => this.handleOnSubmit(e)}>
                     <p className="h4 text-center mb-4">Send mail</p>
                     <label htmlFor="defaultFormContactNameEx" className="grey-text">
                       Your message
@@ -39,7 +41,7 @@ class MailForm extends Component{
                       onChange={(e) => this.handleMailTextChange(e)}
                     />
                     <div className="text-center mt-4">
-                      <MDBBtn  onClick = {() => this.handleOnSubmit(this.props.id)} color="warning" outline type="submit">
+                      <MDBBtn  onClick = {(e) => this.handleOnSubmit(e)} color="warning" outline type="submit">
                         Send
                         <MDBIcon far icon="paper-plane" className="ml-2" />
                       </MDBBtn>

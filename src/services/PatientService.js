@@ -13,7 +13,7 @@ class PatientService extends Service{
     }
 
     declineRegistration(id, message) {
-        return this.getApiClient().get(`${resource}/decline/${id}`, message)
+        return this.getApiClient().get(`${resource}/decline/${id}?msg=${message}`)
     }
 }
 

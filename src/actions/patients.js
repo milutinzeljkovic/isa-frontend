@@ -16,9 +16,8 @@ export const fetchAll = () =>{
 export const acceptRegistration =  id  => {
 
     return async dispatch => {
-        let response;
-        response = await patientsService.acceptRegistration(id);
-        return dispatch({ type: 'ACCEPT_REGISTRATION', payload: response.data });
+        await patientsService.acceptRegistration(id);
+        return dispatch({ type: 'ACCEPT_REGISTRATION', payload: id });
 
     }
 }
@@ -26,9 +25,10 @@ export const acceptRegistration =  id  => {
 export const declineRegistration =  (id, message)  => {
 
     return async dispatch => {
-        let response;
-        response = await patientsService.declineRegistration(id, message);
-        return dispatch({ type: 'DECLINE_REGISTRATION', payload: response.data });
+        const response = await patientsService.declineRegistration(id, message);
+        
+
+        return dispatch({ type: 'DECLINE_REGISTRATION', payload: id });
 
     }
 }

@@ -3,9 +3,11 @@ export default (state = null, action) => {
         case 'FETCH_PATIENTS':
             return  action.payload;
         case 'ACCEPT_REGISTRATION':
-            return {...state, acceptReg: 'Registration accepted'}
+            return state.filter(val => val.id !== action.payload )
         case 'DECLINE_REGISTRATION':
-            return {...state, declineReg: 'Registration declined'}
+            console.log(action.payload);
+            
+            return state.filter(val => val.id !== action.payload )
         default: return state;
     }
 
