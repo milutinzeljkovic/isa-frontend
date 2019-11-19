@@ -18,6 +18,7 @@ class UsersService extends Service{
     logoutUser() {
         return this.getApiClient().post(`${resource}/logout`);
     }
+
 }
 
 
