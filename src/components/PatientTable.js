@@ -22,9 +22,10 @@ class PatientTable extends Component {
     this.props.fetchAll();
   }
 
+
   hideMessageBox = () => {
     this.setState({
-      showMessageBox: false
+      showMessageBox: !this.state.showMessageBox
     })
   }
 
@@ -39,12 +40,7 @@ class PatientTable extends Component {
      this.props.acceptRegistration(id);
   }
 
-  renderDeclineForm(){
-    return(
-      <MailForm id={this.state.id} hideMessageBox = {this.hideMessageBox}/>
-    )
-  }
-
+ 
   renderList(patients){    
     return _.map(patients, patient => {
       return(
@@ -83,7 +79,7 @@ class PatientTable extends Component {
             { this.patients === null ? '' : this.renderList(this.props.patients)}
           </MDBTableBody>
         </MDBTable>
-        {this.state.showMessageBox === true ? this.renderDeclineForm() : ''}
+        <MailForm id={this.state.id} show={this.state.showMessageBox} toggle={this.hideMessageBox} />
       </div>
     );
 
