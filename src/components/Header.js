@@ -97,9 +97,9 @@ renderLeft = () => {
 render() {
   return (
     <Router history = {history}>
-      <MDBNavbar color="blue" dark expand="md">
+      <MDBNavbar color="info-color-dark" dark expand="md">
         <MDBNavbarBrand>
-          <strong className="white-text">Navbar</strong>
+          <strong className="white-text">Clinical center</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>

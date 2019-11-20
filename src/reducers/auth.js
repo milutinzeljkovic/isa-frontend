@@ -24,7 +24,7 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, currentUser: action.payload}
         case 'LOGOUT':
             localStorage.setItem('token','');            
-            return {...state, currentUser: undefined, access_token: null}
+            return {...state, currentUser: undefined, access_token: null,mailConfirmationPending: false}
             
         default:
             return state;

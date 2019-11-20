@@ -45,7 +45,6 @@ class PatientTable extends Component {
     return _.map(patients, patient => {
       return(
         <tr key={patient.email}>
-            <td></td>
             <td>{patient.name}</td>
             <td>{patient.last_name}</td>
             <td>{patient.address}</td>
@@ -64,9 +63,8 @@ class PatientTable extends Component {
     return (
       <div>
         <MDBTable>
-          <MDBTableHead color="primary-color" textWhite>
+          <MDBTableHead color="info-color" textWhite>
             <tr>
-              <th>#</th>
               <th>Name</th>
               <th>Last name</th>
               <th>Address</th>
