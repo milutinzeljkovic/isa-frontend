@@ -25,9 +25,8 @@ export const acceptRegistration =  id  => {
 export const declineRegistration =  (id, message)  => {
 
     return async dispatch => {
-        const response = await patientsService.declineRegistration(id, message);
         
-
+        await patientsService.declineRegistration(id, message);
         return dispatch({ type: 'DECLINE_REGISTRATION', payload: id });
 
     }
