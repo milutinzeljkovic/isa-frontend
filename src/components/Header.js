@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse} from "mdbreact";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import history from '../history';
 import LoginDialog from './LoginDialog';
@@ -38,7 +38,6 @@ handleLogoutButtonClick = () => {
 
 renderRight = () => {
   if(this.props.auth.currentUser === undefined ){
-    console.log(this.props.auth.currentUser);
     
     return(
       <MDBNavbarNav right>
@@ -51,7 +50,7 @@ renderRight = () => {
       </MDBNavbarNav>
     )
   }else{
-    console.log('nije undefined');
+    
     
     return(
       <MDBNavbarNav right>
@@ -62,6 +61,16 @@ renderRight = () => {
           <MDBNavLink to="/" onClick = {()=> this.handleLogoutButtonClick()}>Logout</MDBNavLink>
         </MDBNavItem>
       </MDBNavbarNav>
+    )
+  }
+}
+
+renderLinks = () => {
+  if(this.props.auth.currentUser.userable_type === 'App\\ClinicalCenterAdmin'){
+    return(
+      <MDBNavItem>
+          <MDBNavLink to="/admin" >Pending requests</MDBNavLink>
+      </MDBNavItem>
     )
   }
 }
@@ -79,6 +88,7 @@ renderLeft = () => {
           <MDBNavItem>
             <MDBNavLink to="/home">Home</MDBNavLink>
           </MDBNavItem>
+          {this.renderLinks()}
         </MDBNavbarNav>
     )
   }

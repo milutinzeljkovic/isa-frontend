@@ -21,8 +21,7 @@ class App extends Component {
         <Header />
         <Route path="/login" component = {LoginDialog} />
         <Route path="/register" component = {RegisterDialog} />
-        
-        <PatientTable/>
+        <Route path='/admin' exact component = {PatientTable} />
       </Router>
     );
   }
