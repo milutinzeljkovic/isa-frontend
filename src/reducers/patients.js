@@ -4,9 +4,7 @@ export default (state = null, action) => {
             return  action.payload;
         case 'ACCEPT_REGISTRATION':
             return state.filter(val => val.id !== action.payload )
-        case 'DECLINE_REGISTRATION':
-            console.log(action.payload);
-            
+        case 'DECLINE_REGISTRATION':            
             return state.filter(val => val.id !== action.payload )
         default: return state;
     }

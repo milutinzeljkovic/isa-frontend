@@ -2,6 +2,7 @@ import { Router, Route } from 'react-router-dom';
 import history from './history';
 import './App.css';
 import Header from './components/Header';
+import Profile from './components/Users/Profile';
 import LoginDialog from './components/LoginDialog';
 import RegisterDialog from './components/RegisterDialog';
 import PatientTable from './components/PatientTable';
@@ -22,6 +23,7 @@ class App extends Component {
         <Route path="/login" component = {LoginDialog} />
         <Route path="/register" component = {RegisterDialog} />
         <Route path='/admin' exact component = {PatientTable} />
+        <Route path='/profile' exact component = {Profile} />
       </Router>
     );
   }

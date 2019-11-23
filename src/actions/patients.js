@@ -32,3 +32,10 @@ export const declineRegistration =  (id, message)  => {
     }
 }
 
+export const update = (data) => {
+    return async dispatch => {
+        let response = await patientsService.update(data);
+        return dispatch({type: 'UPDATE_PROFILE',payload:response});
+    }
+}
+

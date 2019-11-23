@@ -15,6 +15,10 @@ class PatientService extends Service{
     declineRegistration(id, message) {
         return this.getApiClient().get(`${resource}/decline/${id}?msg=${message}`)
     }
+
+    update(data){
+        return this.getApiClient().put(`${resource}/${data.id}`,data);
+    }
 }
 
 
