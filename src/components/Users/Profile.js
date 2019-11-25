@@ -41,10 +41,14 @@ class Profile extends Component {
         this.props.me();
     }
 
-    onSubmitClick = () => {
+    onSubmitClick = async () => {
         const data = {...this.state, id: this.props.user.id};
         delete data.editMode;
-        this.props.update(data);
+        await this.props.update(data);
+        this.setState({
+            editMode: false
+        })
+        
         
     }
 
@@ -131,8 +135,8 @@ class Profile extends Component {
             )
         }else{
             return(
-                <div className="row">
-                    <div className="col-sm-4">
+                <div className="row" id='patients-profile-content'>
+                    <div className="col-sm-4" id='patients-profile-card-1'>
                         <MDBCard style={{ width: "100%" }}>
                             <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />
                             <MDBCardBody>
@@ -145,7 +149,7 @@ class Profile extends Component {
                         </MDBCard>
                     </div>
 
-                    <div className="col-sm-8">
+                    <div className="col-sm-8" id='patients-profile-card-2'>
                         <MDBCard style={{ width: "100%" }}>
                             <MDBTable>
                                 <MDBTableBody>
