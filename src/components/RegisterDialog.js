@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 import { connect } from 'react-redux';
 import {register} from '../actions/auth';
-
+import LocationDialog from './Location/LocationDialog';
 
 
 class RegisterDialog extends Component {
@@ -85,8 +85,12 @@ class RegisterDialog extends Component {
     }
 
     handleOnSubmit = () => {
+        let address = this.props.usersAddress;
+        const arr = address.split(',');
+
+        const datas = {...this.state,city:arr[1],address: arr[0],state: arr[2]};
         
-        this.props.register(this.state);
+        this.props.register(datas);
         
     }
 
@@ -137,33 +141,6 @@ class RegisterDialog extends Component {
                         onChange={(e) => this.handlePhoneNumberChange(e)}
                     />
                     <MDBInput
-                        label="Type your address"
-                        group
-                        type="email"
-                        validate
-                        error="wrong"
-                        success="right"
-                        onChange={(e) => this.handleAddressChange(e)}
-                    />
-                    <MDBInput
-                        label="Type your city"
-                        group
-                        type="email"
-                        validate
-                        error="wrong"
-                        success="right"
-                        onChange={(e) => this.handleCityChange(e)}
-                    />
-                    <MDBInput
-                        label="Type your state"
-                        group
-                        type="email"
-                        validate
-                        error="wrong"
-                        success="right"
-                        onChange={(e) => this.handleStateChange(e)}
-                    />
-                    <MDBInput
                         label="Type your ensurance id"
                         group
                         type="email"
@@ -186,6 +163,7 @@ class RegisterDialog extends Component {
                         validate
                         onChange={(e) => this.handlePasswrodConfirmationChange(e)}
                     />
+                    <LocationDialog/>
                     </div>
                     <div className="text-center">
                     <MDBBtn onClick = {() => this.handleOnSubmit()} >Submit</MDBBtn>
@@ -218,7 +196,8 @@ class RegisterDialog extends Component {
 
 const mapStateToProps = (state)=> {
     return{
-        auth: state.auth
+        auth: state.auth,
+        usersAddress: state.selectedLocation === null ? '':  state.selectedLocation.usersLocation
     }
 }
 

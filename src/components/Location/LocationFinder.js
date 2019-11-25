@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact";
 import { MDBListGroup, MDBListGroupItem, MDBContainer } from "mdbreact";
 
-//import { getSuggestedLocations, selectLocation, resetSuggestedLocations } from '../../actions/locations';
+import { getSuggestedLocations, selectLocation, resetSuggestedLocations } from '../../actions/location';
 
 class LocationFinder extends React.Component {
 
@@ -31,7 +31,7 @@ class LocationFinder extends React.Component {
     search(value) {
         // fetch objects from backend
         if(value!=='') {
-       //     this.props.getSuggestedLocations(value);
+            this.props.getSuggestedLocations(value);
         };
     }
 
@@ -39,7 +39,7 @@ class LocationFinder extends React.Component {
         if(result.geometry.location !== undefined) {
             this.props.resetSuggestedLocations();
             this.setState({ currentInput: result.formatted_address });
-            this.props.selectLocation(result.geometry.location);
+            this.props.selectLocation(result);
         }   
     }
 
@@ -77,4 +77,4 @@ function mapStateToProps(state){
 }
 
 
-export default connect(null/*,{ getSuggestedLocations, selectLocation, resetSuggestedLocations }*/)(LocationFinder);
+export default connect(mapStateToProps,{ getSuggestedLocations, selectLocation, resetSuggestedLocations })(LocationFinder);
