@@ -28,4 +28,14 @@
   #patients-profile-card-2{
     margin-top: 2%;
   }
+  #image_map{
+    width: 300px!important;
+    height: 300px!important;
+    
+  }
+  #map{
+    width: 300px!important;
+    height: 300px!important;
+
+  }
 }

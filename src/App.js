@@ -7,6 +7,7 @@ import LoginDialog from './components/LoginDialog';
 import RegisterDialog from './components/RegisterDialog';
 import PatientTable from './components/PatientTable';
 import LocationDialog from './components/Location/LocationDialog';
+import AddClinicDialog from './components/Clinics/AddClinicDialog';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -27,6 +28,7 @@ class App extends Component {
         <Route path='/admin' exact component = {PatientTable} />
         <Route path='/profile' exact component = {Profile} />
         <Route path='/location' exact component = {LocationDialog} />
+        <Route path='/clinics/add' exact component = {AddClinicDialog} />
       </Router>
     );
   }

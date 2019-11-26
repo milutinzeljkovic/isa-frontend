@@ -7,7 +7,6 @@ import history from '../history';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
-import LocationDialog from './Location/LocationDialog';
 
 class Header extends Component {
 state = {

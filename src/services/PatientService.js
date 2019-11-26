@@ -19,6 +19,7 @@ class PatientService extends Service{
     update(data){
         return this.getApiClient().put(`${resource}/${data.id}`,data);
     }
+
 }
 
 

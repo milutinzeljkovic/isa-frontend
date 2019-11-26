@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact";
+import { MDBCol, MDBInput } from "mdbreact";
 import { MDBListGroup, MDBListGroupItem, MDBContainer } from "mdbreact";
 
 import { getSuggestedLocations, selectLocation, resetSuggestedLocations } from '../../actions/location';
@@ -56,15 +56,12 @@ class LocationFinder extends React.Component {
     render() {
         return (
             <MDBCol md="6">
-                <MDBFormInline className="md-form">
-                    <MDBIcon icon="search" />
-                    <input className="form-control form-control-sm ml-3 w-75" onChange={this.onChange} type="text" placeholder="Enter location" aria-label="Search" value={this.state.currentInput} />
+                    <MDBInput icon='search' label='Enter location' onChange={this.onChange} type="text" placeholder="Enter location" aria-label="Search" value={this.state.currentInput} />
                     <MDBContainer style={{maxheight: "200px"}}>
                         <MDBListGroup style={{}}>
                             {this.renderList(this.props.suggestedLocations)}
                         </MDBListGroup>
                     </MDBContainer>
-                </MDBFormInline>
             </MDBCol>
         );
     };

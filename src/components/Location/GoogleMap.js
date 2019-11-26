@@ -40,7 +40,7 @@ class GoogleMap extends Component {
     if(this.props.selectedLocation === null) {
       return (
         <Fragment>
-          <img src="https://thumbs.dreamstime.com/z/funny-maze-game-delivery-driver-find-hotel-small-city-vector-help-map-cartoon-town-cover-design-67336466.jpg" style={{width: 400, height: 400 }} alt="map" />
+          <img id = 'image_map' src="https://thumbs.dreamstime.com/z/funny-maze-game-delivery-driver-find-hotel-small-city-vector-help-map-cartoon-town-cover-design-67336466.jpg" style={{width: 400, height: 400 }} alt="map" />
           <div ref="map" id="map" style={{width: 400, height: 400, display: 'none' }}></div>
         </Fragment>
       );
