@@ -5,10 +5,11 @@ import Header from './components/Header';
 import Profile from './components/Users/Profile';
 import LoginDialog from './components/LoginDialog';
 import RegisterDialog from './components/RegisterDialog';
-import PatientTable from './components/PatientTable';
+import PatientTable from './components/Patients/PatientTable';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { me } from './actions/auth';
+import PatientTableByClinic from './components/Patients/PatientTableByClinic';
 
 class App extends Component {
 
@@ -24,6 +25,8 @@ class App extends Component {
         <Route path="/register" component = {RegisterDialog} />
         <Route path='/admin' exact component = {PatientTable} />
         <Route path='/profile' exact component = {Profile} />
+        <Route path='/staff' exact component = {PatientTableByClinic} />
+
       </Router>
     );
   }
