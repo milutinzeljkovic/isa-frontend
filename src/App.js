@@ -5,6 +5,7 @@ import Header from './components/Header';
 import LoginDialog from './components/LoginDialog';
 import RegisterDialog from './components/RegisterDialog';
 import PatientTable from './components/PatientTable';
+import AddMedStaffDialog from './components/AddMedStaffDialog.js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { me } from './actions/auth';
@@ -22,6 +23,7 @@ class App extends Component {
         <Route path="/login" component = {LoginDialog} />
         <Route path="/register" component = {RegisterDialog} />
         <Route path='/admin' exact component = {PatientTable} />
+        <Route path='/clinicAdmin/addMedStaff' exact component = {AddMedStaffDialog} />
       </Router>
     );
   }

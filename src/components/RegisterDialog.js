@@ -19,7 +19,7 @@ class RegisterDialog extends Component {
             email: '',
             password: '',
             phone_number: '',
-            password_confirmation: ''
+            password_confirmation: '',
         };
     }
 
@@ -85,9 +85,7 @@ class RegisterDialog extends Component {
     }
 
     handleOnSubmit = () => {
-        
         this.props.register(this.state);
-        
     }
 
     renderModalBodyContent = () => {

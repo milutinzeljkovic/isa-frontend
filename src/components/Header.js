@@ -7,12 +7,14 @@ import history from '../history';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
+import AddMedStaffDialog from "./AddMedStaffDialog";
 
 class Header extends Component {
 state = {
   isOpen: false,
   logInDialog: false,
-  registerDialog: false
+  registerDialog: false,
+  addMedStaffDialog: false
 };
 
 toggleCollapse = () => {
@@ -31,6 +33,14 @@ toggleRegisterDialog = () => {
       registerDialog: !this.state.registerDialog
   });
 }
+
+toggleAddMedStaffDialog = () => {
+   
+  this.setState({
+    addMedStaffDialog: !this.state.addMedStaffDialog
+  });
+}
+
 
 handleLogoutButtonClick = () => {
   this.props.logout();
@@ -72,6 +82,12 @@ renderLinks = () => {
           <MDBNavLink to="/admin" >Pending requests</MDBNavLink>
       </MDBNavItem>
     )
+  }else if(this.props.auth.currentUser.userable_type === 'App\\ClinicAdmin'){
+    return(
+      <MDBNavItem>
+          <MDBNavLink to="/clinicAdmin/addMedStaff" onClick = {this.toggleAddMedStaffDialog} >Add medical staff</MDBNavLink>
+      </MDBNavItem>
+    )
   }
 }
 
@@ -109,6 +125,7 @@ render() {
       </MDBNavbar>
       <LoginDialog show={this.state.logInDialog} toggle={this.toggleLoginDialog}  />
       <RegisterDialog show={this.state.registerDialog} toggle={this.toggleRegisterDialog} />
+      <AddMedStaffDialog show={this.state.addMedStaffDialog} toggle={this.toggleAddMedStaffDialog}/>
     </Router>
     );
   }

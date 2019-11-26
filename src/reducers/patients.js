@@ -10,5 +10,4 @@ export default (state = null, action) => {
             return state.filter(val => val.id !== action.payload )
         default: return state;
     }
-
 }

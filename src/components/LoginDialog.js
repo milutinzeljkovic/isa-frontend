@@ -25,8 +25,6 @@ class LoginDialog extends Component {
         this.setState({password: event.target.value});
     }
     
-
-    
     onSubmit() { 
         const validEmail = RegExp(/.+@.+\.[A-Za-z]+$/);
 
