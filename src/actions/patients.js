@@ -13,6 +13,17 @@ export const fetchAll = () =>{
   
 }
 
+export const fetchByClinic = () =>{
+
+    return async dispatch => {
+        let response;
+        response = await patientsService.getPatientsByClinic();
+        return dispatch({ type: 'FETCH_PATIENTS_BY_CLINIC', payload: response.data });
+    
+    }
+  
+}
+
 export const acceptRegistration =  id  => {
 
     return async dispatch => {

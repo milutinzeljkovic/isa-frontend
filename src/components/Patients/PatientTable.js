@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
 import { connect } from 'react-redux';
 import _ from 'loadsh';
-import { fetchAll } from '../actions/patients';
-import { acceptRegistration } from '../actions/patients';
-import MailForm from './MailForm';
+import { fetchAll } from '../../actions/patients';
+import { acceptRegistration } from '../../actions/patients';
+import MailForm from '../MailForm';
 
 
 

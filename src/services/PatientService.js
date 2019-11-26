@@ -8,6 +8,11 @@ class PatientService extends Service{
         return this.getApiClient().get(`${resource}`);
     }
 
+    getPatientsByClinic() {
+        return this.getApiClient().get(`${resource}/clinic`);
+    }
+
+
     acceptRegistration(id) {
         return this.getApiClient().get(`${resource}/accept/${id}`)
     }
