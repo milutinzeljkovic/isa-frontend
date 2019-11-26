@@ -72,6 +72,12 @@ renderLinks = () => {
           <MDBNavLink to="/admin" >Pending requests</MDBNavLink>
       </MDBNavItem>
     )
+  }else if (this.props.auth.currentUser.userable_type === 'App\\Nurse'){
+    return(
+      <MDBNavItem>
+          <MDBNavLink to="/staff" >Patients</MDBNavLink>
+      </MDBNavItem>
+    )
   }
 }
 
