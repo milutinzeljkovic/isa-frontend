@@ -7,13 +7,18 @@ import history from '../history';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
+<<<<<<< HEAD
+import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
+=======
 import { Link } from 'react-router-dom';
+>>>>>>> 9fde0107e5e2766d858f2508b04b1e6093dbeb66
 
 class Header extends Component {
 state = {
   isOpen: false,
   logInDialog: false,
-  registerDialog: false
+  registerDialog: false,
+  newMedStaffDialog: false
 };
 
 toggleCollapse = () => {
@@ -30,6 +35,13 @@ toggleRegisterDialog = () => {
    
   this.setState({
       registerDialog: !this.state.registerDialog
+  });
+}
+
+toggleNewMedStaffDialog = () => {
+   
+  this.setState({
+      newMedStaffDialog: !this.state.newMedStaffDialog
   });
 }
 
@@ -89,6 +101,12 @@ renderLinks = () => {
           </MDBDropdown>
       </MDBNavItem>
     )
+  }else if (this.props.auth.currentUser.userable_type === 'App\\ClinicAdmin'){
+    return(
+      <MDBNavItem>
+          <MDBNavLink to="/addNewMedStaff"  onClick = {this.toggleNewMedStaffDialog}>Add new staff members</MDBNavLink>
+      </MDBNavItem>
+    )
   }
 }
 
@@ -126,6 +144,7 @@ render() {
       </MDBNavbar>
       <LoginDialog show={this.state.logInDialog} toggle={this.toggleLoginDialog}  />
       <RegisterDialog show={this.state.registerDialog} toggle={this.toggleRegisterDialog} />
+      <AddMedStaffDialog show={this.state.newMedStaffDialog} toggle={this.toggleNewMedStaffDialog} />
     </Router>
     );
   }
