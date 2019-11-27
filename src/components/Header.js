@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import {
-MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse} from "mdbreact";
+MDBNavbar, MDBNavbarBrand, MDBNavbarNav,MDBDropdown,MDBDropdownToggle,MDBDropdownMenu,MDBDropdownItem, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse} from "mdbreact";
 import { Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import history from '../history';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
 state = {
@@ -75,7 +76,17 @@ renderLinks = () => {
   }else if (this.props.auth.currentUser.userable_type === 'App\\Nurse'){
     return(
       <MDBNavItem>
-          <MDBNavLink to="/staff" >Patients</MDBNavLink>
+        <MDBDropdown>
+                <MDBDropdownToggle nav caret>
+                  <span className="mr-2">Menu</span>
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  <MDBDropdownItem><Link to='/staff'>Patients</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/calendar'>Calendar</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/recipes'>Recipes</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/vacation'>Vacation</Link></MDBDropdownItem>
+                </MDBDropdownMenu>
+          </MDBDropdown>
       </MDBNavItem>
     )
   }
