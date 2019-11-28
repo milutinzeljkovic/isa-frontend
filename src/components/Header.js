@@ -7,11 +7,8 @@ import history from '../history';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
-<<<<<<< HEAD
 import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
-=======
 import { Link } from 'react-router-dom';
->>>>>>> 9fde0107e5e2766d858f2508b04b1e6093dbeb66
 
 class Header extends Component {
 state = {
