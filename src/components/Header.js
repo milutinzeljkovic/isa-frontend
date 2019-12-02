@@ -9,7 +9,6 @@ import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
 import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
 import { Link } from 'react-router-dom';
-import { tsMethodSignature } from "@babel/types";
 
 class Header extends Component {
 state = {

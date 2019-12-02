@@ -4,12 +4,14 @@ import patientsReducer from './patients'
 import locationReducer from './Location/suggestedLocations';
 import selectedLocationReducer from './Location/selectedLocation';
 import clinicsReducer from './clinics';
+import fetchedUsersLocation from './Location/fetchedUsersLocation';
 
 export default combineReducers({
    auth: authReducer,
    patients: patientsReducer,
    suggestedLocations: locationReducer,
    selectedLocation: selectedLocationReducer,
-   clinics: clinicsReducer
+   clinics: clinicsReducer,
+   usersLocation: fetchedUsersLocation
 
 });

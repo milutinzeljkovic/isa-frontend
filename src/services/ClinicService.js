@@ -11,6 +11,10 @@ class ClinicService extends Service{
         return this.getApiClient().get(`${resource}`);
     }
 
+    fetchDoctors(clinic){
+        return this.getApiClient().get(`${resource}/doctors/${clinic.id}`);
+    }
+
     
 }
 

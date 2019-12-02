@@ -20,3 +20,15 @@ export const searchClinics = (params) => {
     }
 }
 
+export const clinicClick = (clinic) => {    
+    return { type: 'SELECTED_CLINIC', payload: clinic };
+}
+
+export const fetchDoctors = (clinic) => {
+    return async dispatch => {
+        let response;
+        response = await clinicService.fetchDoctors(clinic);
+        return dispatch({ type: 'FETCH_CLINIC_DOCTORS', payload: response.data });
+        
+    }
+}
