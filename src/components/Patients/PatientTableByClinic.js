@@ -62,6 +62,10 @@ class PatientTableByClinic extends Component {
                 {
                   Header: "Phone number",
                   accessor: "phone_number"
+                },
+                {
+                  Header: "Ensurance ID",
+                  accessor: "ensurance_id"
                 }
               ]
             },
