@@ -19,6 +19,11 @@ class UsersService extends Service{
         return this.getApiClient().post(`${resource}/logout`);
     }
 
+    registerClinicAdmin(user, clinic_id) {
+        return this.getApiClient().post(`${resource}/register/clinic-admin/${clinic_id}`, user);
+    }
+
+
 }
 
 

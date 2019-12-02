@@ -9,7 +9,6 @@ import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
 import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
 import { Link } from 'react-router-dom';
-import { tsMethodSignature } from "@babel/types";
 
 class Header extends Component {
 state = {
@@ -87,6 +86,7 @@ renderLinks = () => {
                 <MDBDropdownMenu>
                   <MDBDropdownItem><Link to='/admin'>Pending requests</Link></MDBDropdownItem>
                   <MDBDropdownItem><Link to='/clinics/add'>New clinic</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/clinics/add/admin'>New clinic admin</Link></MDBDropdownItem>
                 </MDBDropdownMenu>
           </MDBDropdown>
       </MDBNavItem>

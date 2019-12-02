@@ -13,6 +13,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { me } from './actions/auth';
 import PatientTableByClinic from './components/Patients/PatientTableByClinic';
+import AddClinicAdmin from './components/ClinicalCenterAdmin/AddClinicAdmin';
 
 class App extends Component {
 
@@ -32,6 +33,7 @@ class App extends Component {
         <Route path='/location' exact component = {LocationDialog} />
         <Route path='/clinics/add' exact component = {AddClinicDialog} />
         <Route path='/clinics' exact component = {SearchClinicDialog} />
+        <Route path='/clinics/add/admin' exact component = {AddClinicAdmin} />
       </Router>
     );
   }

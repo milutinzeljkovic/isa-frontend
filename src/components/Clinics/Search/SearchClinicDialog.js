@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'loadsh';
-import { MDBContainer, MDBRow, MDBCol, MDBCard  } from "mdbreact";
+import { MDBCard  } from "mdbreact";
 
 import { searchClinics } from '../../../actions/clinic';
 import GoogleMap from './GoogleMap';
