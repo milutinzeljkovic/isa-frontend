@@ -9,6 +9,7 @@ import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
 import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
 import { Link } from 'react-router-dom';
+import { tsMethodSignature } from "@babel/types";
 
 class Header extends Component {
 state = {
@@ -79,7 +80,15 @@ renderLinks = () => {
   if(this.props.auth.currentUser.userable_type === 'App\\ClinicalCenterAdmin'){
     return(
       <MDBNavItem>
-          <MDBNavLink to="/admin" >Pending requests</MDBNavLink>
+          <MDBDropdown>
+                <MDBDropdownToggle nav caret>
+                  <span className="mr-2">Menu</span>
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  <MDBDropdownItem><Link to='/admin'>Pending requests</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/clinics/add'>New clinic</Link></MDBDropdownItem>
+                </MDBDropdownMenu>
+          </MDBDropdown>
       </MDBNavItem>
     )
   }else if (this.props.auth.currentUser.userable_type === 'App\\Nurse'){
@@ -102,6 +111,20 @@ renderLinks = () => {
     return(
       <MDBNavItem>
           <MDBNavLink to="/addNewMedStaff"  onClick = {this.toggleNewMedStaffDialog}>Add new staff members</MDBNavLink>
+      </MDBNavItem>
+    )
+  }
+  else if(this.props.auth.currentUser.userable_type === 'App\\Patient'){
+    return(
+      <MDBNavItem>
+      <MDBDropdown>
+              <MDBDropdownToggle nav caret>
+                <span className="mr-2">Menu</span>
+              </MDBDropdownToggle>
+              <MDBDropdownMenu>
+                <MDBDropdownItem><Link to='/clinics'>Clinics</Link></MDBDropdownItem>
+              </MDBDropdownMenu>
+        </MDBDropdown>
       </MDBNavItem>
     )
   }

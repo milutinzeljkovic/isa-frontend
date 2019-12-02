@@ -5,14 +5,10 @@ import Header from './components/Header';
 import Profile from './components/Users/Profile';
 import LoginDialog from './components/LoginDialog';
 import RegisterDialog from './components/RegisterDialog';
-<<<<<<< HEAD
 import PatientTable from './components/Patients/PatientTable';
-=======
-import PatientTable from './components/PatientTable';
 import LocationDialog from './components/Location/LocationDialog';
 import AddClinicDialog from './components/Clinics/AddClinicDialog';
 
->>>>>>> location
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { me } from './actions/auth';
