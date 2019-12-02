@@ -8,7 +8,7 @@ import RegisterDialog from './components/RegisterDialog';
 import PatientTable from './components/Patients/PatientTable';
 import LocationDialog from './components/Location/LocationDialog';
 import AddClinicDialog from './components/Clinics/AddClinicDialog';
-
+import SearchClinicDialog from './components/Clinics/Search/SearchClinicDialog';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { me } from './actions/auth';
@@ -31,6 +31,7 @@ class App extends Component {
         <Route path='/staff' exact component = {PatientTableByClinic} />
         <Route path='/location' exact component = {LocationDialog} />
         <Route path='/clinics/add' exact component = {AddClinicDialog} />
+        <Route path='/clinics' exact component = {SearchClinicDialog} />
       </Router>
     );
   }

@@ -4,15 +4,11 @@ const resource = '/clinics';
 
 class ClinicService extends Service{
 
-    test(){
-        console.log('test');
-        
-    }
-
-    add(clinic) {
-        console.log('dodavanje');
-        
+    add(clinic) {        
         return this.getApiClient().post(`${resource}`,clinic);
+    }
+    search(params) {
+        return this.getApiClient().get(`${resource}`);
     }
 
     
