@@ -24,8 +24,28 @@ class ClinicDetail extends Component {
 
     handleOnDoctorsClick = () => {
         this.setState({
-            showDoctors: !this.state.showDoctors
+            showDoctors: !this.state.showDoctors,
+            doctorAppointments: null
         })
+    }
+
+    onShowAppointmentsClickHandler = (doctor) => {
+        if(this.state.doctorAppointments === doctor.id){
+            this.setState({
+                doctorAppointments: null
+            })
+            return;
+        }
+        this.setState({
+            doctorAppointments: doctor.id
+        });
+        
+    }
+
+    renderAppointments = (appointments) => {
+        return(
+            <div>appointments[0].id</div>
+        )
     }
 
     renderDoctors = (doctors) => {
@@ -36,12 +56,21 @@ class ClinicDetail extends Component {
                         key = {doctor.id}
                     >
                         <div className="d-flex w-100 justify-content-between">
-                            <h5 className="mb-1">{doctor.name + ' ' + doctor.last_name}</h5>
+                            <h5 className="mb-1">{doctor.user.name + ' ' + doctor.user.last_name}</h5>
                         </div>
-                        <p className="mb-1">{doctor.email}</p>
+                        <p className="mb-1">{doctor.user.email}</p>
                         <small className="text-muted">
                             {doctor.address}
                         </small>
+                    <MDBBtn onClick = { () => this.onShowAppointmentsClickHandler(doctor)}>{this.state.doctorAppointments === doctor.id ? 'Hide termins' : 'Show termins'}</MDBBtn>
+                    <MDBListGroup>
+                    {
+                        this.state.doctorAppointments === doctor.id ? 
+                        this.renderAppointments(doctor.appointments)
+                        :
+                        ''
+                    }
+                    </MDBListGroup>
                     </MDBListGroupItem>
                 )
             })

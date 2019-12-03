@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBListGroup, MDBListGroupItem, MDBBtn, MDBCardBody, MDBInput} from "mdbreact";
+import { MDBCard, MDBCardBody, MDBInput, MDBCardTitle} from "mdbreact";
 import {connect} from 'react-redux';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import _ from 'loadsh';
 import { searchClinics } from '../../../actions/clinic';
 
@@ -11,11 +13,20 @@ class ClinicFIlter extends Component {
         super(props);
         this.debouncedOnChange = _.debounce(this.debouncedOnChange.bind(this), 500); 
         this.state = {
+            startDate: new Date(),
             showFilters: false,
             currentInput: '',
             params: {}
         }
     }
+
+    handleChange = date => {
+        console.log(date.getTime()/1000);
+        
+        this.setState({
+            startDate: date
+        });
+    };
 
     onChange = event => {
         this.setState({ currentInput: event.target.value });
@@ -39,6 +50,7 @@ class ClinicFIlter extends Component {
     }
 
     renderFilters = () => {
+        
         return(
             <MDBCardBody>
                 <MDBInput
@@ -46,6 +58,10 @@ class ClinicFIlter extends Component {
                     group
                     type="text"
                     onChange={(e) => this.onChange(e)}
+                />
+                <DatePicker
+                    selected={this.state.startDate}
+                    onChange={this.handleChange}
                 />
             </MDBCardBody>
         )
@@ -57,7 +73,11 @@ class ClinicFIlter extends Component {
         return (
             <div>
                 <MDBCard>
-                    <MDBBtn onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}</MDBBtn>
+                    <MDBCardBody>
+                        <MDBCardTitle>
+                            <a href onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}</a>
+                        </MDBCardTitle>
+                    </MDBCardBody>
                     {
                         this.state.showFilters ? 
                         this.renderFilters()

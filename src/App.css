@@ -24,12 +24,15 @@
   margin-top: 2%;
 }
 #clinics_result{
-  max-height: 600px;
+  max-height: 650px;
   overflow: scroll;
 }
 #map-div{
   width: 500px!important;
   height: 400px;
+}
+#clinic-image{
+  max-height: 100px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -45,5 +48,9 @@
     width: 300px!important;
     height: 300px!important;
 
+  }
+  #clinics_result{
+    max-height: 300px;
+    overflow: scroll;
   }
 }
