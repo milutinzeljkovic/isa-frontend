@@ -11,10 +11,21 @@ export const addClinic = (clinic) =>{
     }
 }
 
-export const searchClinics = (params) => {
+export const searchClinics = (params) => {    
+
+    let terms = [];
+    
+    if(params != undefined && params.name !== undefined){
+        const c = {
+            name: 'name',
+            value: params.name
+        }
+        terms.push(c);
+    }
+
     return async dispatch => {
         let response;
-        response = await clinicService.search(params);
+        response = await clinicService.search(terms);
         return dispatch({ type: 'FETCH_CLINICS', payload: response.data });
         
     }

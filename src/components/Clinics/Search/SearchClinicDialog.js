@@ -6,6 +6,7 @@ import { searchClinics, clinicClick } from '../../../actions/clinic';
 import { fetchUsersLoction } from '../../../actions/location';
 import GoogleMapUpdater from './GoogleMapUpdater';
 import ClinicDetail from './ClinicDetail';
+import ClinicFilter from './ClinicFIlter';
 
 class SearchClinicDialog extends Component {
 
@@ -43,19 +44,20 @@ class SearchClinicDialog extends Component {
             <div className = 'container'>
                 <div className = 'row'>
                     <div class="col-xl-8">
+                        <ClinicFilter/>
                         {
                             this.props.clinics !== null && this.props.clinics.selectedClinic !==  undefined ? 
                              <ClinicDetail clinic = {this.props.clinics.selectedClinic} />
                             :
                             <MDBCard>
-                                <MDBListGroup style={{ width: "100%" }}>
-                                    { this.props.clinics === null ? '' :  this.renderClinics(this.props.clinics.all)}
-                                </MDBListGroup>   
+                                    <MDBListGroup style={{ width: "100%" }} id = 'clinics_result'>
+                                        { this.props.clinics === null ? '' :  this.renderClinics(this.props.clinics.all)}
+                                    </MDBListGroup>   
                             </MDBCard>    
                         }                
                     </div>
-                    <div class="col-xl-4">
-                        <MDBCard style={{ width: "400px", height: "400px" }}>
+                    <div class="col-xl-4" id = 'map-div'>
+                        <MDBCard style={{ width: "100%", height: "100%" }}>
                             { this.props.clinics === null ? ' ' : <GoogleMapUpdater />}
                         </MDBCard> 
                             

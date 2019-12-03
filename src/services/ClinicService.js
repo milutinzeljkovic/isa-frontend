@@ -7,8 +7,20 @@ class ClinicService extends Service{
     add(clinic) {        
         return this.getApiClient().post(`${resource}`,clinic);
     }
-    search(params) {
-        return this.getApiClient().get(`${resource}`);
+
+    search(terms) {
+        let queryParams = '';
+        if(terms!=undefined){
+            terms.forEach(term => {
+                queryParams += '?';
+                queryParams += term.name;
+                queryParams += '=';
+                queryParams += term.value;
+                queryParams += '&';
+            });
+        }
+        
+        return this.getApiClient().get(`${resource}${queryParams}`);
     }
 
     fetchDoctors(clinic){

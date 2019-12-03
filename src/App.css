@@ -23,6 +23,14 @@
 #patients-profile-content{
   margin-top: 2%;
 }
+#clinics_result{
+  max-height: 600px;
+  overflow: scroll;
+}
+#map-div{
+  width: 500px!important;
+  height: 400px;
+}
 
 @media only screen and (max-width: 600px) {
   #patients-profile-card-2{

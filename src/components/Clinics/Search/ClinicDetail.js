@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCloseIcon, MDBListGroup, MDBListGroupItem} from 'mdbreact';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCloseIcon, MDBListGroup, MDBListGroupItem, MDBIcon} from 'mdbreact';
 import { connect } from 'react-redux';
 import _ from 'loadsh';
 import { clinicClick, fetchDoctors } from '../../../actions/clinic';
@@ -57,6 +57,11 @@ class ClinicDetail extends Component {
                         <MDBCardTitle>{this.props.clinic.name}</MDBCardTitle>
                         <MDBCardText>
                             {this.props.clinic.description}
+                        </MDBCardText>
+                        
+                        <MDBIcon icon="compass" />
+                        <MDBCardText>
+                            {this.props.clinic.address}
                         </MDBCardText>
                         <MDBBtn onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'}</MDBBtn>
                         <MDBListGroup>
