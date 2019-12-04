@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'loadsh';
 
-import { MDBCard, MDBListGroup, MDBListGroupItem  } from "mdbreact";
+import { MDBCard, MDBListGroup, MDBListGroupItem, MDBBtn } from "mdbreact";
 import ReactStars from 'react-stars'
 import { searchClinics, clinicClick } from '../../../actions/clinic';
 import { fetchUsersLoction } from '../../../actions/location';
@@ -30,9 +30,10 @@ class SearchClinicDialog extends Component {
                     <div className="d-flex w-100 justify-content-between" hover href>
                         <h1 className="mb-1"  onClick = {() => this.onClinicClickHandle(clinic)} >{clinic.name}</h1>
                     </div>
+                    <MDBBtn color="teal" onClick = {() => this.onClinicClickHandle(clinic)}>details <i class="fas fa-info"></i></MDBBtn>
                     <p className="mb-1">{clinic.description}</p>
                     <small className="text-muted">
-                        {clinic.address}
+                    <i class="fas fa-map-marker-alt"></i> {clinic.address}
                     </small>
                     <ReactStars
                         count={5}

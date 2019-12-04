@@ -94,7 +94,6 @@ class ClinicDetail extends Component {
                             {this.props.clinic.address}
                         </MDBCardText>
                         <MDBBtn color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i class="fas fa-user-md"></i></MDBBtn>
-                        <button type="button" class="btn btn-danger px-3"><i class="fas fa-users" aria-hidden="true"></i></button>
 
                         <MDBListGroup>
                             {this.renderDoctors(this.props.doctors)}
