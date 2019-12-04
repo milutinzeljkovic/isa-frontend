@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 import { connect } from 'react-redux';
 import { login, me } from '../actions/auth';
+import browserHistory from '../history';
 
 
 class LoginDialog extends Component {
@@ -74,8 +75,17 @@ class LoginDialog extends Component {
             let response;
             response = await this.props.login(this.state);
             if(response.type === 'LOGIN'){
-                this.props.toggle();                
-                this.props.me();
+                this.props.toggle();  
+                await this.props.me();              
+                
+                if(this.props.auth.currentUser.has_loggedin === 0){
+                    browserHistory.push('/change-password')
+
+                }else{
+                    browserHistory.push('/')
+
+                }
+
             }
         }
     }

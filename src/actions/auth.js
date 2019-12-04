@@ -24,6 +24,47 @@ export const register = data => {
     }
 }
 
+export const registerClinicAdmin = (data, clinic_id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await usersService.registerClinicAdmin(data, clinic_id);
+        }catch(e){
+            console.log(e.response.data);
+            
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+            }
+        }
+    }
+}
+
+
+
+export const registerClinicalCenterAdmin = data => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await usersService.registerClinicalCenterAdmin(data);
+        }catch(e){            
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+            }
+        }
+    }
+}
+
+export const changePassword = data => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await usersService.changePassword(data);
+        }catch(e){            
+           
+        }
+    }
+}
+
 export const login = data => {
     return async dispatch => {
         let response;
