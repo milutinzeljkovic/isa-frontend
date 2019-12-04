@@ -3,6 +3,7 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCloseIcon, 
 import { connect } from 'react-redux';
 import _ from 'loadsh';
 import { clinicClick, fetchDoctors } from '../../../actions/clinic';
+import DoctorAppointments from './DoctorAppointments';
 
 
 class ClinicDetail extends Component {
@@ -44,7 +45,7 @@ class ClinicDetail extends Component {
 
     renderAppointments = (appointments) => {
         return(
-            <div>appointments[0].id</div>
+            <DoctorAppointments appointments  = {appointments}/>
         )
     }
 
