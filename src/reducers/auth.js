@@ -27,6 +27,10 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, currentUser: undefined, access_token: null,mailConfirmationPending: false}
         case 'REGISTER_CLINIC_ADMIN':
             return {...state, succesfullyRegisteredClinicAdmin: true}
+        case 'REGISTER_CLINICAL_CENTER_ADMIN':
+            return {...state}
+        case 'CHANGE_PASSWORD':
+            return {...state}
         default:
             return state;
     }

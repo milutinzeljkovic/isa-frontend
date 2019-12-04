@@ -23,6 +23,15 @@ class UsersService extends Service{
         return this.getApiClient().post(`${resource}/register/clinic-admin/${clinic_id}`, user);
     }
 
+    registerClinicalCenterAdmin(user) {
+        return this.getApiClient().post(`${resource}/register/clinical-center-admin`, user);
+    }
+
+    changePassword(user) {
+        return this.getApiClient().post(`${resource}/change-password`, user);
+    }
+
+
 
 }
 

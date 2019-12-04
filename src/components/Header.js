@@ -8,6 +8,7 @@ import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
 import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
+import AddClinicalCenterAdmin from './ClinicalCenterAdmin/AddClinicalCenterAdmin';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
@@ -15,7 +16,9 @@ state = {
   isOpen: false,
   logInDialog: false,
   registerDialog: false,
-  newMedStaffDialog: false
+  newMedStaffDialog: false,
+  newClinicalCenterAdminDialog: false
+
 };
 
 toggleCollapse = () => {
@@ -42,6 +45,13 @@ toggleNewMedStaffDialog = () => {
   });
 }
 
+toggleNewClinicalCenterAdminDialog = () => {
+   
+  this.setState({
+      newClinicalCenterAdminDialog: !this.state.newClinicalCenterAdminDialog
+  });
+}
+
 handleLogoutButtonClick = () => {
   this.props.logout();
 }
@@ -59,7 +69,17 @@ renderRight = () => {
         </MDBNavItem>
       </MDBNavbarNav>
     )
-  }else{
+  }else if (this.props.auth.currentUser.has_loggedin === 0){
+    return(
+      <MDBNavbarNav right>
+          <MDBNavItem>
+          <MDBNavLink to="/" onClick = {()=> this.handleLogoutButtonClick()}>Logout</MDBNavLink>
+        </MDBNavItem>
+      </MDBNavbarNav>
+
+    )
+  }
+  else{
     
     
     return(
@@ -76,7 +96,7 @@ renderRight = () => {
 }
 
 renderLinks = () => {
-  if(this.props.auth.currentUser.userable_type === 'App\\ClinicalCenterAdmin'){
+  if(this.props.auth.currentUser.userable_type === 'App\\ClinicalCenterAdmin' && this.props.auth.currentUser.email !== 'admin@admin.rs'){
     return(
       <MDBNavItem>
           <MDBDropdown>
@@ -91,7 +111,7 @@ renderLinks = () => {
           </MDBDropdown>
       </MDBNavItem>
     )
-  }else if (this.props.auth.currentUser.userable_type === 'App\\Nurse'){
+  }else if (this.props.auth.currentUser.userable_type === 'App\\Nurse' ){
     return(
       <MDBNavItem>
         <MDBDropdown>
@@ -127,6 +147,23 @@ renderLinks = () => {
         </MDBDropdown>
       </MDBNavItem>
     )
+  }else if(this.props.auth.currentUser.userable_type === 'App\\ClinicalCenterAdmin' && this.props.auth.currentUser.email === 'admin@admin.rs'){
+    return(
+      <MDBNavItem>
+          <MDBDropdown>
+                <MDBDropdownToggle nav caret>
+                  <span className="mr-2">Menu</span>
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  <MDBDropdownItem><Link to='/admin'>Pending requests</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/clinics/add'>New clinic</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/clinics/add/admin'>New clinic admin</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/add/clinical-center-admin' onClick = {this.toggleNewClinicalCenterAdminDialog}>New clinical center admin</Link></MDBDropdownItem>
+                </MDBDropdownMenu>
+          </MDBDropdown>
+      </MDBNavItem>
+    )
+
   }
 }
 
@@ -136,6 +173,13 @@ renderLeft = () => {
         <MDBNavbarNav left>
           
         </MDBNavbarNav>
+    )
+  }else if (this.props.auth.currentUser.has_loggedin === 0){
+    return(
+      <MDBNavbarNav left>
+        
+      </MDBNavbarNav>
+
     )
   }else{
     return(
@@ -165,6 +209,9 @@ render() {
       <LoginDialog show={this.state.logInDialog} toggle={this.toggleLoginDialog}  />
       <RegisterDialog show={this.state.registerDialog} toggle={this.toggleRegisterDialog} />
       <AddMedStaffDialog show={this.state.newMedStaffDialog} toggle={this.toggleNewMedStaffDialog} />
+      <AddClinicalCenterAdmin show={this.state.newClinicalCenterAdminDialog} toggle={this.toggleNewClinicalCenterAdminDialog} />
+
+      
     </Router>
     );
   }
