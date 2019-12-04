@@ -17,6 +17,8 @@ import AddClinicAdmin from './components/ClinicalCenterAdmin/AddClinicAdmin';
 import AddClinicalCenterAdmin from './components/ClinicalCenterAdmin/AddClinicalCenterAdmin';
 import AddMedStaffDialog from './components/ClinicAdmin/AddMedStaffDialog';
 import ChangePassword from './components/ChangePassword';
+import AddDiagnose from './components/ClinicalCenterAdmin/AddDiagnose';
+import AddMedicine from './components/ClinicalCenterAdmin/AddMedicine';
 
 class App extends Component {
 
@@ -40,6 +42,9 @@ class App extends Component {
         <Route path='/add/clinical-center-admin' exact component = {AddClinicalCenterAdmin} />
         <Route path='/addNewMedStaff' exact component = {AddMedStaffDialog} />
         <Route path='/change-password' exact component = {ChangePassword}/>
+        <Route path='/diagnose/add' exact component = {AddDiagnose}/>
+        <Route path='/medicine/add' exact component = {AddMedicine}/>
+
       </Router>
     );
   }

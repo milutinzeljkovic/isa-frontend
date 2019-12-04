@@ -9,7 +9,7 @@ export const addClinic = (clinic) =>{
         response = await clinicService.add(clinic);
         return dispatch({ type: 'CLINIC_ADDED', payload: response.data });
     
-    }
+    } 
 }
 
 export const searchClinics = (params) => {    

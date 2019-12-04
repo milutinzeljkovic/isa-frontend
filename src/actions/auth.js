@@ -26,8 +26,9 @@ export const register = data => {
 
 export const registerClinicAdmin = (data, clinic_id) => {
     return async dispatch => {
+       
         try{
-           await usersService.registerClinicAdmin(data, clinic_id);
+            await usersService.registerClinicAdmin(data, clinic_id);
         }catch(e){
             
             if(e.response.status === 500){
@@ -42,7 +43,7 @@ export const registerClinicAdmin = (data, clinic_id) => {
 export const registerClinicalCenterAdmin = data => {
     return async dispatch => {
         try{
-            await usersService.registerClinicalCenterAdmin(data);
+             await usersService.registerClinicalCenterAdmin(data);
         }catch(e){            
             if(e.response.status === 500){
                 return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
@@ -53,9 +54,8 @@ export const registerClinicalCenterAdmin = data => {
 
 export const changePassword = data => {
     return async dispatch => {
-        
         try{
-            await usersService.changePassword(data);
+             await usersService.changePassword(data);
         }catch(e){            
            
         }

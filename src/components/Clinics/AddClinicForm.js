@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 import LocationDialog from '../Location/LocationDialog';
 import {addClinic} from '../../actions/clinic';
+import browserHistory from '../../history';
 
 class AddClinicForm extends Component {
 
@@ -29,7 +30,8 @@ class AddClinicForm extends Component {
     onSubmitHandle = () => {
         const clinic = {...this.state, lat: this.props.lat, lng: this.props.lng, address: this.props.clinicAddress }
         this.props.addClinic(clinic);        
-        
+        browserHistory.push('/')
+
     }
 
     render() {
