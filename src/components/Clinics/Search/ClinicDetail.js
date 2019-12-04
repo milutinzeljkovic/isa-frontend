@@ -81,7 +81,7 @@ class ClinicDetail extends Component {
     render() {
         return (
             <div>
-                <MDBCard>
+                <MDBCard id = 'clinic-detail-card'>
                     <MDBCardBody>
                         <MDBCloseIcon onClick = {this.hancleCloseClick}/>
                         <MDBCardTitle>{this.props.clinic.name}</MDBCardTitle>

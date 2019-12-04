@@ -72,7 +72,7 @@ class ClinicFIlter extends Component {
     render() {
         return (
             <div>
-                <MDBCard>
+                <MDBCard id='filter-card'>
                     <MDBCardBody>
                         <MDBCardTitle>
                             <a href onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}</a>

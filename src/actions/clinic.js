@@ -15,7 +15,7 @@ export const addClinic = (clinic) =>{
 export const searchClinics = (params) => {    
 
     let terms = [];
-    if(params != undefined && params.name !== undefined){
+    if(params !== undefined && params.name !== undefined){
         const c = {
             name: 'name',
             value: params.name

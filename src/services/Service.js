@@ -50,10 +50,21 @@ class Service {
                   }
                   
                   axios.post(`${baseURL}/auth/refresh/`, data, config).then((resp)=>{
-                      console.log('novi token ', resp);
-                      localStorage.setItem("token",resp.data.access_token);
+                        localStorage.setItem("token",resp.data.access_token);
+
+                        const token = window.localStorage.getItem("token");
+                        let config = {
+                            headers: {
+                              Authorization: `bearer ${token}`,
+                            }
+                          }
+                          axios.post(`${baseURL}/auth/me/`, data, config).then((resp)=>{
+                          })
                   })
                 
+            }else if(error.response.data.status === 'Token is Invalid'){
+                browserHistory.push('/login');
+                return Promise.reject(error);
             }
             return Promise.reject(error);
             

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'loadsh';
-import { MDBCard, MDBListGroup, MDBListGroupItem  } from "mdbreact";
+import { MDBListGroupItem  } from "mdbreact";
 import { connect } from 'react-redux';
 
 class DoctorAppointments extends Component {

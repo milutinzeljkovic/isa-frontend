@@ -47,21 +47,21 @@ class SearchClinicDialog extends Component {
         return (
             <div className = 'container'>
                 <div className = 'row'>
-                    <div class="col-xl-8">
+                    <div className="col-xl-8">
                         {this.props.clinics !== null && this.props.clinics.selectedClinic ===  undefined ? <ClinicFilter/> : ''}
                         {
                             this.props.clinics !== null && this.props.clinics.selectedClinic !==  undefined ? 
                              <ClinicDetail clinic = {this.props.clinics.selectedClinic} />
                             :
-                            <MDBCard>
+                            <MDBCard id='clinics-card'>
                                     <MDBListGroup style={{ width: "100%" }} id = 'clinics_result'>
                                         { this.props.clinics === null ? '' :  this.renderClinics(this.props.clinics.all)}
                                     </MDBListGroup>   
                             </MDBCard>    
                         }                
                     </div>
-                    <div class="col-xl-4" id = 'map-div'>
-                        <MDBCard style={{ width: "100%", height: "100%" }}>
+                    <div className="col-xl-4" id = 'map-div'>
+                        <MDBCard style={{ width: "100%", height: "100%" }} id= 'map-card'>
                             { this.props.clinics === null ? ' ' : <GoogleMapUpdater />}
                         </MDBCard> 
                             
