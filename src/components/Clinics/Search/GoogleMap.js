@@ -44,7 +44,7 @@ class GoogleMap extends Component {
                     center={this.props.center}
                     initialCenter={this.props.center}>
                     {this.renderUsersLocation(this.props.usersLocation)}
-                    {this.renderMarkers(this.props.clinics.all)}
+                    { this.props.clinics.all !== undefined ?  this.renderMarkers(this.props.clinics.all) : ''}
                 </Map>
             </div>
         )
