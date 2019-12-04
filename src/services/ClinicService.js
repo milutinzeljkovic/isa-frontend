@@ -10,7 +10,7 @@ class ClinicService extends Service{
 
     search(terms) {
         let queryParams = '';
-        if(terms!=undefined){
+        if(terms !== undefined){
             terms.forEach(term => {
                 queryParams += '?';
                 queryParams += term.name;

@@ -9,13 +9,13 @@ export const addClinic = (clinic) =>{
         response = await clinicService.add(clinic);
         return dispatch({ type: 'CLINIC_ADDED', payload: response.data });
     
-    }
+    } 
 }
 
 export const searchClinics = (params) => {    
 
     let terms = [];
-    if(params != undefined && params.name !== undefined){
+    if(params !== undefined && params.name !== undefined){
         const c = {
             name: 'name',
             value: params.name

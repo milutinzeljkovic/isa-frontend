@@ -9,6 +9,9 @@ import RegisterDialog from './RegisterDialog';
 import { logout } from '../actions/auth';
 import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
 import AddClinicalCenterAdmin from './ClinicalCenterAdmin/AddClinicalCenterAdmin';
+import AddDiagnose from './ClinicalCenterAdmin/AddDiagnose';
+import AddMedicine from './ClinicalCenterAdmin/AddMedicine';
+
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
@@ -17,7 +20,9 @@ state = {
   logInDialog: false,
   registerDialog: false,
   newMedStaffDialog: false,
-  newClinicalCenterAdminDialog: false
+  newClinicalCenterAdminDialog: false,
+  addDiagnoseDialog: false,
+  addMedicineDialog: false
 
 };
 
@@ -51,6 +56,21 @@ toggleNewClinicalCenterAdminDialog = () => {
       newClinicalCenterAdminDialog: !this.state.newClinicalCenterAdminDialog
   });
 }
+
+toggleAddDiagnoseDialog = () => {
+   
+  this.setState({
+    addDiagnoseDialog: !this.state.addDiagnoseDialog
+  });
+}
+
+toggleAddMedicineDialog = () => {
+   
+  this.setState({
+    addMedicineDialog: !this.state.addMedicineDialog
+  });
+}
+
 
 handleLogoutButtonClick = () => {
   this.props.logout();
@@ -107,6 +127,9 @@ renderLinks = () => {
                   <MDBDropdownItem><Link to='/admin'>Pending requests</Link></MDBDropdownItem>
                   <MDBDropdownItem><Link to='/clinics/add'>New clinic</Link></MDBDropdownItem>
                   <MDBDropdownItem><Link to='/clinics/add/admin'>New clinic admin</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/diagnose/add' onClick = {this.toggleAddDiagnoseDialog}>New diagnose</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/medicine/add' onClick = {this.toggleAddMedicineDialog}>New medicine</Link></MDBDropdownItem>
+
                 </MDBDropdownMenu>
           </MDBDropdown>
       </MDBNavItem>
@@ -159,6 +182,9 @@ renderLinks = () => {
                   <MDBDropdownItem><Link to='/clinics/add'>New clinic</Link></MDBDropdownItem>
                   <MDBDropdownItem><Link to='/clinics/add/admin'>New clinic admin</Link></MDBDropdownItem>
                   <MDBDropdownItem><Link to='/add/clinical-center-admin' onClick = {this.toggleNewClinicalCenterAdminDialog}>New clinical center admin</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/diagnose/add' onClick = {this.toggleAddDiagnoseDialog}>New diagnose</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/medicine/add' onClick = {this.toggleAddMedicineDialog}>New medicine</Link></MDBDropdownItem>
+
                 </MDBDropdownMenu>
           </MDBDropdown>
       </MDBNavItem>
@@ -210,6 +236,8 @@ render() {
       <RegisterDialog show={this.state.registerDialog} toggle={this.toggleRegisterDialog} />
       <AddMedStaffDialog show={this.state.newMedStaffDialog} toggle={this.toggleNewMedStaffDialog} />
       <AddClinicalCenterAdmin show={this.state.newClinicalCenterAdminDialog} toggle={this.toggleNewClinicalCenterAdminDialog} />
+      <AddDiagnose show={this.state.addDiagnoseDialog} toggle={this.toggleAddDiagnoseDialog} />
+      <AddMedicine show={this.state.addMedicineDialog} toggle={this.toggleAddMedicineDialog} />
 
       
     </Router>
