@@ -24,11 +24,11 @@ class SearchClinicDialog extends Component {
     renderClinics(clinics){
         return _.map(clinics, clinic => {
             return(
-                <MDBListGroupItem hover href="#"
+                <MDBListGroupItem 
                     key = {clinic.id}
                 >  
-                    <div className="d-flex w-100 justify-content-between">
-                        <h1 className="mb-1" onClick = {() => this.onClinicClickHandle(clinic)} >{clinic.name}</h1>
+                    <div className="d-flex w-100 justify-content-between" hover href>
+                        <h1 className="mb-1"  onClick = {() => this.onClinicClickHandle(clinic)} >{clinic.name}</h1>
                     </div>
                     <p className="mb-1">{clinic.description}</p>
                     <small className="text-muted">

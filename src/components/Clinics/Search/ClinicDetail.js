@@ -53,7 +53,7 @@ class ClinicDetail extends Component {
         if(this.state.showDoctors){
             return _.map(doctors, doctor => {                
                 return(
-                    <MDBListGroupItem hover href="#"
+                    <MDBListGroupItem 
                         key = {doctor.id}
                     >
                         <div className="d-flex w-100 justify-content-between">
@@ -63,7 +63,7 @@ class ClinicDetail extends Component {
                         <small className="text-muted">
                             {doctor.address}
                         </small>
-                    <MDBBtn onClick = { () => this.onShowAppointmentsClickHandler(doctor)}>{this.state.doctorAppointments === doctor.id ? 'Hide termins' : 'Show termins'}</MDBBtn>
+                    <MDBBtn outline color="orange darken-4" onClick = { () => this.onShowAppointmentsClickHandler(doctor)}>{this.state.doctorAppointments === doctor.id ? 'Hide termins ' : 'Show termins '}<i class="far fa-calendar-check"></i></MDBBtn>
                     <MDBListGroup>
                     {
                         this.state.doctorAppointments === doctor.id ? 
@@ -93,7 +93,9 @@ class ClinicDetail extends Component {
                         <MDBCardText>
                             {this.props.clinic.address}
                         </MDBCardText>
-                        <MDBBtn onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'}</MDBBtn>
+                        <MDBBtn color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i class="fas fa-user-md"></i></MDBBtn>
+                        <button type="button" class="btn btn-danger px-3"><i class="fas fa-users" aria-hidden="true"></i></button>
+
                         <MDBListGroup>
                             {this.renderDoctors(this.props.doctors)}
                         </MDBListGroup>

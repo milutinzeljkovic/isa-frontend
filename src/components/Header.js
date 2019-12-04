@@ -196,7 +196,7 @@ renderLeft = () => {
 render() {
   return (
     <Router history = {history}>
-      <MDBNavbar color="default-color" dark expand="md">
+      <MDBNavbar color="teal" dark expand="md">
         <MDBNavbarBrand>
           <strong className="white-text">Clinical center</strong>
         </MDBNavbarBrand>
