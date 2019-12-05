@@ -30,7 +30,9 @@ export default (state = INITIAL_STATE, action) => {
         case 'REGISTER_CLINICAL_CENTER_ADMIN':
             return {...state}
         case 'CHANGE_PASSWORD':
-            return {...state}
+            return {...state, oldPasswordError: ''}
+        case 'PASSWORD_CHANGE_ERROR':
+            return {...state, oldPasswordError: action.payload}
         default:
             return state;
     }

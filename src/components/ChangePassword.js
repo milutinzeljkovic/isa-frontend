@@ -11,8 +11,9 @@ class ChangePassword extends Component{
             password: '',
             new_password: '',
             password_confirmation: '',
-            passwordErrorMessage: ''
-
+            passwordErrorMessage: '',
+            oldPassErrorFlag: false,
+            newPassErrorFlag: false
         };
     }
 
@@ -29,20 +30,44 @@ class ChangePassword extends Component{
     }
 
     handleOnSubmit = async () => {
-        if(this.new_password === this.password_confirmation){
-            const datas = {...this.state,email:this.props.auth.currentUser.email};
-            
-            await this.props.changePassword(datas);
+        if(this.state.new_password === this.state.password_confirmation){
+          const datas = {...this.state,email:this.props.auth.currentUser.email};
+          await this.props.changePassword(datas);
+          if(this.props.auth.oldPasswordError === 'Wrong old password'){
+            this.setState({
+              passwordErrorMessage: this.props.auth.oldPasswordError,
+              oldPassErrorFlag: true,
+              newPassErrorFlag: false,
+            });
+          }else {
+            this.setState({
+              passwordErrorMessage: '',
+              oldPassErrorFlag: false,
+              newPassErrorFlag: false,
+            });
             await this.props.me();
-            browserHistory.push('/')
-
+            browserHistory.push('/');
+          }
         }else{
             this.setState({
-                passwordErrorMessage: 'Passwords do NOT match!'});
-
+              passwordErrorMessage: 'New passwords do NOT match!',
+              newPassErrorFlag: true,
+              oldPassErrorFlag: false
+            });
         }
-      
-        
+        console.log(this.state.passwordErrorMessage);
+        console.log(this.state.oldPassErrorFlag);
+        console.log(this.state.newPassErrorFlag);
+    }
+
+    renderPassError() {
+      return (
+        <div className="form-group col " style={{height: '2px', marginBottom: '2rem'}}>
+          <div className="col-sm-11">
+              <small className="text-danger float-left">{this.state.passwordErrorMessage}</small>
+          </div>
+        </div>
+      )
     }
     
 
@@ -84,6 +109,8 @@ class ChangePassword extends Component{
                         onChange={(e) => this.handlePasswordConfirmationChange(e)}
 
                       />
+                      {this.state.newPassErrorFlag || this.state.oldPassErrorFlag ? this.renderPassError() : ''}
+                      
                     </div>
                     <div className="text-center">
                       <MDBBtn onClick = {() => this.handleOnSubmit()}>Submit</MDBBtn>
@@ -101,7 +128,8 @@ class ChangePassword extends Component{
 }
 const mapStateToProps = (state) =>{
     return{
-        auth: state.auth
+        auth: state.auth,
+        oldPasswordError: state.oldPasswordError
     }
 }
 

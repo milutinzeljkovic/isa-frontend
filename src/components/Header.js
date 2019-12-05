@@ -10,6 +10,7 @@ import { logout } from '../actions/auth';
 import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
 import AddClinicalCenterAdmin from './ClinicalCenterAdmin/AddClinicalCenterAdmin';
 import { Link } from 'react-router-dom';
+import AvailableAppointmentsDialog from './ClinicAdmin/AvailableAppointmentsDialog';
 
 class Header extends Component {
 state = {
@@ -17,8 +18,8 @@ state = {
   logInDialog: false,
   registerDialog: false,
   newMedStaffDialog: false,
-  newClinicalCenterAdminDialog: false
-
+  newClinicalCenterAdminDialog: false,
+  newAppointmentDialog: false
 };
 
 toggleCollapse = () => {
@@ -42,6 +43,13 @@ toggleNewMedStaffDialog = () => {
    
   this.setState({
       newMedStaffDialog: !this.state.newMedStaffDialog
+  });
+}
+
+toggleNewAppointmentDialog = () => {
+   
+  this.setState({
+    newAppointmentDialog: !this.state.newAppointmentDialog
   });
 }
 
@@ -130,7 +138,15 @@ renderLinks = () => {
   }else if (this.props.auth.currentUser.userable_type === 'App\\ClinicAdmin'){
     return(
       <MDBNavItem>
-          <MDBNavLink to="/addNewMedStaff"  onClick = {this.toggleNewMedStaffDialog}>Add new staff members</MDBNavLink>
+        <MDBDropdown>
+          <MDBDropdownToggle nav caret>
+            <span className="mr-2">Menu</span>
+          </MDBDropdownToggle>
+          <MDBDropdownMenu>
+            <MDBDropdownItem><Link to='/add/newMedicalStaff' onClick = {this.toggleNewMedStaffDialog}>Add new staff members</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/add/appointment' onClick = {this.toggleNewAppointmentDialog}>Add new available appointment</Link></MDBDropdownItem>
+          </MDBDropdownMenu>
+        </MDBDropdown>
       </MDBNavItem>
     )
   }
@@ -210,7 +226,7 @@ render() {
       <RegisterDialog show={this.state.registerDialog} toggle={this.toggleRegisterDialog} />
       <AddMedStaffDialog show={this.state.newMedStaffDialog} toggle={this.toggleNewMedStaffDialog} />
       <AddClinicalCenterAdmin show={this.state.newClinicalCenterAdminDialog} toggle={this.toggleNewClinicalCenterAdminDialog} />
-
+      <AvailableAppointmentsDialog show={this.state.newAppointmentDialog} toggle={this.toggleNewAppointmentDialog}/>
       
     </Router>
     );
