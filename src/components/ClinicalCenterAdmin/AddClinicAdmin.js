@@ -54,7 +54,7 @@ class AddClinicAdmin extends Component {
             <div>
                 <MDBContainer>
                     <MDBListGroup >
-                        {this.renderClinics(this.props.clinics)}
+                        {this.props.clinics === null ? '' : this.renderClinics(this.props.clinics.all)}
                     </MDBListGroup>
                 </MDBContainer>
                 <AddClinicAdminDialog id={this.state.id} show={this.state.showDialog} toggle={this.hideDialog} />
