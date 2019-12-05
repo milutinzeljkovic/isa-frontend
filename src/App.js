@@ -17,12 +17,9 @@ import AddClinicAdmin from './components/ClinicalCenterAdmin/AddClinicAdmin';
 import AddClinicalCenterAdmin from './components/ClinicalCenterAdmin/AddClinicalCenterAdmin';
 import AddMedStaffDialog from './components/ClinicAdmin/AddMedStaffDialog';
 import ChangePassword from './components/ChangePassword';
-<<<<<<< HEAD
 import AddDiagnose from './components/ClinicalCenterAdmin/AddDiagnose';
 import AddMedicine from './components/ClinicalCenterAdmin/AddMedicine';
-=======
 import AvailableAppointmentsDialog from './components/ClinicAdmin/AvailableAppointmentsDialog';
->>>>>>> 2.3.-medical-staff-profile
 
 class App extends Component {
 
@@ -46,13 +43,10 @@ class App extends Component {
         <Route path='/add/clinical-center-admin' exact component = {AddClinicalCenterAdmin} />
         <Route path='/add/newMedicalStaff' exact component = {AddMedStaffDialog} />
         <Route path='/change-password' exact component = {ChangePassword}/>
-<<<<<<< HEAD
         <Route path='/diagnose/add' exact component = {AddDiagnose}/>
         <Route path='/medicine/add' exact component = {AddMedicine}/>
 
-=======
         <Route path='/add/appointment' exact component = {AvailableAppointmentsDialog}/>
->>>>>>> 2.3.-medical-staff-profile
       </Router>
     );
   }
