@@ -20,3 +20,24 @@ export const registerMedStaff = data => {
         } 
     }
 }
+
+export const getAllDoctors = () => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.getAllDoctors();
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'FETCHING_DOCTORS_ERROR', payload: 'Fetching all doctors failed' })
+            }
+        }
+
+        if(!response){
+            return dispatch({ type: 'FETCHING_DOCTORS_ERROR', payload: 'Fetching all doctors failed' })
+        }
+
+        if (response.status === 200) {
+            dispatch({ type: 'GETALLDOCTORS', payload: response.data });
+        }
+    }
+}

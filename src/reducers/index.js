@@ -5,6 +5,7 @@ import locationReducer from './Location/suggestedLocations';
 import selectedLocationReducer from './Location/selectedLocation';
 import clinicsReducer from './clinics';
 import fetchedUsersLocation from './Location/fetchedUsersLocation';
+import clinicAdminReducer from './clinicAdmin';
 
 export default combineReducers({
    auth: authReducer,
@@ -12,6 +13,6 @@ export default combineReducers({
    suggestedLocations: locationReducer,
    selectedLocation: selectedLocationReducer,
    clinics: clinicsReducer,
-   usersLocation: fetchedUsersLocation
-
+   usersLocation: fetchedUsersLocation,
+   clinicAdmin: clinicAdminReducer
 });

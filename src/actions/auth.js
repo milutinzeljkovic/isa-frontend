@@ -27,7 +27,7 @@ export const register = data => {
 export const registerClinicAdmin = (data, clinic_id) => {
     return async dispatch => {
         try{
-           await usersService.registerClinicAdmin(data, clinic_id);
+            await usersService.registerClinicAdmin(data, clinic_id);
         }catch(e){
             
             if(e.response.status === 500){
@@ -57,7 +57,13 @@ export const changePassword = data => {
         try{
             await usersService.changePassword(data);
         }catch(e){            
-           
+           if(e.response.status === 401){
+               return dispatch({ type: 'PASSWORD_CHANGE_ERROR', payload: e.response.data.error})
+           }
+        }
+
+        if(response.status === 201){
+            return dispatch({ type: 'CHANGE_PASSWORD'})
         }
     }
 }
@@ -69,8 +75,9 @@ export const login = data => {
             response = await usersService.login(data);
 
         }catch(e){
+            console.log(e.response.data);
             if(e.response.status === 401)
-                return dispatch({ type: 'ERROR', payload: 'Account not activated' });
+                return dispatch({ type: 'ERROR', payload: e.response.data.error });
             if(e.response.status === 500)
                 return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
         }

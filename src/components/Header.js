@@ -13,6 +13,7 @@ import AddDiagnose from './ClinicalCenterAdmin/AddDiagnose';
 import AddMedicine from './ClinicalCenterAdmin/AddMedicine';
 
 import { Link } from 'react-router-dom';
+import AvailableAppointmentsDialog from './ClinicAdmin/AvailableAppointmentsDialog';
 
 class Header extends Component {
 state = {
@@ -21,9 +22,13 @@ state = {
   registerDialog: false,
   newMedStaffDialog: false,
   newClinicalCenterAdminDialog: false,
+<<<<<<< HEAD
   addDiagnoseDialog: false,
   addMedicineDialog: false
 
+=======
+  newAppointmentDialog: false
+>>>>>>> 2.3.-medical-staff-profile
 };
 
 toggleCollapse = () => {
@@ -47,6 +52,13 @@ toggleNewMedStaffDialog = () => {
    
   this.setState({
       newMedStaffDialog: !this.state.newMedStaffDialog
+  });
+}
+
+toggleNewAppointmentDialog = () => {
+   
+  this.setState({
+    newAppointmentDialog: !this.state.newAppointmentDialog
   });
 }
 
@@ -153,7 +165,15 @@ renderLinks = () => {
   }else if (this.props.auth.currentUser.userable_type === 'App\\ClinicAdmin'){
     return(
       <MDBNavItem>
-          <MDBNavLink to="/addNewMedStaff"  onClick = {this.toggleNewMedStaffDialog}>Add new staff members</MDBNavLink>
+        <MDBDropdown>
+          <MDBDropdownToggle nav caret>
+            <span className="mr-2">Menu</span>
+          </MDBDropdownToggle>
+          <MDBDropdownMenu>
+            <MDBDropdownItem><Link to='/add/newMedicalStaff' onClick = {this.toggleNewMedStaffDialog}>Add new staff members</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/add/appointment' onClick = {this.toggleNewAppointmentDialog}>Add new available appointment</Link></MDBDropdownItem>
+          </MDBDropdownMenu>
+        </MDBDropdown>
       </MDBNavItem>
     )
   }
@@ -236,9 +256,13 @@ render() {
       <RegisterDialog show={this.state.registerDialog} toggle={this.toggleRegisterDialog} />
       <AddMedStaffDialog show={this.state.newMedStaffDialog} toggle={this.toggleNewMedStaffDialog} />
       <AddClinicalCenterAdmin show={this.state.newClinicalCenterAdminDialog} toggle={this.toggleNewClinicalCenterAdminDialog} />
+<<<<<<< HEAD
       <AddDiagnose show={this.state.addDiagnoseDialog} toggle={this.toggleAddDiagnoseDialog} />
       <AddMedicine show={this.state.addMedicineDialog} toggle={this.toggleAddMedicineDialog} />
 
+=======
+      <AvailableAppointmentsDialog show={this.state.newAppointmentDialog} toggle={this.toggleNewAppointmentDialog}/>
+>>>>>>> 2.3.-medical-staff-profile
       
     </Router>
     );
