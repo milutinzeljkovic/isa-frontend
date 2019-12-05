@@ -44,7 +44,6 @@ class AvailableAppointmentsDialog extends Component {
     }    
 
     handleDateChange = (date) => {
-        console.log(date);
         this.setState({
             date: date 
         })
@@ -67,11 +66,10 @@ class AvailableAppointmentsDialog extends Component {
         this.props.toggle();
     }
 
-    renderDoctorOptions(doctors){    
-        console.log(doctors);
+    renderDoctorOptions(doctors){   
         return _.map(doctors, doctor => {
           return(
-            <option value={doctor.email}>{doctor.name}, {doctor.last_name}</option>
+            <option key={doctor.user.id} value={doctor.user.email}>{doctor.user.name} {doctor.user.last_name}</option>
           )
         })
     
@@ -98,7 +96,7 @@ class AvailableAppointmentsDialog extends Component {
                 </select>
                 <label htmlFor="select12">Choose your doctor</label>
                 <select name="select12" className="browser-default custom-select" onChange={(e) => this.handleDoctorChange(e)}>
-                { this.doctors === null ? '' : this.renderDoctorOptions(this.props.doctors)}
+                { this.doctors === null ? '' : this.renderDoctorOptions(this.props.clinicAdmin)}
                 </select>
                 <MDBInput
                     label="Type the cost of the checkup"
@@ -138,7 +136,7 @@ class AvailableAppointmentsDialog extends Component {
 
 const mapStateToProps = (state)=> {
     return{
-        doctors: state.doctors,
+        clinicAdmin: state.clinicAdmin,
     }
 }
 

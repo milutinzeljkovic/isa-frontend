@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker, DirectionsRenderer  } from 'google-maps-react';
+import { Map, GoogleApiWrapper } from 'google-maps-react';
 import { connect } from 'react-redux';
 
 const mapStyles = {
