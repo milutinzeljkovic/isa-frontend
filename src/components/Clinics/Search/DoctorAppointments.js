@@ -15,6 +15,12 @@ class DoctorAppointments extends Component {
 
     renderAppointments = (appointments) => {
 
+        if(appointments.length === 0){
+            return(
+                'no appointments'
+            )
+        }
+
         return _.map(appointments, appointment => {
             const arr = appointment.date.split(' ');
             let date = arr[0];
@@ -37,7 +43,7 @@ class DoctorAppointments extends Component {
             });
 
             return(
-                <MDBListGroupItem hover href="#"
+                <MDBListGroupItem
                     key = {appointment.id}
                 >  
                     <div className="d-flex w-100 justify-content-between">

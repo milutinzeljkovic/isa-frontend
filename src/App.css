@@ -35,6 +35,20 @@
   max-height: 100px;
 }
 
+#map-card{
+  margin-top: 5%;
+}
+#filter-card{
+  margin-top: 2.5%;
+}
+
+#clinics-card{
+  margin-top: 2.5%;
+}
+#clinic-detail-card{
+  margin-top: 2.5%;
+}
+
 @media only screen and (max-width: 600px) {
   #patients-profile-card-2{
     margin-top: 2%;
