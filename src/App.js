@@ -19,7 +19,9 @@ import AddMedStaffDialog from './components/ClinicAdmin/AddMedStaffDialog';
 import ChangePassword from './components/ChangePassword';
 import AddDiagnose from './components/ClinicalCenterAdmin/AddDiagnose';
 import AddMedicine from './components/ClinicalCenterAdmin/AddMedicine';
-
+import AvailableAppointmentsDialog from './components/ClinicAdmin/AvailableAppointmentsDialog';
+import WorkingCalendar from './components/WorkingCalendar'
+import PrescriptionsTable from './components/Nurse/PrescriptionsTable';
 class App extends Component {
 
   componentDidMount(){
@@ -40,10 +42,14 @@ class App extends Component {
         <Route path='/clinics' exact component = {SearchClinicDialog} />
         <Route path='/clinics/add/admin' exact component = {AddClinicAdmin} />
         <Route path='/add/clinical-center-admin' exact component = {AddClinicalCenterAdmin} />
-        <Route path='/addNewMedStaff' exact component = {AddMedStaffDialog} />
+        <Route path='/add/newMedicalStaff' exact component = {AddMedStaffDialog} />
         <Route path='/change-password' exact component = {ChangePassword}/>
         <Route path='/diagnose/add' exact component = {AddDiagnose}/>
         <Route path='/medicine/add' exact component = {AddMedicine}/>
+
+        <Route path='/add/appointment' exact component = {AvailableAppointmentsDialog}/>
+        <Route path='/calendar' exact component = {WorkingCalendar}/>
+        <Route path='/prescriptions' exact component = {PrescriptionsTable}/>
 
       </Router>
     );

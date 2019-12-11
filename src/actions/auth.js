@@ -54,10 +54,17 @@ export const registerClinicalCenterAdmin = data => {
 
 export const changePassword = data => {
     return async dispatch => {
+        let response;
         try{
-             await usersService.changePassword(data);
+            response = await usersService.changePassword(data);
         }catch(e){            
-           
+           if(e.response.status === 401){
+               return dispatch({ type: 'PASSWORD_CHANGE_ERROR', payload: e.response.data.error})
+           }
+        }
+
+        if(response.status === 201){
+            return dispatch({ type: 'CHANGE_PASSWORD'})
         }
     }
 }
@@ -69,8 +76,9 @@ export const login = data => {
             response = await usersService.login(data);
 
         }catch(e){
+            console.log(e.response.data);
             if(e.response.status === 401)
-                return dispatch({ type: 'ERROR', payload: 'Account not activated' });
+                return dispatch({ type: 'ERROR', payload: e.response.data.error });
             if(e.response.status === 500)
                 return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
         }

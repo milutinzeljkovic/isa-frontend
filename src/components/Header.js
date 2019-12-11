@@ -13,6 +13,7 @@ import AddDiagnose from './ClinicalCenterAdmin/AddDiagnose';
 import AddMedicine from './ClinicalCenterAdmin/AddMedicine';
 
 import { Link } from 'react-router-dom';
+import AvailableAppointmentsDialog from './ClinicAdmin/AvailableAppointmentsDialog';
 
 class Header extends Component {
 state = {
@@ -22,8 +23,8 @@ state = {
   newMedStaffDialog: false,
   newClinicalCenterAdminDialog: false,
   addDiagnoseDialog: false,
-  addMedicineDialog: false
-
+  addMedicineDialog: false,
+  newAppointmentDialog: false
 };
 
 toggleCollapse = () => {
@@ -47,6 +48,13 @@ toggleNewMedStaffDialog = () => {
    
   this.setState({
       newMedStaffDialog: !this.state.newMedStaffDialog
+  });
+}
+
+toggleNewAppointmentDialog = () => {
+   
+  this.setState({
+    newAppointmentDialog: !this.state.newAppointmentDialog
   });
 }
 
@@ -144,7 +152,7 @@ renderLinks = () => {
                 <MDBDropdownMenu>
                   <MDBDropdownItem><Link to='/staff'>Patients</Link></MDBDropdownItem>
                   <MDBDropdownItem><Link to='/calendar'>Calendar</Link></MDBDropdownItem>
-                  <MDBDropdownItem><Link to='/recipes'>Recipes</Link></MDBDropdownItem>
+                  <MDBDropdownItem><Link to='/prescriptions'>Prescriptions</Link></MDBDropdownItem>
                   <MDBDropdownItem><Link to='/vacation'>Vacation</Link></MDBDropdownItem>
                 </MDBDropdownMenu>
           </MDBDropdown>
@@ -153,7 +161,15 @@ renderLinks = () => {
   }else if (this.props.auth.currentUser.userable_type === 'App\\ClinicAdmin'){
     return(
       <MDBNavItem>
-          <MDBNavLink to="/addNewMedStaff"  onClick = {this.toggleNewMedStaffDialog}>Add new staff members</MDBNavLink>
+        <MDBDropdown>
+          <MDBDropdownToggle nav caret>
+            <span className="mr-2">Menu</span>
+          </MDBDropdownToggle>
+          <MDBDropdownMenu>
+            <MDBDropdownItem><Link to='/add/newMedicalStaff' onClick = {this.toggleNewMedStaffDialog}>Add new staff members</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/add/appointment' onClick = {this.toggleNewAppointmentDialog}>Add new available appointment</Link></MDBDropdownItem>
+          </MDBDropdownMenu>
+        </MDBDropdown>
       </MDBNavItem>
     )
   }
@@ -239,6 +255,7 @@ render() {
       <AddDiagnose show={this.state.addDiagnoseDialog} toggle={this.toggleAddDiagnoseDialog} />
       <AddMedicine show={this.state.addMedicineDialog} toggle={this.toggleAddMedicineDialog} />
 
+      <AvailableAppointmentsDialog show={this.state.newAppointmentDialog} toggle={this.toggleNewAppointmentDialog}/>
       
     </Router>
     );
