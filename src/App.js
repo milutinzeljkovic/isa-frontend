@@ -20,6 +20,9 @@ import ChangePassword from './components/ChangePassword';
 import AddDiagnose from './components/ClinicalCenterAdmin/AddDiagnose';
 import AddMedicine from './components/ClinicalCenterAdmin/AddMedicine';
 import AvailableAppointmentsDialog from './components/ClinicAdmin/AvailableAppointmentsDialog';
+import AddOperatingRoom from './components/ClinicAdmin/AddOperatingRoom';
+import AddAppointmentType from './components/ClinicAdmin/AddAppointmentType';
+import PatientSearch from './components/Clinics/Search/PatientSearch';
 
 class App extends Component {
 
@@ -45,8 +48,10 @@ class App extends Component {
         <Route path='/change-password' exact component = {ChangePassword}/>
         <Route path='/diagnose/add' exact component = {AddDiagnose}/>
         <Route path='/medicine/add' exact component = {AddMedicine}/>
-
+        <Route path='/operationRoom/add' exact component = {AddOperatingRoom}/>
         <Route path='/add/appointment' exact component = {AvailableAppointmentsDialog}/>
+        <Route path='/add/appointmentType' exact component = {AddAppointmentType}/>
+        <Route path='/patients/search' exact component = {PatientSearch}/>
       </Router>
     );
   }

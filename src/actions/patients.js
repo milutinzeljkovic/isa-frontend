@@ -50,3 +50,21 @@ export const update = (data) => {
     }
 }
 
+export const searchPatients = (data) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await patientsService.searchPatients(data);
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+
+        if(response.status === 200){
+            return dispatch({ type: 'SEARCHEDPATIENTS', payload: response.data })
+        }
+        
+    }
+}
+

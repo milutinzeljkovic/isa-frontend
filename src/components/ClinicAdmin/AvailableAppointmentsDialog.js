@@ -3,6 +3,8 @@ import { MDBContainer, MDBModal, MDBModalBody , MDBModalHeader, MDBInput, MDBBtn
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
 import { getAllDoctors } from '../../actions/clinicAdmin';
+import {getAppointmentTypes} from '../../actions/appointmentType';
+import { getAllOpRooms } from '../../actions/operatingRoom';
 import _ from 'loadsh';
 
 class AvailableAppointmentsDialog extends Component {
@@ -15,14 +17,14 @@ class AvailableAppointmentsDialog extends Component {
             price: '',
             date: '',
             time: '',
-            app_type: 'regularCheckUp'
+            app_type: ''
         };
     }
 
     componentDidMount(){
-        console.log("2");
         this.props.getAllDoctors();
-        //this.props.fetchAllOpRooms();
+        this.props.getAppointmentTypes();
+        this.props.getAllOpRooms();
     }
 
     handleDoctorChange = (e) => {
@@ -69,22 +71,39 @@ class AvailableAppointmentsDialog extends Component {
     renderDoctorOptions(doctors){   
         return _.map(doctors, doctor => {
           return(
-            <option key={doctor.user.id} value={doctor.user.email}>{doctor.user.name} {doctor.user.last_name}</option>
+            <option key={doctor.user.id} value={doctor.user.id}>{doctor.user.name} {doctor.user.last_name}</option>
           )
         })
     
     }
 
+    renderAppTypeOptions(appointmentTypes){
+        let appTypes = appointmentTypes.appointmentTypes;
+        return _.map(appTypes, appointmentType => {
+          return(
+            <option key={appointmentType.id} value={appointmentType.id}>{appointmentType.name}</option>
+          )
+        })
+    }
+
+    renderOpRoomOptions(opRooms1){   
+        let opRooms = opRooms1.operationRooms;
+        return _.map(opRooms, opRoom => {
+          return(
+            <option key={opRoom.id} value={opRoom.id}>{opRoom.name}, {opRoom.number}</option>
+          )
+        })
+    
+    }
+  
 
     renderModalBodyContent = () => {
         return(
             <form onSubmit={this.handleSubmit}>
-                <p className="h5 text-center mb-4">New appointment</p>
                 <div className="grey-text">
                 <label htmlFor="selectAppType">Choose appointment type</label>
                 <select name="selectAppType" className="browser-default custom-select" onChange={(e) => this.handleAppTypeChange(e)}>
-                    <option value="regularCheckUp">Check up</option>
-                    <option value="operation">Operation</option>
+                { this.props.appointmentTypes === null ? '' : this.renderAppTypeOptions(this.props.appointmentTypes)}  
                 </select>
                 <label htmlFor="selectDate">Choose a date</label>
                 <div style={{marginBottom:"10px"}}>
@@ -92,7 +111,7 @@ class AvailableAppointmentsDialog extends Component {
                 </div>
                 <label htmlFor="select1">Choose facility</label>
                 <select name="select1" className="browser-default custom-select" onChange={(e) => this.handleFacilityChange(e)}>
-                    
+                { this.props.operatingRooms === null ? '' : this.renderOpRoomOptions(this.props.operatingRooms)}
                 </select>
                 <label htmlFor="select12">Choose your doctor</label>
                 <select name="select12" className="browser-default custom-select" onChange={(e) => this.handleDoctorChange(e)}>
@@ -137,9 +156,11 @@ class AvailableAppointmentsDialog extends Component {
 const mapStateToProps = (state)=> {
     return{
         clinicAdmin: state.clinicAdmin,
+        operatingRooms: state.operatingRooms,
+        appointmentTypes: state.appointmentTypes
     }
 }
 
 
 
-export default connect(mapStateToProps,{getAllDoctors})(AvailableAppointmentsDialog);
+export default connect(mapStateToProps,{getAllDoctors, getAppointmentTypes, getAllOpRooms})(AvailableAppointmentsDialog);
