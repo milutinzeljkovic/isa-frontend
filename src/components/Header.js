@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import history from '../history';
 import LoginDialog from './LoginDialog';
 import RegisterDialog from './RegisterDialog';
-import { logout } from '../actions/auth';
+import { logout, me } from '../actions/auth';
 import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
 import AddClinicalCenterAdmin from './ClinicalCenterAdmin/AddClinicalCenterAdmin';
 import AddDiagnose from './ClinicalCenterAdmin/AddDiagnose';
@@ -27,62 +27,66 @@ state = {
   newAppointmentDialog: false
 };
 
-toggleCollapse = () => {
-  this.setState({ isOpen: !this.state.isOpen });
-}
+  componentDidMount(){
+    this.props.me();
+  }
 
-toggleLoginDialog = () => {
+  toggleCollapse = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
+  toggleLoginDialog = () => {
+      this.setState({
+          logInDialog: !this.state.logInDialog
+      });
+  }
+
+  toggleRegisterDialog = () => {
+    
     this.setState({
-        logInDialog: !this.state.logInDialog
+        registerDialog: !this.state.registerDialog
     });
-}
+  }
 
-toggleRegisterDialog = () => {
-   
-  this.setState({
-      registerDialog: !this.state.registerDialog
-  });
-}
+  toggleNewMedStaffDialog = () => {
+    
+    this.setState({
+        newMedStaffDialog: !this.state.newMedStaffDialog
+    });
+  }
 
-toggleNewMedStaffDialog = () => {
-   
-  this.setState({
-      newMedStaffDialog: !this.state.newMedStaffDialog
-  });
-}
+  toggleNewAppointmentDialog = () => {
+    
+    this.setState({
+      newAppointmentDialog: !this.state.newAppointmentDialog
+    });
+  }
 
-toggleNewAppointmentDialog = () => {
-   
-  this.setState({
-    newAppointmentDialog: !this.state.newAppointmentDialog
-  });
-}
+  toggleNewClinicalCenterAdminDialog = () => {
+    
+    this.setState({
+        newClinicalCenterAdminDialog: !this.state.newClinicalCenterAdminDialog
+    });
+  }
 
-toggleNewClinicalCenterAdminDialog = () => {
-   
-  this.setState({
-      newClinicalCenterAdminDialog: !this.state.newClinicalCenterAdminDialog
-  });
-}
+  toggleAddDiagnoseDialog = () => {
+    
+    this.setState({
+      addDiagnoseDialog: !this.state.addDiagnoseDialog
+    });
+  }
 
-toggleAddDiagnoseDialog = () => {
-   
-  this.setState({
-    addDiagnoseDialog: !this.state.addDiagnoseDialog
-  });
-}
-
-toggleAddMedicineDialog = () => {
-   
-  this.setState({
-    addMedicineDialog: !this.state.addMedicineDialog
-  });
-}
+  toggleAddMedicineDialog = () => {
+    
+    this.setState({
+      addMedicineDialog: !this.state.addMedicineDialog
+    });
+  }
 
 
-handleLogoutButtonClick = () => {
-  this.props.logout();
-}
+  handleLogoutButtonClick = () => {
+    this.props.logout();
+  }
 
 renderRight = () => {
   if(this.props.auth.currentUser === undefined ){
@@ -238,16 +242,18 @@ renderLeft = () => {
 render() {
   return (
     <Router history = {history}>
-      <MDBNavbar color="teal" dark expand="md">
-        <MDBNavbarBrand>
-          <strong className="white-text">Clinical center</strong>
-        </MDBNavbarBrand>
-        <MDBNavbarToggler onClick={this.toggleCollapse} />
-        <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-          {this.renderLeft()}
-          {this.renderRight()}
-        </MDBCollapse>
-      </MDBNavbar>
+      <div id = 'header-div'>
+        <MDBNavbar color="teal" dark expand="md">
+          <MDBNavbarBrand>
+            <strong className="white-text">Clinical center</strong>
+          </MDBNavbarBrand>
+          <MDBNavbarToggler onClick={this.toggleCollapse} />
+          <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+            {this.renderLeft()}
+            {this.renderRight()}
+          </MDBCollapse>
+        </MDBNavbar>
+        </div>
       <LoginDialog show={this.state.logInDialog} toggle={this.toggleLoginDialog}  />
       <RegisterDialog show={this.state.registerDialog} toggle={this.toggleRegisterDialog} />
       <AddMedStaffDialog show={this.state.newMedStaffDialog} toggle={this.toggleNewMedStaffDialog} />
@@ -255,8 +261,12 @@ render() {
       <AddDiagnose show={this.state.addDiagnoseDialog} toggle={this.toggleAddDiagnoseDialog} />
       <AddMedicine show={this.state.addMedicineDialog} toggle={this.toggleAddMedicineDialog} />
 
-      <AvailableAppointmentsDialog show={this.state.newAppointmentDialog} toggle={this.toggleNewAppointmentDialog}/>
-      
+      {
+        this.state.newAppointmentDialog ? 
+        <AvailableAppointmentsDialog show={this.state.newAppointmentDialog} toggle={this.toggleNewAppointmentDialog}/>
+        :
+        ''
+      }
     </Router>
     );
   }
@@ -268,4 +278,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {logout})(Header);
+export default connect(mapStateToProps, { logout, me})(Header);

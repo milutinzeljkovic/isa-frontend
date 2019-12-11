@@ -33,8 +33,12 @@
 }
 #clinic-image{
   max-height: 100px;
+
 }
 
+#appointment-search{
+  margin-top: 5%;
+}
 #map-card{
   margin-top: 5%;
 }
