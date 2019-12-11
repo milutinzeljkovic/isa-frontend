@@ -20,7 +20,8 @@ import ChangePassword from './components/ChangePassword';
 import AddDiagnose from './components/ClinicalCenterAdmin/AddDiagnose';
 import AddMedicine from './components/ClinicalCenterAdmin/AddMedicine';
 import AvailableAppointmentsDialog from './components/ClinicAdmin/AvailableAppointmentsDialog';
-
+import WorkingCalendar from './components/WorkingCalendar'
+import PrescriptionsTable from './components/Nurse/PrescriptionsTable';
 class App extends Component {
 
   componentDidMount(){
@@ -47,6 +48,9 @@ class App extends Component {
         <Route path='/medicine/add' exact component = {AddMedicine}/>
 
         <Route path='/add/appointment' exact component = {AvailableAppointmentsDialog}/>
+        <Route path='/calendar' exact component = {WorkingCalendar}/>
+        <Route path='/prescriptions' exact component = {PrescriptionsTable}/>
+
       </Router>
     );
   }
