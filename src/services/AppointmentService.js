@@ -4,11 +4,9 @@ const resource = '/appointment';
 
 class AppointmentService extends Service{
 
-    /*addAppointment(appointment) {
-        return this.getApiClient().post(`${resource1}/add`, appointment);
-    }*/
-
-  
+    addAppointment(appointment) {
+        return this.getApiClient().post(`${resource}/add`, appointment);
+    }
 }
 
 

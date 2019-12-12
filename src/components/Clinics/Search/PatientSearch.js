@@ -10,7 +10,7 @@ class PatientSearch extends Component {
         this.state = {
             name: '',
             last_name: '',
-            patientID: ''
+            ensurance_id: ''
         };
     }
 
@@ -28,13 +28,14 @@ class PatientSearch extends Component {
 
     handlePatientIDChange = (e) => {
         this.setState({
-            patientID: e.target.value
+            ensurance_id: e.target.value
         })
     }
 
     handleOnSubmit = () => {
         const datas = {...this.state};
-        //this.props.searchPatients(datas);
+        console.log(datas);
+        this.props.searchPatients(datas);
         this.props.toggle();
     }
 

@@ -5,18 +5,19 @@ import DateTimePicker from 'react-datetime-picker';
 import { getAllDoctors } from '../../actions/clinicAdmin';
 import {getAppointmentTypes} from '../../actions/appointmentType';
 import { getAllOpRooms } from '../../actions/operatingRoom';
+import { defineAppointment } from '../../actions/appointment';
 import _ from 'loadsh';
 
 class AvailableAppointmentsDialog extends Component {
 
     constructor(props) {
         super(props);
+        let datum = '';
         this.state = {
             doctor: '',
-            facility: '',
+            operations_rooms_id: '',
             price: '',
             date: '',
-            time: '',
             app_type: ''
         };
     }
@@ -35,7 +36,7 @@ class AvailableAppointmentsDialog extends Component {
 
     handleFacilityChange = (e) => {
         this.setState({
-            facility: e.target.value
+            operations_rooms_id: e.target.value
         })
     }
 
@@ -45,15 +46,12 @@ class AvailableAppointmentsDialog extends Component {
         })
     }    
 
-    handleDateChange = (date) => {
+    handleDateChange = (date1) => {
+        this.datum = date1;
+        let datum2 = date1.toISOString().split('.')[0];
+        let datum1 = datum2.replace('T',' ');
         this.setState({
-            date: date 
-        })
-    }
-
-    handleTimeConfirmationChange = (e) => {
-        this.setState({
-            time: e.target.value
+            date: datum1
         })
     }
 
@@ -64,7 +62,10 @@ class AvailableAppointmentsDialog extends Component {
     }
 
     handleOnSubmit = () => {
-        //this.props.defineAppointment(this.state);
+        const datas = {...this.state};
+        console.log(datas);
+
+        this.props.defineAppointment(datas);
         this.props.toggle();
     }
 
@@ -74,7 +75,6 @@ class AvailableAppointmentsDialog extends Component {
             <option key={doctor.user.id} value={doctor.user.id}>{doctor.user.name} {doctor.user.last_name}</option>
           )
         })
-    
     }
 
     renderAppTypeOptions(appointmentTypes){
@@ -87,7 +87,7 @@ class AvailableAppointmentsDialog extends Component {
     }
 
     renderOpRoomOptions(opRooms1){   
-        let opRooms = opRooms1.operationRooms;
+        let opRooms = opRooms1.operatingRooms;
         return _.map(opRooms, opRoom => {
           return(
             <option key={opRoom.id} value={opRoom.id}>{opRoom.name}, {opRoom.number}</option>
@@ -107,7 +107,7 @@ class AvailableAppointmentsDialog extends Component {
                 </select>
                 <label htmlFor="selectDate">Choose a date</label>
                 <div style={{marginBottom:"10px"}}>
-                <DateTimePicker name="selectDate" value={this.state.date} onChange={(e) => this.handleDateChange(e)}/>
+                <DateTimePicker format='yyyy-MM-dd HH:mm:ss' value = { this.datum } name="selectDate" onChange={(e) => this.handleDateChange(e)}/>
                 </div>
                 <label htmlFor="select1">Choose facility</label>
                 <select name="select1" className="browser-default custom-select" onChange={(e) => this.handleFacilityChange(e)}>
@@ -115,7 +115,7 @@ class AvailableAppointmentsDialog extends Component {
                 </select>
                 <label htmlFor="select12">Choose your doctor</label>
                 <select name="select12" className="browser-default custom-select" onChange={(e) => this.handleDoctorChange(e)}>
-                { this.doctors === null ? '' : this.renderDoctorOptions(this.props.clinicAdmin)}
+                { this.props.clinicAdmin === null ? '' : this.renderDoctorOptions(this.props.clinicAdmin)}
                 </select>
                 <MDBInput
                     label="Type the cost of the checkup"
@@ -163,4 +163,4 @@ const mapStateToProps = (state)=> {
 
 
 
-export default connect(mapStateToProps,{getAllDoctors, getAppointmentTypes, getAllOpRooms})(AvailableAppointmentsDialog);
+export default connect(mapStateToProps,{getAllDoctors, getAppointmentTypes, getAllOpRooms, defineAppointment})(AvailableAppointmentsDialog);
