@@ -6,6 +6,9 @@ import LocationService from './LocationService';
 import ClinicService from './ClinicService';
 import MedicineService from './MedicineService';
 import PrescriptionsService from './PrescriptionsService';
+import OperatingRoomService from './OperatingRoomService';
+import AppointmentTypeService from './AppointmentTypeService';
+import AppointmentService from './AppointmentService';
 
 const medicineService = new MedicineService();
 const diagnoseService = new DiagnoseService();
@@ -15,6 +18,9 @@ const patientService = new PatientService();
 const locationService = new LocationService();
 const clinicService = new ClinicService();
 const prescriptionsService = new PrescriptionsService();
+const operatingRoomService = new OperatingRoomService();
+const appointmentTypeService = new AppointmentTypeService();
+const appointmentService = new AppointmentService();
 
 const services = {
     users: usersService,
@@ -24,7 +30,10 @@ const services = {
     clinic: clinicService,
     diagnose: diagnoseService,
     medicine: medicineService,
-    prescriptions: prescriptionsService
+    prescriptions: prescriptionsService,
+    operatingRoom: operatingRoomService,
+    appointmentType: appointmentTypeService,
+    appointments: appointmentService
 };
 
 export const ServiceFactory = {

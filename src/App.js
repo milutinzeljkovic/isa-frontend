@@ -23,6 +23,9 @@ import WorkingCalendar from './components/WorkingCalendar'
 import PrescriptionsTable from './components/Nurse/PrescriptionsTable';
 import PageNotFound from './components/NotFound/PageNotFound';
 import PatientHomePage from './components/HomePage/PatientHomePage';
+import AddOperatingRoom from './components/ClinicAdmin/AddOperatingRoom';
+import AddAppointmentType from './components/ClinicAdmin/AddAppointmentType';
+import PatientSearch from './components/Clinics/Search/PatientSearch';
 
 class App extends Component {
 
@@ -67,6 +70,10 @@ class App extends Component {
             return <PatientHomePage />
           }
         }} /> : ''}
+        <Route path='/operationRoom/add' exact component = {AddOperatingRoom}/>
+        <Route path='/add/appointment' exact component = {AvailableAppointmentsDialog}/>
+        <Route path='/add/appointmentType' exact component = {AddAppointmentType}/>
+        <Route path='/patients/search' exact component = {PatientSearch}/>
       </Router>
     );
   }
