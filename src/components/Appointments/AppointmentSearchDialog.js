@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBCardBody, MDBInput, MDBCardTitle, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBRow, MDBCol, MDBContainer, MDBBtn, MDBIcon} from "mdbreact";
+import { MDBCard, MDBCardBody,  MDBCardTitle, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem,  MDBContainer, MDBBtn} from "mdbreact";
 import DatePicker from "react-datepicker";
 
 class AppointmentSearchDialog extends Component {

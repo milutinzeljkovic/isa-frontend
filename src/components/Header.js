@@ -190,7 +190,7 @@ renderLinks = () => {
             <MDBDropdownMenu>
               <MDBDropdownItem><Link to='/staff'>Patients</Link></MDBDropdownItem>
               <MDBDropdownItem><Link to='/calendar'>Calendar</Link></MDBDropdownItem>
-              <MDBDropdownItem><Link to='/recipes'>Recipes</Link></MDBDropdownItem>
+              <MDBDropdownItem><Link to='/prescriptions'>Prescriptions</Link></MDBDropdownItem>
               <MDBDropdownItem><Link to='/vacation'>Vacation</Link></MDBDropdownItem>
             </MDBDropdownMenu>
           </MDBDropdown>
