@@ -22,13 +22,10 @@ state = {
   registerDialog: false,
   newMedStaffDialog: false,
   newClinicalCenterAdminDialog: false,
-<<<<<<< HEAD
   addDiagnoseDialog: false,
-  addMedicineDialog: false
+  addMedicineDialog: false,
 
-=======
   newAppointmentDialog: false
->>>>>>> 2.3.-medical-staff-profile
 };
 
 toggleCollapse = () => {
@@ -256,13 +253,10 @@ render() {
       <RegisterDialog show={this.state.registerDialog} toggle={this.toggleRegisterDialog} />
       <AddMedStaffDialog show={this.state.newMedStaffDialog} toggle={this.toggleNewMedStaffDialog} />
       <AddClinicalCenterAdmin show={this.state.newClinicalCenterAdminDialog} toggle={this.toggleNewClinicalCenterAdminDialog} />
-<<<<<<< HEAD
       <AddDiagnose show={this.state.addDiagnoseDialog} toggle={this.toggleAddDiagnoseDialog} />
       <AddMedicine show={this.state.addMedicineDialog} toggle={this.toggleAddMedicineDialog} />
 
-=======
       <AvailableAppointmentsDialog show={this.state.newAppointmentDialog} toggle={this.toggleNewAppointmentDialog}/>
->>>>>>> 2.3.-medical-staff-profile
       
     </Router>
     );
