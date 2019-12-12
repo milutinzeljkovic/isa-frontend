@@ -55,7 +55,7 @@ export const changePassword = data => {
     return async dispatch => {
         let response;
         try{
-            response = await usersService.changePassword(data);
+            response =  await usersService.changePassword(data);
         }catch(e){            
            if(e.response.status === 401){
                return dispatch({ type: 'PASSWORD_CHANGE_ERROR', payload: e.response.data.error})
