@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody , MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 import { connect } from 'react-redux';
 import { newAppointmentType } from '../../actions/appointmentType';
+import browserHistory from '../../history';
 
 class AddAppointmentType extends Component {
 
@@ -23,6 +24,7 @@ class AddAppointmentType extends Component {
         const datas = {...this.state};
         this.props.newAppointmentType(datas);
         this.props.toggle();
+        browserHistory.push("/");
     }
 
     renderModalBodyContent = () => {

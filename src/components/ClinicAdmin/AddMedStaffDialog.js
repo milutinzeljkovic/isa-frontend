@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody , MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 import { connect } from 'react-redux';
 import {registerMedStaff} from '../../actions/clinicAdmin';
+import browserHistory from '../../history';
 
 class AddMedStaffDialog extends Component {
 
@@ -93,6 +94,7 @@ class AddMedStaffDialog extends Component {
         console.log(this.props.auth.currentUser.userable_type);
         this.props.registerMedStaff(this.state);
         this.props.toggle();
+        browserHistory.push("/");
     }
 
     renderModalBodyContent = () => {

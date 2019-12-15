@@ -11,6 +11,14 @@ class ClinicAdminService extends Service{
     getAllDoctors(){
         return this.getApiClient().get(`${resource}/doctors`);
     }
+
+    getClinicAdminClinic(){
+        return this.getApiClient().get(`${resource}/clinic`);
+    }
+
+    updateClinic(data){
+        return this.getApiClient().put(`${resource}/clinic/update`, data);
+    }
 }
 
 

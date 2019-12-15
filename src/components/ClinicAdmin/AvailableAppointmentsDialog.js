@@ -6,6 +6,7 @@ import { getAllDoctors } from '../../actions/clinicAdmin';
 import {getAppointmentTypes} from '../../actions/appointmentType';
 import { getAllOpRooms } from '../../actions/operatingRoom';
 import { defineAppointment } from '../../actions/appointment';
+import browserHistory from '../../history';
 import _ from 'loadsh';
 
 class AvailableAppointmentsDialog extends Component {
@@ -67,6 +68,7 @@ class AvailableAppointmentsDialog extends Component {
 
         this.props.defineAppointment(datas);
         this.props.toggle();
+        browserHistory.push("/");
     }
 
     renderDoctorOptions(doctors){   
@@ -103,6 +105,7 @@ class AvailableAppointmentsDialog extends Component {
                 <div className="grey-text">
                 <label htmlFor="selectAppType">Choose appointment type</label>
                 <select name="selectAppType" className="browser-default custom-select" onChange={(e) => this.handleAppTypeChange(e)}>
+                <option disabled defaultValue>Select a appointment type</option>
                 { this.props.appointmentTypes === null ? '' : this.renderAppTypeOptions(this.props.appointmentTypes)}  
                 </select>
                 <label htmlFor="selectDate">Choose a date</label>
@@ -111,10 +114,12 @@ class AvailableAppointmentsDialog extends Component {
                 </div>
                 <label htmlFor="select1">Choose facility</label>
                 <select name="select1" className="browser-default custom-select" onChange={(e) => this.handleFacilityChange(e)}>
+                <option disabled defaultValue>Select a operating room</option>
                 { this.props.operatingRooms === null ? '' : this.renderOpRoomOptions(this.props.operatingRooms)}
                 </select>
                 <label htmlFor="select12">Choose your doctor</label>
                 <select name="select12" className="browser-default custom-select" onChange={(e) => this.handleDoctorChange(e)}>
+                <option disabled defaultValue>Select a doctor</option>
                 { this.props.clinicAdmin === null ? '' : this.renderDoctorOptions(this.props.clinicAdmin)}
                 </select>
                 <MDBInput

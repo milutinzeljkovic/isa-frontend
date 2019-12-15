@@ -68,3 +68,16 @@ export const searchPatients = (data) => {
     }
 }
 
+export const seePatientProfile = (id) => {
+    return async dispatch => {
+        let response;
+        try {
+            response = await patientsService.getPatient(id);
+        }catch(e) {
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+        return dispatch({type: 'GET_ONE_PATIENT', payload:response.data});
+    }
+}

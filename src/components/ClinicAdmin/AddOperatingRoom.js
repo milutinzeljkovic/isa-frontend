@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody , MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 import { connect } from 'react-redux';
 import { newOpRoom } from '../../actions/operatingRoom';
+import browserHistory from '../../history';
 
 class AddOperatingRoom extends Component {
 
@@ -30,6 +31,7 @@ class AddOperatingRoom extends Component {
         const datas = {...this.state};
         this.props.newOpRoom(datas);
         this.props.toggle();
+        browserHistory.push("/");
     }
 
     renderModalBodyContent = () => {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody , MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 import { connect } from 'react-redux';
 import { searchPatients } from '../../../actions/patients';
+import browserHistory from '../../../history';
 
 class PatientSearch extends Component {
 
@@ -32,11 +33,12 @@ class PatientSearch extends Component {
         })
     }
 
-    handleOnSubmit = () => {
+    handleOnSubmit = async () => {
         const datas = {...this.state};
         console.log(datas);
         this.props.searchPatients(datas);
         this.props.toggle();
+        browserHistory.push("/patients/searchResults");
     }
 
     renderModalBodyContent = () => {
@@ -62,7 +64,7 @@ class PatientSearch extends Component {
                     onChange={(e) => this.handleLastNameChange(e)}
                 />
                 <MDBInput
-                    label="Type the patients ID"
+                    label="Type the patients ensurance ID"
                     group
                     type="text"
                     validate
@@ -72,7 +74,7 @@ class PatientSearch extends Component {
                 />
                 </div>
                 <div className="text-center">
-                <MDBBtn onClick = {() => this.handleOnSubmit()} >Add</MDBBtn>
+                <MDBBtn onClick = {() => this.handleOnSubmit()} >Search</MDBBtn>
                 <MDBBtn outline color="danger" onClick = { this.props.toggle }>Close</MDBBtn>
                 </div>
             </form>

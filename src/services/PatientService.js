@@ -26,9 +26,12 @@ class PatientService extends Service{
     }
 
     searchPatients(data){
-        return this.getApiClient().get(`${resource}/search`,data);
+        return this.getApiClient().post(`${resource}/search`, data);
     }
 
+    getPatient(id){
+        return this.getApiClient().get(`${resource}/show/${id}`);
+    }
 }
 
 
