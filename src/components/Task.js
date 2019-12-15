@@ -1,51 +1,46 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBBtn, MDBInput, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import { connect } from 'react-redux';
+import {vacation} from '../actions/auth';
 
 
 class Task extends Component {
    
+    onSubmitHandle = () => {
+        const data = {from: this.props.dateStart, to: this.props.dateEnd }
+        this.props.vacation(data);  
+        this.props.toggle();   
+
+    }
 
     render() {  
         return (
             <MDBContainer>
                 <MDBModal isOpen={this.props.show} toggle={this.props.toggle}>
-                    <MDBModalHeader toggle={this.props.toggle}>Task</MDBModalHeader>
+                    <MDBModalHeader toggle={this.props.toggle}>Vacation</MDBModalHeader>
                     <MDBModalBody>
                         <form onSubmit={() => this.handleSubmit()}>
-                            <MDBInput
-                                size="lg"
-                                label="Title"
-                                group
-                                type="text"
-                                validate
-                                error="wrong"
-                                success="right"
-                            />
-                            <MDBInput 
-                                type="textarea" 
-                                label="Description" 
-                                rows="3" 
-                            />
 
                             <MDBInput
                                 require
                                 size='lg'
-                                type="datetime-local"
+                                type="datetime"
                                 name='start'
-                                label='Start'
+                                label='From'
                                 labelClass='active'
-                                min={this.props.date === ''? '':this.props.date.toISOString().split('.')[0]}
-                                valueDefault={this.props.date === '' ? '':this.props.date.toISOString().split('.')[0]}
+                                disabled
+                                valueDefault={this.props.date === '' ? '':this.props.dateStart}
 
                             />
                             <MDBInput
                                 require
                                 size='lg'
-                                type="datetime-local"
+                                type="datetime"
                                 name='end'
-                                label='End'
+                                label='To'
                                 labelClass='active'
-                                valueDefault={this.props.date === '' ? '':this.props.date.toISOString().split('.')[0]}
+                                disabled
+                                valueDefault={this.props.date === '' ? '':this.props.dateEnd}
 
 
                             />
@@ -54,7 +49,7 @@ class Task extends Component {
                     </MDBModalBody>
                     <MDBModalFooter>
                         <MDBBtn color="primary" onClick={this.props.toggle}>Close</MDBBtn>
-                        <MDBBtn color="success">Add</MDBBtn>
+                        <MDBBtn color="success" onClick = {this.onSubmitHandle}>Add</MDBBtn>
                     </MDBModalFooter>
                 </MDBModal>
             </MDBContainer>
@@ -62,4 +57,4 @@ class Task extends Component {
     }
 }
 
-export default Task;
+export default connect(null, {vacation})(Task);

@@ -60,7 +60,7 @@ class App extends Component {
         <Route path='/diagnose/add' exact component = {AddDiagnose}/>
         <Route path='/medicine/add' exact component = {AddMedicine}/>
 
-        <Route path='/calendar' exact component = {WorkingCalendar}/>
+        <Route path='/vacation' exact component = {WorkingCalendar}/>
         <Route path='/prescriptions' exact component = {PrescriptionsTable}/>
 
         <Route path='/nf' exact component = {PageNotFound} />

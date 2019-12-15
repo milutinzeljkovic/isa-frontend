@@ -11,6 +11,10 @@ class UsersService extends Service{
         return this.getApiClient().post(`${resource}/register`, user);
     }
 
+    vacation(user) {
+        return this.getApiClient().post(`${resource}/vacation`, user);
+    }
+
     fetchCurrentUser() {
         return this.getApiClient().post(`${resource}/me`);
     }
