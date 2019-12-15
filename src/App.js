@@ -26,6 +26,9 @@ import PatientHomePage from './components/HomePage/PatientHomePage';
 import AddOperatingRoom from './components/ClinicAdmin/AddOperatingRoom';
 import AddAppointmentType from './components/ClinicAdmin/AddAppointmentType';
 import PatientSearch from './components/Clinics/Search/PatientSearch';
+import PatientSearchResultsTable from './components/Patients/PatientsSearchResultsTable';
+import AdminsClinicDetails from './components/ClinicAdmin/AdminsClinicDetails';
+import PatientProfileSearch from './components/Patients/PatientProfileSearch';
 
 class App extends Component {
 
@@ -74,6 +77,9 @@ class App extends Component {
         <Route path='/add/appointment' exact component = {AvailableAppointmentsDialog}/>
         <Route path='/add/appointmentType' exact component = {AddAppointmentType}/>
         <Route path='/patients/search' exact component = {PatientSearch}/>
+        <Route path='/patients/searchResults' exact component = {PatientSearchResultsTable}/>
+        <Route path='/get/myClinic' exact component = {AdminsClinicDetails}/>
+        <Route path='/patient/profile' exact component = {PatientProfileSearch}/>
       </Router>
     );
   }
