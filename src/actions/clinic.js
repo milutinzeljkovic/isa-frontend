@@ -13,7 +13,7 @@ export const addClinic = (clinic) =>{
 }
 
 export const searchClinics = (params) => {    
-
+    
     let terms = [];
     if(params !== undefined && params.name !== undefined){
         const c = {
@@ -25,7 +25,7 @@ export const searchClinics = (params) => {
 
     return async dispatch => {
         let response;
-        response = await clinicService.search(terms);
+        response = await clinicService.search(terms);        
         return dispatch({ type: 'FETCH_CLINICS', payload: response.data });
         
     }
@@ -41,5 +41,12 @@ export const fetchDoctors = (clinic) => {
         response = await clinicService.fetchDoctors(clinic);
         return dispatch({ type: 'FETCH_CLINIC_DOCTORS', payload: response.data });
         
+    }
+}
+
+export const rateClinic = (clinic,stars) => {
+    return async dispatch => {
+        let response = await clinicService.rateClinic(clinic,stars);
+        return dispatch({type: 'CLINIC_RATED', payload: response.data});
     }
 }

@@ -6,6 +6,19 @@ export default (state = null, action) => {
             return {...state, selectedClinic: action.payload};
         case 'FETCH_CLINIC_DOCTORS':
             return {...state, clinicDoctors: action.payload };
+        case 'CLINIC_RATED':
+            let clinicIndex;
+            state.all.forEach((clinic,index) => {
+                if(clinic.id === action.payload.id){
+                    clinicIndex = index;
+                }
+            });
+            let newClinics = {...state.all};
+            newClinics[clinicIndex] = action.payload;
+
+            //return {...state, all: newClinics}
+            return state;
+
         case 'APPOINTMENT_RESERVED':
             let doctorIndex;
             let appointmentIndex;
@@ -19,8 +32,6 @@ export default (state = null, action) => {
                     appointmentIndex = index;
             })
 
-            let newState = [...state.clinicDoctors[doctorIndex].appointments];
-            newState.splice(action.appointmentIndex, 1);
             let newClinicDoctors = {...state.clinicDoctors};
             newClinicDoctors[doctorIndex].appointments.splice(appointmentIndex,1);
 

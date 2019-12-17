@@ -27,6 +27,11 @@ class ClinicService extends Service{
         return this.getApiClient().get(`${resource}/doctors/${clinic.id}`);
     }
 
+    //localhost:8000/api/reactions/1?clinic_id=1&stars_count=4.5
+    rateClinic(clinic,stars){
+        return this.getApiClient().post(`/reactions/${clinic}?stars_count=${stars}&clinic_id=${clinic}`);
+    }
+
     
 }
 

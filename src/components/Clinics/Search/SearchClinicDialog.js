@@ -4,7 +4,7 @@ import _ from 'loadsh';
 
 import { MDBCard, MDBListGroup, MDBListGroupItem, MDBBadge } from "mdbreact";
 import ReactStars from 'react-stars'
-import { searchClinics, clinicClick } from '../../../actions/clinic';
+import { searchClinics, clinicClick, rateClinic } from '../../../actions/clinic';
 import { fetchUsersLoction } from '../../../actions/location';
 import GoogleMapUpdater from './GoogleMapUpdater';
 import ClinicDetail from './ClinicDetail';
@@ -12,9 +12,17 @@ import ClinicFilter from './ClinicFIlter';
 
 class SearchClinicDialog extends Component {
 
-    componentWillMount(){
+    ratingChanged = async (newRating,clinic) =>{
+        const res = await this.props.rateClinic(clinic.id,newRating)
         this.props.searchClinics();
+        
+        
+    }
+
+    componentWillMount(){
+        
         this.props.fetchUsersLoction();
+        this.props.searchClinics();
     }
 
     onClinicClickHandle = clinic => {
@@ -23,6 +31,7 @@ class SearchClinicDialog extends Component {
 
     renderClinics(clinics){
         return _.map(clinics, clinic => {
+            const starsValue = clinic.stars_count === null ? 0 : clinic.stars_count;
             return(
                 <MDBListGroupItem 
                     key = {clinic.id}
@@ -38,6 +47,8 @@ class SearchClinicDialog extends Component {
                     <ReactStars
                         count={5}
                         size={24}
+                        onChange={ (newRating) => this.ratingChanged(newRating,clinic)}
+                        value={starsValue}
                         color2={'#ffd700'} />
                 </MDBListGroupItem>
             )
@@ -81,4 +92,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { searchClinics, fetchUsersLoction, clinicClick })(SearchClinicDialog);
+export default connect(mapStateToProps, { searchClinics, fetchUsersLoction, clinicClick, rateClinic })(SearchClinicDialog);
