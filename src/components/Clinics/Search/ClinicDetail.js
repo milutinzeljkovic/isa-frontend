@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCloseIcon, MDBListGroup, MDBListGroupItem, MDBIcon} from 'mdbreact';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCloseIcon, MDBListGroup, MDBListGroupItem, MDBIcon,MDBBadge} from 'mdbreact';
 import { connect } from 'react-redux';
 import _ from 'loadsh';
 import { clinicClick, fetchDoctors } from '../../../actions/clinic';
@@ -63,7 +63,7 @@ class ClinicDetail extends Component {
                         <small className="text-muted">
                             {doctor.address}
                         </small>
-                    <MDBBtn outline color="orange darken-4" onClick = { () => this.onShowAppointmentsClickHandler(doctor)}>{this.state.doctorAppointments === doctor.id ? 'Hide termins ' : 'Show termins '}<i class="far fa-calendar-check"></i></MDBBtn>
+                    <MDBBadge outline tag="a" color="orange darken-4" onClick = { () => this.onShowAppointmentsClickHandler(doctor)}>{this.state.doctorAppointments === doctor.id ? 'Hide termins ' : 'Show termins '}<i class="far fa-calendar-check"></i></MDBBadge>
                     <MDBListGroup>
                     {
                         this.state.doctorAppointments === doctor.id ? 
@@ -93,7 +93,7 @@ class ClinicDetail extends Component {
                         <MDBCardText>
                             {this.props.clinic.address}
                         </MDBCardText>
-                        <MDBBtn color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i class="fas fa-user-md"></i></MDBBtn>
+                        <MDBBadge outline tag="a" color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i class="fas fa-user-md"></i></MDBBadge>
 
                         <MDBListGroup>
                             {this.renderDoctors(this.props.doctors)}

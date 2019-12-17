@@ -21,7 +21,7 @@ import AddMedicine from './components/ClinicalCenterAdmin/AddMedicine';
 import AvailableAppointmentsDialog from './components/ClinicAdmin/AvailableAppointmentsDialog';
 import WorkingCalendar from './components/WorkingCalendar'
 import PrescriptionsTable from './components/Nurse/PrescriptionsTable';
-import PageNotFound from './components/NotFound/PageNotFound';
+//import PageNotFound from './components/NotFound/PageNotFound';
 import PatientHomePage from './components/HomePage/PatientHomePage';
 import AddOperatingRoom from './components/ClinicAdmin/AddOperatingRoom';
 import AddAppointmentType from './components/ClinicAdmin/AddAppointmentType';
@@ -47,7 +47,7 @@ class App extends Component {
           if(this.props.auth !== undefined && this.props.auth.currentUser.userable_type === 'App\\ClinicalCenterAdmin'){
             return <PatientTable />
           }else{
-            return <PageNotFound />
+           // return <PageNotFound />
           }
         }} /> : ''}
         <Route path='/profile' exact render = {()=>{
@@ -68,7 +68,7 @@ class App extends Component {
 
         <Route path='/prescriptions' exact component = {PrescriptionsTable}/>
 
-        <Route path='/nf' exact component = {PageNotFound} />
+        
         <Route path='/add/appointment' exact component = {AvailableAppointmentsDialog}/>
         { this.props.auth.currentUser !==undefined ? <Route path='/home' exact render = {()=>{
           if(this.props.auth !== undefined && this.props.auth.currentUser.userable_type === 'App\\Patient'){
