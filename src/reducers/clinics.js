@@ -16,7 +16,6 @@ export default (state = null, action) => {
             let newClinics = {...state.all};
             newClinics[clinicIndex] = action.payload;
 
-            //return {...state, all: newClinics}
             return state;
 
         case 'APPOINTMENT_RESERVED':

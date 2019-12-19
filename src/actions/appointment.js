@@ -25,3 +25,14 @@ export const reserveAppointment = id => {
         }
     }
 }
+
+export const appointmentHistory = id => {
+    return async dispatch => {
+        try{
+            const response = await appointmentService.appointmentHistory(id);
+            return dispatch({ type: 'APPOINTMENT_HISTORY', payload: response.data})
+        }catch(e){
+
+        }
+    }
+}

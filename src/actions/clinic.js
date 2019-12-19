@@ -50,3 +50,10 @@ export const rateClinic = (clinic,stars) => {
         return dispatch({type: 'CLINIC_RATED', payload: response.data});
     }
 }
+
+export const rateDoctor = (doctor,stars) => {
+    return async dispatch => {
+        let response = await clinicService.rateDoctor(doctor,stars);
+        return dispatch({type: 'DOCTOR_RATED', payload: response.data});
+    }
+}

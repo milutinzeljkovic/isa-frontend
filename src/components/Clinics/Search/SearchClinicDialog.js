@@ -7,6 +7,9 @@ import ReactStars from 'react-stars'
 import { searchClinics, clinicClick, rateClinic } from '../../../actions/clinic';
 import { fetchUsersLoction } from '../../../actions/location';
 import GoogleMapUpdater from './GoogleMapUpdater';
+import { appointmentHistory } from '../../../actions/appointment';
+import { me } from '../../../actions/auth';
+
 import ClinicDetail from './ClinicDetail';
 import ClinicFilter from './ClinicFIlter';
 
@@ -19,10 +22,18 @@ class SearchClinicDialog extends Component {
         
     }
 
-    componentWillMount(){
-        
+    componentWillMount = async() =>{
+        await this.fetchPatientHistory();
         this.props.fetchUsersLoction();
         this.props.searchClinics();
+    }
+
+    fetchPatientHistory = async () => {
+        await this.props.me();
+        if(this.props.currentUser.userable_type === 'App\\Patient'){
+            
+            await this.props.appointmentHistory(this.props.currentUser.userable_id);
+        }
     }
 
     onClinicClickHandle = clinic => {
@@ -30,7 +41,15 @@ class SearchClinicDialog extends Component {
     }
 
     renderClinics(clinics){
+
+        let canRateClinics = [];
+
+        this.props.patientHistory.forEach(app => {
+            canRateClinics.push(app.clinic_id);
+        });
+
         return _.map(clinics, clinic => {
+            const canRate = canRateClinics.includes(clinic.id);           
             const starsValue = clinic.stars_count === null ? 0 : clinic.stars_count;
             return(
                 <MDBListGroupItem 
@@ -47,6 +66,7 @@ class SearchClinicDialog extends Component {
                     <ReactStars
                         count={5}
                         size={24}
+                        edit={canRate}
                         onChange={ (newRating) => this.ratingChanged(newRating,clinic)}
                         value={starsValue}
                         color2={'#ffd700'} />
@@ -88,8 +108,10 @@ class SearchClinicDialog extends Component {
 
 const mapStateToProps = state => {
     return{
-        clinics: state.clinics
+        clinics: state.clinics,
+        currentUser: state.auth.currentUser,
+        patientHistory: state.appointments
     }
 }
 
-export default connect(mapStateToProps, { searchClinics, fetchUsersLoction, clinicClick, rateClinic })(SearchClinicDialog);
+export default connect(mapStateToProps, { searchClinics, fetchUsersLoction, clinicClick, rateClinic, appointmentHistory, me })(SearchClinicDialog);
