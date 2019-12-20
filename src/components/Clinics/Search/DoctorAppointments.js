@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import _ from 'loadsh';
 import { MDBListGroupItem, MDBBtn, MDBBadge } from "mdbreact";
 import { connect } from 'react-redux';
+import {showClinic} from '../../../actions/clinic';
 import AppointmentDetailCheckout from '../../Appointments/AppointmentDetailCheckout';
 
 class DoctorAppointments extends Component {
@@ -115,4 +116,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(DoctorAppointments);
+export default connect(mapStateToProps,{showClinic})(DoctorAppointments);

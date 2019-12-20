@@ -6,6 +6,8 @@ export default (state = null, action) => {
             return {...state, selectedClinic: action.payload};
         case 'FETCH_CLINIC_DOCTORS':
             return {...state, clinicDoctors: action.payload };
+        case 'CLINIC_DETAILS':
+            return {...state, clinicDetails: action.payload};
         case 'CLINIC_RATED':
             let clinicIndex;
             state.all.forEach((clinic,index) => {
@@ -36,6 +38,8 @@ export default (state = null, action) => {
 
             return {...state, clinicDoctors: newClinicDoctors};
 
+        case 'CLINIC_FETCHED': 
+            return {...state, selectedClinic: action.payload};
         default: return state;
     }
 

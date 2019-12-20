@@ -4,7 +4,7 @@ import _ from 'loadsh';
 
 import { MDBCard, MDBListGroup, MDBListGroupItem, MDBBadge } from "mdbreact";
 import ReactStars from 'react-stars'
-import { searchClinics, clinicClick, rateClinic } from '../../../actions/clinic';
+import { searchClinics, rateClinic, showClinic } from '../../../actions/clinic';
 import { fetchUsersLoction } from '../../../actions/location';
 import GoogleMapUpdater from './GoogleMapUpdater';
 import { appointmentHistory } from '../../../actions/appointment';
@@ -16,10 +16,8 @@ import ClinicFilter from './ClinicFIlter';
 class SearchClinicDialog extends Component {
 
     ratingChanged = async (newRating,clinic) =>{
-        const res = await this.props.rateClinic(clinic.id,newRating)
+        await this.props.rateClinic(clinic.id,newRating)
         this.props.searchClinics();
-        
-        
     }
 
     componentWillMount = async() =>{
@@ -30,25 +28,27 @@ class SearchClinicDialog extends Component {
 
     fetchPatientHistory = async () => {
         await this.props.me();
-        if(this.props.currentUser.userable_type === 'App\\Patient'){
-            
+        if(this.props.currentUser !== undefined && this.props.currentUser.userable_type === 'App\\Patient'){
             await this.props.appointmentHistory(this.props.currentUser.userable_id);
+        }else{
+            if(this.props.currentUser === undefined){
+                await this.props.me();
+            }
         }
     }
 
-    onClinicClickHandle = clinic => {
-        this.props.clinicClick(clinic);
+    onClinicClickHandle = async clinic => {   
+        await this.props.showClinic(clinic.id);
     }
 
     renderClinics(clinics){
 
         let canRateClinics = [];
-
         this.props.patientHistory.forEach(app => {
             canRateClinics.push(app.clinic_id);
         });
 
-        return _.map(clinics, clinic => {
+        return _.map(clinics, clinic => {            
             const canRate = canRateClinics.includes(clinic.id);           
             const starsValue = clinic.stars_count === null ? 0 : clinic.stars_count;
             return(
@@ -98,8 +98,6 @@ class SearchClinicDialog extends Component {
                         </MDBCard> 
                             
                     </div>
-                            
-                    
                 </div>
             </div>
         );
@@ -114,4 +112,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { searchClinics, fetchUsersLoction, clinicClick, rateClinic, appointmentHistory, me })(SearchClinicDialog);
+export default connect(mapStateToProps, { searchClinics, fetchUsersLoction, rateClinic, appointmentHistory, me, showClinic })(SearchClinicDialog);

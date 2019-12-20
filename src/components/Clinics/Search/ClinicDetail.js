@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCloseIcon, MDBListGroup, MDBListGroupItem, MDBIcon,MDBBadge} from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCloseIcon, MDBListGroup, MDBListGroupItem, MDBIcon,MDBBadge} from 'mdbreact';
 import { connect } from 'react-redux';
 import { rateDoctor } from '../../../actions/clinic';
 
 import _ from 'loadsh';
+import {showClinic} from '../../../actions/clinic';
+
 import { clinicClick, fetchDoctors } from '../../../actions/clinic';
 import { appointmentHistory } from '../../../actions/appointment';
 import ReactStars from 'react-stars'
@@ -19,8 +21,9 @@ class ClinicDetail extends Component {
         }
     }
 
-    componentWillMount(){
+    componentWillMount(){        
         this.props.fetchDoctors(this.props.clickedClinic);
+        this.props.showClinic(this.props.clickedClinic.id);
         
         if(this.props.currentUser.userable_type === 'App\\Patient'){
             
@@ -149,4 +152,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps,{clinicClick, fetchDoctors, rateDoctor, appointmentHistory})(ClinicDetail);
+export default connect(mapStateToProps,{clinicClick, fetchDoctors, rateDoctor, appointmentHistory, showClinic})(ClinicDetail);

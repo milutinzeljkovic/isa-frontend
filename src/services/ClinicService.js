@@ -11,16 +11,22 @@ class ClinicService extends Service{
     search(terms) {
         let queryParams = '';
         if(terms !== undefined){
+            queryParams += '?';
             terms.forEach(term => {
-                queryParams += '?';
-                queryParams += term.name;
-                queryParams += '=';
-                queryParams += term.value;
-                queryParams += '&';
+                if(term.value !== null){
+                    queryParams += term.name;
+                    queryParams += '=';
+                    queryParams += term.value;
+                    queryParams += '&';
+                }
             });
         }
         
         return this.getApiClient().get(`${resource}${queryParams}`);
+    }
+
+    showClinic(id){
+        return this.getApiClient().get(`${resource}/${id}`);
     }
 
     fetchDoctors(clinic){
