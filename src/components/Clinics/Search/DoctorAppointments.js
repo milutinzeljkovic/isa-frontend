@@ -15,9 +15,9 @@ class DoctorAppointments extends Component {
         }
         
     }
+
     
     onInfoClick = (appointment) => {
-        console.log(appointment);
         
         this.setState({
             showCheckout: true,

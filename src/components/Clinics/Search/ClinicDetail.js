@@ -21,17 +21,17 @@ class ClinicDetail extends Component {
         }
     }
 
-    componentWillMount(){        
-        this.props.fetchDoctors(this.props.clickedClinic);
-        this.props.showClinic(this.props.clickedClinic.id);
+    async componentWillMount(){        
+        await this.props.fetchDoctors(this.props.clickedClinic);
+        await this.props.showClinic(this.props.clickedClinic.id);
         
         if(this.props.currentUser.userable_type === 'App\\Patient'){
+            console.log('fecovanje');
             
-            this.props.appointmentHistory(this.props.currentUser.userable_id);
+            await this.props.appointmentHistory(this.props.currentUser.userable_id);
         }
         
     }
-
 
 
     hancleCloseClick = () => {        
@@ -74,11 +74,15 @@ class ClinicDetail extends Component {
     renderDoctors = (doctors) => {
         if(this.state.showDoctors){
             let canRateDoctors = [];
-
+        
+        try{
             this.props.patientHistory.forEach(app => {
                 canRateDoctors.push(app.doctor_id);
             });
+        }catch(e){
+            console.log('error appointment history', this.props.patientHistory);
             
+        }
 
             
             return _.map(doctors, doctor => {   

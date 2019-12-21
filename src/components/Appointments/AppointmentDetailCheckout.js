@@ -17,7 +17,7 @@ class AppointmentDetailCheckout extends Component {
         this.props.toggle();
     }
 
-    onReserveButtonClick = async () => {
+    onReserveButtonClick = async () => {        
        await this.props.reserveAppointment(this.props.appointment.id);
        this.setState({
            appointmentReserved: true

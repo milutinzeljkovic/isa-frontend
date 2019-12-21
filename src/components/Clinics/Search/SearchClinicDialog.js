@@ -44,10 +44,13 @@ class SearchClinicDialog extends Component {
     renderClinics(clinics){
 
         let canRateClinics = [];
-        this.props.patientHistory.forEach(app => {
-            canRateClinics.push(app.clinic_id);
-        });
-
+        try{
+            this.props.patientHistory.forEach(app => {
+                canRateClinics.push(app.clinic_id);
+            });
+        }catch(e){
+            
+        }
         return _.map(clinics, clinic => {            
             const canRate = canRateClinics.includes(clinic.id);           
             const starsValue = clinic.stars_count === null ? 0 : clinic.stars_count;
