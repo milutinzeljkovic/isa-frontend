@@ -52,6 +52,18 @@ export const registerClinicalCenterAdmin = data => {
     }
 }
 
+export const vacation = data => {
+    return async dispatch => {
+        try{
+             await usersService.vacation(data);
+        }catch(e){            
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+            }
+        }
+    }
+}
+
 export const changePassword = data => {
     return async dispatch => {
         let response;

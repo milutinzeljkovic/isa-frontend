@@ -8,6 +8,10 @@ export default (state = null, action) => {
             return state.filter(val => val.id !== action.payload )
         case 'DECLINE_REGISTRATION':            
             return state.filter(val => val.id !== action.payload )
+        case 'SEARCHEDPATIENTS':
+            return  {...state, searchedPatients: action.payload}
+        case 'GET_ONE_PATIENT':
+            return {...state, selectedPatient: action.payload}
         default: return state;
     }
 

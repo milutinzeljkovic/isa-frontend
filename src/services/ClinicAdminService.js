@@ -1,15 +1,23 @@
 import Service from './Service';
 
-const resource = '/auth';
+const resource = '/clinicAdmin';
 
 class ClinicAdminService extends Service{
 
     registerMedStaff(medStaff) {
-        return this.getApiClient().post(`${resource}/register/staff`, medStaff);
+        return this.getApiClient().post(`/auth/register/staff`, medStaff);
     }
 
     getAllDoctors(){
-        return this.getApiClient().get(`/clinicAdmin/doctors`);
+        return this.getApiClient().get(`${resource}/doctors`);
+    }
+
+    getClinicAdminClinic(){
+        return this.getApiClient().get(`${resource}/clinic`);
+    }
+
+    updateClinic(data){
+        return this.getApiClient().put(`${resource}/clinic/update`, data);
     }
 }
 

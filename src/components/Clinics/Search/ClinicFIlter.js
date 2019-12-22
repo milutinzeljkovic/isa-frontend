@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBCardBody, MDBInput, MDBCardTitle} from "mdbreact";
+import { MDBCard, MDBCardBody, MDBInput, MDBCardTitle, MDBBadge} from "mdbreact";
+
 import {connect} from 'react-redux';
+import ReactStars from 'react-stars'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import _ from 'loadsh';
 import { searchClinics } from '../../../actions/clinic';
+import { getAppointmentTypes } from '../../../actions/appointmentType';
 
 
 class ClinicFIlter extends Component {
@@ -13,24 +16,103 @@ class ClinicFIlter extends Component {
         super(props);
         this.debouncedOnChange = _.debounce(this.debouncedOnChange.bind(this), 500); 
         this.state = {
-            startDate: new Date(),
+            date: null,
+            appointment_type: null,
+            stars: null,
             showFilters: false,
-            currentInput: '',
-            params: {}
+            name: '',
+            params: {
+                name: null,
+                appointment_type: null,
+                date: null,
+                stars: null
+            }
         }
     }
 
-    handleChange = date => {
-        console.log(date.getTime()/1000);
-        
-        this.setState({
-            startDate: date
+    setStateAsync(state) {
+        return new Promise((resolve) => {
+          this.setState(state, resolve)
         });
+    }
+
+    componentWillMount = async () => {
+        await this.props.getAppointmentTypes();
+    }
+
+
+
+    ratingChanged = async newRating => {
+        if(this.state.stars === newRating){
+            await this.setStateAsync({
+                stars: null
+            })
+        }else{
+            await this.setStateAsync({
+                stars: newRating
+            })
+        }
+        let params = {...this.state};
+        this.props.searchClinics(params);
+
+    }
+
+    handleChange = async date => {
+
+        const d = new Date(date.getTime());
+        let formatted_date = d.getFullYear() +'-'+(d.getMonth() +1) +'-'+ d.getDate();
+        
+        if(formatted_date === this.state.date){
+            
+            await this.setStateAsync({
+                date: null
+            })
+        }else{
+            await this.setStateAsync({
+                date: formatted_date
+            })
+        }
+        let params = {...this.state};
+        this.props.searchClinics(params);
+
+
     };
+    onAppointmentTypeClick = async type => {
+        if(type.id === this.state.appointment_type){
+            await this.setStateAsync({
+                appointment_type: null
+            })
+        }
+        else{
+            await this.setStateAsync({
+                appointment_type: type.id
+            })
+
+        }
+        let params = {...this.state};
+        this.props.searchClinics(params);
+        
+    }
+
+    renderAppointmentTypes = (types) => {
+        
+        return _.map(types, type => {            
+            
+            return(
+                <MDBBadge className= 'app_type_badge'
+                    tag="a"
+                    color = {this.state.appointment_type === type.id ? 'default': 'teal'}
+                    onClick = {()=> this.onAppointmentTypeClick(type)}
+                >
+                     {type.name}
+                </MDBBadge>
+            )
+        })
+    }
 
     onChange = event => {
-        this.setState({ currentInput: event.target.value });
-        this.debouncedOnChange(event.target.value); 
+        this.setState({ name: event.target.value });
+        this.debouncedOnChange(event.target.value);
     }
 
     debouncedOnChange(value) {
@@ -38,10 +120,11 @@ class ClinicFIlter extends Component {
     }
 
     searchByName = value => {
-        let params = {...this.state.params};
+        let params = {...this.state};
         params.name = value;
         this.props.searchClinics(params);
     }
+
 
     toggleFilters = () => { 
         this.setState({
@@ -62,7 +145,17 @@ class ClinicFIlter extends Component {
                 <DatePicker
                     selected={this.state.startDate}
                     onChange={this.handleChange}
+                    value={this.state.date === null ? '2019-12-12' : this.state.date}
                 />
+                <ReactStars
+                    count={5}
+                    size={24}
+                    onChange={ (newRating) => this.ratingChanged(newRating)}
+                    value={this.state.stars}
+                    color2={'#ffd700'} />
+                {
+                    this.renderAppointmentTypes(this.props.appointmentTypes)
+                }
             </MDBCardBody>
         )
     }
@@ -89,6 +182,13 @@ class ClinicFIlter extends Component {
             </div>
         );
     }
+
 }
 
-export default connect(null,{searchClinics})(ClinicFIlter);
+const mapStateToProps = state => {
+    return{
+        appointmentTypes: state.appointmentTypes
+    }
+}
+
+export default connect(mapStateToProps,{searchClinics, getAppointmentTypes})(ClinicFIlter);

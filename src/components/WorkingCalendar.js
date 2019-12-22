@@ -3,6 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+
 import Task from './Task';
 
 import "../App.css";
@@ -18,7 +19,9 @@ export default class DemoApp extends React.Component {
 
   state = {
     taskDialog: false,
-    date: ''
+    dateStart: '',
+    dateEnd: ''
+
  
   };
 
@@ -29,6 +32,7 @@ export default class DemoApp extends React.Component {
     }
 
   render() {
+    console.log(Date)
     return (
      <MDBContainer>
   <FullCalendar
@@ -37,37 +41,38 @@ export default class DemoApp extends React.Component {
             header={{
               left: "prev,next today",
               center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
+              right: ""
             }}
+            selectable
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             ref={this.calendarComponentRef}
             weekends={this.state.calendarWeekends}
-            dateClick={this.handleDateClick}
+            selectAllow={ function(info) {
+              const now = new Date();
+              now.setHours(0,0,0,0);
+              if (info.start < now )
+                  return false;
+              return true;          
+           }}
+            select={this.handleSelectClick}
           />
           
-        <Task date={this.state.date} show={this.state.taskDialog} toggle={this.toggleTaskDialog} />
+        <Task dateStart={this.state.dateStart} dateEnd={this.state.dateEnd} show={this.state.taskDialog} toggle={this.toggleTaskDialog} />
      </MDBContainer>
         
     );
   }
 
-  toggleWeekends = () => {
-    this.setState({
-      // update a property
-      calendarWeekends: !this.state.calendarWeekends
-    });
-  };
 
-  gotoPast = () => {
-    let calendarApi = this.calendarComponentRef.current.getApi();
-    calendarApi.gotoDate("2000-01-01"); // call a method on the Calendar object
-  };
 
-  handleDateClick = arg => {
+  handleSelectClick = arg => {     
     this.setState({
-        taskDialog: !this.state.taskDialog,
-        date: arg.date
+      taskDialog: !this.state.taskDialog,
+      dateStart: arg.startStr,
+      dateEnd: arg.endStr
+
     });
-    
-  };
+  }
+
+  
 }

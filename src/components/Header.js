@@ -11,9 +11,12 @@ import AddMedStaffDialog from "./ClinicAdmin/AddMedStaffDialog";
 import AddClinicalCenterAdmin from './ClinicalCenterAdmin/AddClinicalCenterAdmin';
 import AddDiagnose from './ClinicalCenterAdmin/AddDiagnose';
 import AddMedicine from './ClinicalCenterAdmin/AddMedicine';
+import AddOperatingRoom from './ClinicAdmin/AddOperatingRoom';
 
 import { Link } from 'react-router-dom';
 import AvailableAppointmentsDialog from './ClinicAdmin/AvailableAppointmentsDialog';
+import AddAppointmentType from "./ClinicAdmin/AddAppointmentType";
+import PatientSearch from "./Clinics/Search/PatientSearch";
 
 class Header extends Component {
 state = {
@@ -24,7 +27,10 @@ state = {
   newClinicalCenterAdminDialog: false,
   addDiagnoseDialog: false,
   addMedicineDialog: false,
-  newAppointmentDialog: false
+  newAppointmentDialog: false,
+  newOperatingRoomDialog: false,
+  newAppointmentTypeDialog: false,
+  patientSearch: false
 };
 
   componentDidMount(){
@@ -68,6 +74,26 @@ state = {
         newClinicalCenterAdminDialog: !this.state.newClinicalCenterAdminDialog
     });
   }
+toggleNewAppointmentTypeDialog = () => {
+   
+  this.setState({
+    newAppointmentTypeDialog: !this.state.newAppointmentTypeDialog
+  });
+}
+
+togglePatientSearch = () => {
+   
+  this.setState({
+    patientSearch: !this.state.patientSearch
+  });
+}
+
+toggleNewClinicalCenterAdminDialog = () => {
+   
+  this.setState({
+      newClinicalCenterAdminDialog: !this.state.newClinicalCenterAdminDialog
+  });
+}
 
   toggleAddDiagnoseDialog = () => {
     
@@ -82,6 +108,13 @@ state = {
       addMedicineDialog: !this.state.addMedicineDialog
     });
   }
+
+toggleNewOperatingRoomDialog = () => {
+   
+  this.setState({
+    newOperatingRoomDialog: !this.state.newOperatingRoomDialog
+  });
+}
 
 
   handleLogoutButtonClick = () => {
@@ -148,17 +181,42 @@ renderLinks = () => {
     )
   }else if (this.props.auth.currentUser.userable_type === 'App\\Nurse' ){
     return(
+      <div style = {{display:'flex'}}>
       <MDBNavItem>
         <MDBDropdown>
-                <MDBDropdownToggle nav caret>
-                  <span className="mr-2">Menu</span>
-                </MDBDropdownToggle>
-                <MDBDropdownMenu>
-                  <MDBDropdownItem><Link to='/staff'>Patients</Link></MDBDropdownItem>
-                  <MDBDropdownItem><Link to='/calendar'>Calendar</Link></MDBDropdownItem>
-                  <MDBDropdownItem><Link to='/prescriptions'>Prescriptions</Link></MDBDropdownItem>
-                  <MDBDropdownItem><Link to='/vacation'>Vacation</Link></MDBDropdownItem>
-                </MDBDropdownMenu>
+            <MDBDropdownToggle nav caret>
+              <span className="mr-2">Menu</span>
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <MDBDropdownItem><Link to='/staff'>Patients</Link></MDBDropdownItem>
+              <MDBDropdownItem><Link to='/calendar'>Calendar</Link></MDBDropdownItem>
+              <MDBDropdownItem><Link to='/prescriptions'>Prescriptions</Link></MDBDropdownItem>
+              <MDBDropdownItem><Link to='/vacation'>Vacation</Link></MDBDropdownItem>
+            </MDBDropdownMenu>
+          </MDBDropdown>
+      </MDBNavItem>
+      <MDBNavItem>
+        <MDBDropdown>
+          <MDBDropdownToggle nav caret>
+            <span className="mr-2">Search</span>
+          </MDBDropdownToggle>
+          <MDBDropdownMenu>
+            <MDBDropdownItem><Link to='/patients/search' onClick = {this.togglePatientSearch}>Search patients</Link></MDBDropdownItem>
+          </MDBDropdownMenu>
+        </MDBDropdown>
+      </MDBNavItem>
+      </div>
+    )
+  }else if (this.props.auth.currentUser.userable_type === 'App\\Doctor' ){
+    return(
+      <MDBNavItem>
+        <MDBDropdown>
+            <MDBDropdownToggle nav caret>
+              <span className="mr-2">Search</span>
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <MDBDropdownItem><Link to='/patients/search' onClick = {this.togglePatientSearch}>Search patients</Link></MDBDropdownItem>
+            </MDBDropdownMenu>
           </MDBDropdown>
       </MDBNavItem>
     )
@@ -170,8 +228,11 @@ renderLinks = () => {
             <span className="mr-2">Menu</span>
           </MDBDropdownToggle>
           <MDBDropdownMenu>
-            <MDBDropdownItem><Link to='/add/newMedicalStaff' onClick = {this.toggleNewMedStaffDialog}>Add new staff members</Link></MDBDropdownItem>
-            <MDBDropdownItem><Link to='/add/appointment' onClick = {this.toggleNewAppointmentDialog}>Add new available appointment</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/add/newMedicalStaff' onClick = {this.toggleNewMedStaffDialog}>New staff members</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/add/appointment' onClick = {this.toggleNewAppointmentDialog}>New available appointment</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/operationRoom/add' onClick = {this.toggleNewOperatingRoomDialog}>New operation room</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/add/appointmentType' onClick = {this.toggleNewAppointmentTypeDialog}>New appointment type</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/get/myClinic' >My clinic</Link></MDBDropdownItem>
           </MDBDropdownMenu>
         </MDBDropdown>
       </MDBNavItem>
@@ -267,6 +328,10 @@ render() {
         :
         ''
       }
+      <AddOperatingRoom show={this.state.newOperatingRoomDialog} toggle={this.toggleNewOperatingRoomDialog} />
+      {this.state.newAppointmentDialog ? <AvailableAppointmentsDialog show={this.state.newAppointmentDialog} toggle={this.toggleNewAppointmentDialog}/> : ''}
+      {this.state.newAppointmentTypeDialog ? <AddAppointmentType show={this.state.newAppointmentTypeDialog} toggle={this.toggleNewAppointmentTypeDialog}/> : ''}
+      <PatientSearch show={this.state.patientSearch} toggle={this.togglePatientSearch}/>
     </Router>
     );
   }

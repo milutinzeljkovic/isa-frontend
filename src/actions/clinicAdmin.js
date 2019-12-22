@@ -41,3 +41,23 @@ export const getAllDoctors = () => {
         }
     }
 }
+
+export const getClinicAdminClinic = () => {
+    return async dispatch => {
+        let response;
+        response = await clinicAdminService.getClinicAdminClinic();
+        return dispatch({type: 'FETCH_CLINIC_ADMIN_CLINIC', payload: response.data})
+    }
+}
+
+export const updateClinic = (data) => {
+    return async dispatch => {
+        try{
+            await clinicAdminService.updateClinic(data);
+        }catch(e){
+            if(e.response.status === 500){
+                dispatch({ type: 'ERROR', payload: 'error'});
+            }
+        }
+    }
+}
