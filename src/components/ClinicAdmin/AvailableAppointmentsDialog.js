@@ -13,7 +13,6 @@ class AvailableAppointmentsDialog extends Component {
 
     constructor(props) {
         super(props);
-        let datum = '';
         this.state = {
             doctor: '',
             operations_rooms_id: '',
@@ -64,8 +63,6 @@ class AvailableAppointmentsDialog extends Component {
 
     handleOnSubmit = () => {
         const datas = {...this.state};
-        console.log(datas);
-
         this.props.defineAppointment(datas);
         this.props.toggle();
         browserHistory.push("/");

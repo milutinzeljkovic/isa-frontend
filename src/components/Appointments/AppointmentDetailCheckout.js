@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBModal, MDBModalBody , MDBModalHeader, MDBInput, MDBBtn, MDBBadge} from 'mdbreact';
+import { MDBContainer, MDBModal, MDBModalBody , MDBModalHeader, MDBBtn, MDBBadge} from 'mdbreact';
 import { connect } from 'react-redux';
 import {reserveAppointment } from '../../actions/appointment';
 

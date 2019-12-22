@@ -25,10 +25,8 @@ class ClinicDetail extends Component {
         await this.props.fetchDoctors(this.props.clickedClinic);
         await this.props.showClinic(this.props.clickedClinic.id);
         
-        if(this.props.currentUser.userable_type === 'App\\Patient'){
-            console.log('fecovanje');
-            
-            await this.props.appointmentHistory(this.props.currentUser.userable_id);
+        if(this.props.currentUser.userable_type === 'App\\Patient'){            
+           // await this.props.appointmentHistory(this.props.currentUser.userable_id);
         }
         
     }

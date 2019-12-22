@@ -12,10 +12,7 @@ export const addClinic = (clinic) =>{
     } 
 }
 
-export const searchClinics = (params) => {    
-    console.log('search clinics', params);
-    
-    
+export const searchClinics = (params) => {        
     let terms = [];
     if(params !== undefined && params.name !== undefined){
         const c = {

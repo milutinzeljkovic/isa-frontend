@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import _ from 'loadsh';
-import { MDBListGroupItem, MDBBtn, MDBBadge } from "mdbreact";
+import { MDBListGroupItem, MDBBadge } from "mdbreact";
 import { connect } from 'react-redux';
 import {showClinic} from '../../../actions/clinic';
 import AppointmentDetailCheckout from '../../Appointments/AppointmentDetailCheckout';

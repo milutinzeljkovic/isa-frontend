@@ -52,9 +52,8 @@ export const getClinicAdminClinic = () => {
 
 export const updateClinic = (data) => {
     return async dispatch => {
-        let response;
         try{
-            response = await clinicAdminService.updateClinic(data);
+            await clinicAdminService.updateClinic(data);
         }catch(e){
             if(e.response.status === 500){
                 dispatch({ type: 'ERROR', payload: 'error'});

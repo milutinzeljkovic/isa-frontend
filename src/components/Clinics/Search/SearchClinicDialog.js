@@ -15,15 +15,53 @@ import ClinicFilter from './ClinicFIlter';
 
 class SearchClinicDialog extends Component {
 
-    ratingChanged = async (newRating,clinic) =>{
+    constructor(props){
+        super(props);
+        this.state = {
+            clinicsLoaded: false,
+            error: false
+        }
+    }
+
+
+    ratingChanged = async (newRating,clinic) => {
         await this.props.rateClinic(clinic.id,newRating)
         this.props.searchClinics();
     }
 
-    componentWillMount = async() =>{
+
+    clinicsLoaded = () => {
+        return this.props.clinics === null ? false : true;
+    }
+
+    componentWillReceiveProps(){
+        this.setState({
+            clinicsLoaded: true
+        })
+    }
+
+
+    componentWillMount = async () => {
         await this.fetchPatientHistory();
         this.props.fetchUsersLoction();
         this.props.searchClinics();
+        setTimeout(
+            function() {                
+                this.clinicsLoaded() === false ? 
+                this.setState({
+                    error: true,
+                    clinicsLoaded: false
+                })
+                :
+                this.setState({
+                    error: false,
+                    clinicsLoaded: true
+                })
+            }
+            .bind(this),
+            3000
+        );
+
     }
 
     fetchPatientHistory = async () => {
@@ -54,6 +92,7 @@ class SearchClinicDialog extends Component {
         return _.map(clinics, clinic => {            
             const canRate = canRateClinics.includes(clinic.id);           
             const starsValue = clinic.stars_count === null ? 0 : clinic.stars_count;
+            
             return(
                 <MDBListGroupItem 
                     key = {clinic.id}
@@ -61,7 +100,7 @@ class SearchClinicDialog extends Component {
                     <div className="d-flex w-100 justify-content-between" hover href>
                         <h1 className="mb-1"  onClick = {() => this.onClinicClickHandle(clinic)} >{clinic.name}</h1>
                     </div>
-                    <MDBBadge outline tag="a" color="teal" onClick = {() => this.onClinicClickHandle(clinic)}>details <i class="fas fa-info"></i></MDBBadge>
+                    <MDBBadge  tag="a" color="teal" onClick = {() => this.onClinicClickHandle(clinic)}>details <i class="fas fa-info"></i></MDBBadge>
                     <p className="mb-1">{clinic.description}</p>
                     <small className="text-muted">
                     <i class="fas fa-map-marker-alt"></i> {clinic.address}
@@ -81,27 +120,45 @@ class SearchClinicDialog extends Component {
     render() {
         return (
             <div className = 'container'>
-                <div className = 'row'>
-                    <div className="col-xl-8">
-                        {this.props.clinics !== null && this.props.clinics.selectedClinic ===  undefined ? <ClinicFilter/> : ''}
-                        {
-                            this.props.clinics !== null && this.props.clinics.selectedClinic !==  undefined ? 
-                             <ClinicDetail clinic = {this.props.clinics.selectedClinic} />
-                            :
-                            <MDBCard id='clinics-card'>
-                                    <MDBListGroup style={{ width: "100%" }} id = 'clinics_result'>
-                                        { this.props.clinics === null ? '' :  this.renderClinics(this.props.clinics.all)}
-                                    </MDBListGroup>   
-                            </MDBCard>    
-                        }                
+                {
+                    this.state.clinicsLoaded === false && this.state.error === false 
+                        ?
+                        <div className = 'row'>
+                            Loading
+                        </div>
+                        :
+                    this.state.clinicsLoaded 
+                        ? 
+                        <div className = 'row'>
+                            <div className="col-xl-8">
+                                {this.props.clinics !== null && this.props.clinics.selectedClinic ===  undefined 
+                                    ? 
+                                    <ClinicFilter/> 
+                                    : 
+                                    ''}
+                                {
+                                    this.props.clinics !== null && this.props.clinics.selectedClinic !==  undefined ? 
+                                    <ClinicDetail clinic = {this.props.clinics.selectedClinic} />
+                                    :
+                                    <MDBCard id='clinics-card'>
+                                            <MDBListGroup style={{ width: "100%" }} id = 'clinics_result'>
+                                                { this.props.clinics === null ? '' :  this.renderClinics(this.props.clinics.all)}
+                                            </MDBListGroup>   
+                                    </MDBCard>    
+                                }                
+                            </div>
+                            <div className="col-xl-4" id = 'map-div'>
+                                <MDBCard style={{ width: "100%", height: "100%" }} id= 'map-card'>
+                                    { this.props.clinics === null ? ' ' : <GoogleMapUpdater />}
+                                </MDBCard>  
+                            </div>
                     </div>
-                    <div className="col-xl-4" id = 'map-div'>
-                        <MDBCard style={{ width: "100%", height: "100%" }} id= 'map-card'>
-                            { this.props.clinics === null ? ' ' : <GoogleMapUpdater />}
-                        </MDBCard> 
-                            
+                    :
+                    <div className = 'row'>
+                        Connection error
                     </div>
-                </div>
+                        
+                }
             </div>
         );
     }
