@@ -13,12 +13,16 @@ import { getAppointmentTypes } from '../../../actions/appointmentType';
 class ClinicFIlter extends Component {
 
     constructor(props){
+        const date = new Date();
+        const m = date.getMonth() +1;
+        let c = date.getFullYear() + '-' + m + '-' + date.getDate();
         super(props);
         this.debouncedOnChange = _.debounce(this.debouncedOnChange.bind(this), 500); 
         this.state = {
             date: null,
             appointment_type: null,
             stars: null,
+            startDate: c,
             showFilters: false,
             name: '',
             params: {
@@ -28,6 +32,9 @@ class ClinicFIlter extends Component {
                 stars: null
             }
         }
+
+        console.log(this.state);
+        
     }
 
     setStateAsync(state) {
@@ -145,7 +152,8 @@ class ClinicFIlter extends Component {
                 <DatePicker
                     selected={this.state.startDate}
                     onChange={this.handleChange}
-                    value={this.state.date === null ? '2019-12-12' : this.state.date}
+
+                    value={this.state.date === null ? this.state.startDate : this.state.date}
                 />
                 <ReactStars
                     count={5}

@@ -10,6 +10,7 @@ import prescriptionsReducer from './prescriptions';
 import operatingRoomsReducer from './operatingRooms';
 import appointmentTypesReducer from './appointmentTypes';
 import appointmentReducer from './appointmentReducer';
+import doctors from './doctors';
 
 export default combineReducers({
    auth: authReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
    prescriptions: prescriptionsReducer,
    operatingRooms: operatingRoomsReducer,
    appointmentTypes: appointmentTypesReducer,
-   appointments: appointmentReducer
+   appointments: appointmentReducer,
+   doctors
 });

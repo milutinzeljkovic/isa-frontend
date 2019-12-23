@@ -93,3 +93,58 @@ export const showClinic = id => {
 export const clinicDetails = (show) => {    
     return { type: 'CLINIC_DETAILS', payload: show };
 }
+
+export const searchDoctors = (params) => {        
+    let terms = [];
+
+    if(params !== undefined && params.clinic_id !== undefined){
+        const c = {
+            name: 'clinic_id',
+            value: params.clinic_id
+        }
+        terms.push(c);
+    }
+
+    if(params !== undefined && params.name !== undefined){
+        const c = {
+            name: 'name',
+            value: params.name
+        }
+        terms.push(c);
+    }
+
+
+
+    if(params !== undefined && params.date !== undefined){
+        const c = {
+            name: 'date',
+            value: params.date
+        }
+        terms.push(c);
+    }
+
+    if(params !== undefined && params.appointment_type !== undefined){
+        const c = {
+            name: 'appointment_type',
+            value: params.appointment_type
+        }
+        terms.push(c);
+    }
+
+    if(params !== undefined && params.stars !== undefined){
+        const c = {
+            name: 'stars',
+            value: params.stars
+        }
+        terms.push(c);
+    }
+
+    
+
+    return async dispatch => {
+        let response;
+        response = await clinicService.searchDoctors(terms);        
+        return dispatch({ type: 'DOCTORS_SEARCH', payload: response.data });
+        
+    }
+}

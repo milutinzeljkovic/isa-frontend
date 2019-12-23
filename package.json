@@ -29,6 +29,7 @@
     "react-scripts": "3.2.0",
     "react-stars": "^2.2.5",
     "react-table": "^6.10.3",
+    "react-tabs": "^3.1.0",
     "redux": "^4.0.4",
     "redux-form": "^8.2.6",
     "redux-thunk": "^2.3.0"

@@ -25,6 +25,23 @@ class ClinicService extends Service{
         return this.getApiClient().get(`${resource}${queryParams}`);
     }
 
+    searchDoctors(terms) {
+        let queryParams = '';
+        if(terms !== undefined){
+            queryParams += '?';
+            terms.forEach(term => {
+                if(term.value !== null){
+                    queryParams += term.name;
+                    queryParams += '=';
+                    queryParams += term.value;
+                    queryParams += '&';
+                }
+            });
+        }
+        
+        return this.getApiClient().get(`/doctors${queryParams}`);
+    }
+
     showClinic(id){
         return this.getApiClient().get(`${resource}/${id}`);
     }

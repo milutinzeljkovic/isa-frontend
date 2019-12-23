@@ -37,7 +37,6 @@ class Service {
                   return Promise.reject(error);
               }else if(error.response.data.status === 'Token is Expired'){
                   const token = window.localStorage.getItem("token");
-
                   let config = {
                       headers: {
                         Authorization: `bearer ${token}`,

@@ -5,11 +5,12 @@ import { rateDoctor } from '../../../actions/clinic';
 
 import _ from 'loadsh';
 import {showClinic} from '../../../actions/clinic';
-
+import { fetchDoctor } from '../../../actions/doctors'; 
 import { clinicClick, fetchDoctors } from '../../../actions/clinic';
 import { appointmentHistory } from '../../../actions/appointment';
 import ReactStars from 'react-stars'
 import DoctorAppointments from './DoctorAppointments';
+import DoctorFilter from './DoctorFilter';
 
 
 class ClinicDetail extends Component {
@@ -17,7 +18,8 @@ class ClinicDetail extends Component {
     constructor(props){
         super(props);
         this.state = {
-            showDoctors: false
+            showDoctors: false,
+            doctorReady: false
         }
     }
 
@@ -43,7 +45,9 @@ class ClinicDetail extends Component {
         })
     }
 
-    onShowAppointmentsClickHandler = (doctor) => {
+    onShowAppointmentsClickHandler = async (doctor) => {
+        
+
         if(this.state.doctorAppointments === doctor.id){
             this.setState({
                 doctorAppointments: null
@@ -53,7 +57,15 @@ class ClinicDetail extends Component {
         this.setState({
             doctorAppointments: doctor.id
         });
-        
+                
+    }
+
+    componentWillReceiveProps(){
+        if(this.props.doctor !== null){
+            this.setState({
+                doctorReady: true
+            })
+        }
     }
 
     ratingChanged = async (newRating,doctor) =>{
@@ -64,9 +76,21 @@ class ClinicDetail extends Component {
     }
 
     renderAppointments = (appointments) => {
+        console.log('render appointmets call');
+        
         return(
-            <DoctorAppointments appointments  = {appointments}/>
+            <DoctorAppointments appointments = {appointments}/>
         )
+    }
+
+    renderDoctorsFilter = () => {
+        if(this.state.showDoctors && this.props.doctors !== [] ){
+            return (
+                <MDBListGroupItem>
+                    <DoctorFilter clinic_id = {this.props.clickedClinic.id}/>
+                </MDBListGroupItem>
+            )
+        }
     }
 
     renderDoctors = (doctors) => {
@@ -90,9 +114,23 @@ class ClinicDetail extends Component {
                         key = {doctor.id}
                     >
                         <div className="d-flex w-100 justify-content-between">
-                            <h5 className="mb-1">{doctor.user.name + ' ' + doctor.user.last_name}</h5>
+                            {
+                                doctor.user !== undefined
+                                ? 
+                                <h5 className="mb-1">{doctor.user.name + ' ' + doctor.user.last_name}</h5>
+                                :
+                                <h5 className="mb-1">{doctor.name + ' ' + doctor.last_name}</h5>
+
+                            }
                         </div>
-                        <p className="mb-1">{doctor.user.email}</p>
+                        {
+                                doctor.user !== undefined
+                                ? 
+                                <p className="mb-1">{doctor.user.email}</p>
+                                :
+                                <p className="mb-1">{doctor.email}</p>
+
+                            }
                         <small className="text-muted">
                             {doctor.address}
                         </small>
@@ -107,7 +145,8 @@ class ClinicDetail extends Component {
                     <MDBListGroup>
                     {
                         this.state.doctorAppointments === doctor.id ? 
-                        this.renderAppointments(doctor.appointments)
+                        
+                        <DoctorAppointments id ={ doctor.id} />
                         :
                         ''
                     }
@@ -136,6 +175,7 @@ class ClinicDetail extends Component {
                         <MDBBadge outline tag="a" color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i class="fas fa-user-md"></i></MDBBadge>
 
                         <MDBListGroup>
+                            {this.renderDoctorsFilter()}
                             {this.renderDoctors(this.props.doctors)}
                         </MDBListGroup>
                     </MDBCardBody>
@@ -150,8 +190,9 @@ const mapStateToProps = state => {
         clickedClinic: state.clinics.selectedClinic,
         doctors: state.clinics.clinicDoctors,
         currentUser: state.auth.currentUser,
-        patientHistory: state.appointments
+        patientHistory: state.appointments,
+        doctor: state.doctors
     }
 }
 
-export default connect(mapStateToProps,{clinicClick, fetchDoctors, rateDoctor, appointmentHistory, showClinic})(ClinicDetail);
+export default connect(mapStateToProps,{clinicClick, fetchDoctors, rateDoctor, appointmentHistory, showClinic, fetchDoctor})(ClinicDetail);

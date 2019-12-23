@@ -2,8 +2,10 @@ import React, { Component, Fragment } from 'react';
 import _ from 'loadsh';
 import { MDBListGroupItem, MDBBadge } from "mdbreact";
 import { connect } from 'react-redux';
+import { fetchDoctor } from '../../../actions/doctors'; 
 import {showClinic} from '../../../actions/clinic';
 import AppointmentDetailCheckout from '../../Appointments/AppointmentDetailCheckout';
+
 
 class DoctorAppointments extends Component {
 
@@ -32,7 +34,15 @@ class DoctorAppointments extends Component {
         })
     }
 
-    renderAppointments = (appointments) => {
+    componentWillMount = async () =>{ 
+        console.log('cekanje');
+        
+        await this.props.fetchDoctor(this.props.id)
+        console.log(this.props.doctor.selectedDoctor.appointments);
+        
+    }
+
+    renderAppointments = (appointments) => {                
 
         if(appointments.length === 0){
             return(
@@ -102,7 +112,7 @@ class DoctorAppointments extends Component {
     render() {
         return (
             <div>
-                {this.renderAppointments(this.props.appointments)}
+                { this.props.doctor === null ? 'loading' : this.renderAppointments(this.props.doctor.selectedDoctor.appointments)}
                 <AppointmentDetailCheckout show={this.state.showCheckout} toggle={this.toggleCheckoutDialog} appointment = {this.state.appointment} />
 
             </div>
@@ -113,7 +123,9 @@ class DoctorAppointments extends Component {
 const mapStateToProps = state => {
     return{
         appointmentTypes: state.clinics.selectedClinic.appointment_types,
+        doctor: state.doctors
+
     }
 }
 
-export default connect(mapStateToProps,{showClinic})(DoctorAppointments);
+export default connect(mapStateToProps,{showClinic, fetchDoctor})(DoctorAppointments);
