@@ -16,6 +16,8 @@ class ClinicFIlter extends Component {
         const date = new Date();
         const m = date.getMonth() +1;
         let c = date.getFullYear() + '-' + m + '-' + date.getDate();
+        console.log(c);
+        
         super(props);
         this.debouncedOnChange = _.debounce(this.debouncedOnChange.bind(this), 500); 
         this.state = {
@@ -32,18 +34,16 @@ class ClinicFIlter extends Component {
                 stars: null
             }
         }
-
-        console.log(this.state);
         
     }
 
-    setStateAsync(state) {
+    setStateAsync(state) {        
         return new Promise((resolve) => {
           this.setState(state, resolve)
         });
     }
 
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         await this.props.getAppointmentTypes();
     }
 
@@ -85,6 +85,7 @@ class ClinicFIlter extends Component {
 
     };
     onAppointmentTypeClick = async type => {
+        
         if(type.id === this.state.appointment_type){
             await this.setStateAsync({
                 appointment_type: null
@@ -117,8 +118,8 @@ class ClinicFIlter extends Component {
         })
     }
 
-    onChange = event => {
-        this.setState({ name: event.target.value });
+    onChange = event => {        
+        this.setStateAsync({ name: event.target.value });
         this.debouncedOnChange(event.target.value);
     }
 
@@ -133,7 +134,7 @@ class ClinicFIlter extends Component {
     }
 
 
-    toggleFilters = () => { 
+    toggleFilters = () => {         
         this.setState({
             showFilters: !this.state.showFilters
         });
@@ -149,12 +150,12 @@ class ClinicFIlter extends Component {
                     type="text"
                     onChange={(e) => this.onChange(e)}
                 />
-                <DatePicker
-                    selected={this.state.startDate}
+                 <DatePicker
+                    //selected={this.state.startDate}
                     onChange={this.handleChange}
-
+                    dateFormat="yyyy-mm-dd"
                     value={this.state.date === null ? this.state.startDate : this.state.date}
-                />
+                /> 
                 <ReactStars
                     count={5}
                     size={24}
@@ -176,7 +177,7 @@ class ClinicFIlter extends Component {
                 <MDBCard id='filter-card'>
                     <MDBCardBody>
                         <MDBCardTitle>
-                            <a href onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}<i class="fas fa-filter"></i> </a>
+                            <MDBBadge  tag="a" onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}<i class="fas fa-filter"></i> </MDBBadge>
 
                         </MDBCardTitle>
                     </MDBCardBody>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'loadsh';
-
 import { MDBCard, MDBListGroup, MDBListGroupItem, MDBBadge } from "mdbreact";
 import ReactStars from 'react-stars'
 import { searchClinics, rateClinic, showClinic } from '../../../actions/clinic';
@@ -34,14 +33,14 @@ class SearchClinicDialog extends Component {
         return this.props.clinics === null ? false : true;
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps(){        
         this.setState({
             clinicsLoaded: true
         })
     }
 
 
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         await this.fetchPatientHistory();
         this.props.fetchUsersLoction();
         this.props.searchClinics();
