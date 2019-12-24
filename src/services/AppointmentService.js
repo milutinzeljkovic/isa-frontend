@@ -14,6 +14,9 @@ class AppointmentService extends Service{
     appointmentHistory(id) {
         return this.getApiClient().get(`${resource}/history/${id}`);
     }
+    requestAppointment(appointment) {
+        return this.getApiClient().post(`${resource}/request/${appointment.doctorId}?date=${appointment.date}&appointment_type=${appointment.appointment_type}`);
+    }
 }
 
 

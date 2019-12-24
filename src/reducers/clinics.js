@@ -12,17 +12,14 @@ export default (state = null, action) => {
         case 'DOCTOR_FILTER':
             const filter = action.payload;
             let docs = state.clinicDoctorsResult;
-            console.log(filter);
             
             const result = docs.filter(doc => doc.stars_count > filter.minStars);
             if(filter.maxStars !== 0){
                 const res = result.filter(doc => doc.stars_count < filter.maxStars)
-                console.log(res);
                 
                 return {...state, clinicDoctors: res };
 
             }
-            console.log(result);
             
             return {...state, clinicDoctors: result };
         case 'CLINIC_DETAILS':

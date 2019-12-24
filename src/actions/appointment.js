@@ -36,3 +36,14 @@ export const appointmentHistory = id => {
         }
     }
 }
+
+export const requestAppointment = appointment => {
+    return async dispatch => {
+        try{
+            const response = await appointmentService.requestAppointment(appointment);
+            return dispatch({type: 'APPOINTMENT_REQUESTED', payload: response.data})
+        }catch(e){
+            return dispatch({type: 'APPOINTMENT_REQUESTED', payload: 'error'})
+        }
+    }
+}

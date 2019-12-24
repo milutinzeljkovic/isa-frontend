@@ -146,7 +146,7 @@ class ClinicDetail extends Component {
                     {
                         this.state.doctorAppointments === doctor.id ? 
                         
-                        <DoctorAppointments id ={ doctor.id} />
+                        <DoctorAppointments key={doctor.id} id ={ doctor.id} />
                         :
                         ''
                     }

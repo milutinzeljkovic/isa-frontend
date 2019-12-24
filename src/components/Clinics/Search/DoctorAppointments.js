@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchDoctor } from '../../../actions/doctors'; 
 import {showClinic} from '../../../actions/clinic';
 import AppointmentDetailCheckout from '../../Appointments/AppointmentDetailCheckout';
+import AppointmentRequest from '../../Appointments/AppointmentRequest';
 
 
 class DoctorAppointments extends Component {
@@ -13,7 +14,9 @@ class DoctorAppointments extends Component {
         super(props);
         this.state = {
             date: new Date(),
-            showCheckout: false
+            showCheckout: false,
+            showRequestAppointment: false,
+            loaded: false
         }
         
     }
@@ -35,18 +38,28 @@ class DoctorAppointments extends Component {
     }
 
     componentWillMount = async () =>{ 
-        console.log('cekanje');
         
+        this.setState({
+            loaded:false
+        })
         await this.props.fetchDoctor(this.props.id)
-        console.log(this.props.doctor.selectedDoctor.appointments);
-        
+        this.setState({
+            loaded: true
+        })        
+    }
+
+
+    toggleRequestAppointment = () => {
+        this.setState({
+            showRequestAppointment: !this.state.showRequestAppointment
+        })
     }
 
     renderAppointments = (appointments) => {                
 
         if(appointments.length === 0){
             return(
-                'no appointments'
+                <a onClick = {this.toggleRequestAppointment}>no appointments left, click to send reservation request</a>
             )
         }
 
@@ -71,50 +84,61 @@ class DoctorAppointments extends Component {
                     appointmentTypeName = type.name;
             });
 
-            return(
-                <MDBListGroupItem
-                    key = {appointment.id}
-                >  
-                    <Fragment>
-                        
 
-                        <div className="d-flex w-100 justify-content-between">
-                            <h5 color = "teal" className="mb-1" >{appointmentTypeName}</h5>
-                        </div>
-                        <div className="d-flex w-100 justify-content-between">
-                            <h5 className="mb-1" >{dateTime}</h5>
-                        </div>
-                        <div className="d-inline-flex p-2 bd-highlight">
-                            <span className = 'a'>
-                                <h5 className="mb-1" >price: {appointment.price} RSD</h5>
-                            </span>
-                            {
-                                appointment.discount !== null ?
+            if(this.state.loaded){
+                return(
+                    <MDBListGroupItem
+                        key = {appointment.id}
+                    >  
+                        <Fragment>
+                            
+
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 color = "teal" className="mb-1" >{appointmentTypeName}</h5>
+                            </div>
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 className="mb-1" >{dateTime}</h5>
+                            </div>
+                            <div className="d-inline-flex p-2 bd-highlight">
                                 <span className = 'a'>
-                                    <MDBBadge tag="a" color="danger">-{appointment.discount}%</MDBBadge>
-                                    
+                                    <h5 className="mb-1" >price: {appointment.price} RSD</h5>
                                 </span>
-                                :
-                                ''
-                            }   
-                        </div>
-                        <div className="d-flex w-100 justify-content-between">
-                            <MDBBadge tag="a" color="teal" onClick = { () => this.onInfoClick(appointment)}>info <i class="fas fa-info"/></MDBBadge>
+                                {
+                                    appointment.discount !== null ?
+                                    <span className = 'a'>
+                                        <MDBBadge tag="a" color="danger">-{appointment.discount}%</MDBBadge>
+                                        
+                                    </span>
+                                    :
+                                    ''
+                                }   
+                            </div>
+                            <div className="d-flex w-100 justify-content-between">
+                                <MDBBadge tag="a" color="teal" onClick = { () => this.onInfoClick(appointment)}>info <i class="fas fa-info"/></MDBBadge>
 
-                        </div>
+                            </div>
 
-                    </Fragment>
-                </MDBListGroupItem>
-            )
+                        </Fragment>
+                    </MDBListGroupItem>
+            )}else{
+                return(
+                    <MDBListGroupItem>
+                        Loading...
+                    </MDBListGroupItem>
+                )
+            }
+                                
+        
         })
     }
 
     render() {
         return (
             <div>
+                {this.props.doctor === null ? '': this.props.doctor.selectedDoctor.appointments.length !== 0 ? <a onClick = {this.toggleRequestAppointment}>Send custom request</a> : ''}
                 { this.props.doctor === null ? 'loading' : this.renderAppointments(this.props.doctor.selectedDoctor.appointments)}
                 <AppointmentDetailCheckout show={this.state.showCheckout} toggle={this.toggleCheckoutDialog} appointment = {this.state.appointment} />
-
+                <AppointmentRequest show = {this.state.showRequestAppointment} toggle = {this.toggleRequestAppointment} doctor = {this.props.doctor === null ? null : this.props.doctor.selectedDoctor} />
             </div>
         );
     }
