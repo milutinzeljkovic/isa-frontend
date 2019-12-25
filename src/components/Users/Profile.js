@@ -4,231 +4,14 @@ import { MDBTable, MDBTableBody } from 'mdbreact';
 import _ from 'loadsh';
 import { connect } from 'react-redux';
 import { me } from '../../actions/auth';
+import { appointmentHistory } from  '../../actions/appointment';
 import { update } from "../../actions/patients";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import PatientsHistory from './PatientsHistory';
 import MedicalRecord from './MedicalRecord';
+import {getMedicalRecord} from '../../actions/patients';
 
-const apps = [
-    {
-      id: 1,
-      date: "2019-12-19 13:58:33",
-      price: 1000,
-      done: 1,
-      clinic_id: 1,
-      appointment_type_id: 1,
-      operations_room_id: 1,
-      patient_id: 9,
-      created_at: "2019-12-03 09:09:48",
-      updated_at: "2019-12-11 11:05:31",
-      doctor_id: 1,
-      lock_version: 23,
-      appointmentType:{
-        id: 1,
-        name: "pregled grla",
-        created_at: "2019-12-03 09:03:07",
-        updated_at: "2019-12-03 09:03:07",
-      },
-      operationsRoom:{
-        id: 1,
-        number: 1,
-        name: "sala za preglede opste prakse",
-        clinic_id: 1,
-        created_at: "2019-12-16 09:48:33",
-        updated_at: "2019-12-16 09:48:33",
-        reserved: 0,
-      },
-    },
-    {
-        id: 2,
-        date: "2019-12-19 13:58:33",
-        price: 1000,
-        done: 1,
-        clinic_id: 1,
-        appointment_type_id: 1,
-        operations_room_id: 1,
-        patient_id: 9,
-        created_at: "2019-12-03 09:09:48",
-        updated_at: "2019-12-11 11:05:31",
-        doctor_id: 1,
-        lock_version: 23,
-        appointmentType:{
-            id: 1,
-            name: "pregled grla",
-            created_at: "2019-12-03 09:03:07",
-            updated_at: "2019-12-03 09:03:07",
-          },
-          operationsRoom:{
-            id: 1,
-            number: 1,
-            name: "sala za preglede opste prakse",
-            clinic_id: 1,
-            created_at: "2019-12-16 09:48:33",
-            updated_at: "2019-12-16 09:48:33",
-            reserved: 0,
-          },
-      },
-      {
-        id: 3,
-        date: "2019-12-19 13:58:33",
-        price: 1000,
-        done: 1,
-        clinic_id: 1,
-        appointment_type_id: 1,
-        operations_room_id: 1,
-        patient_id: 9,
-        created_at: "2019-12-03 09:09:48",
-        updated_at: "2019-12-11 11:05:31",
-        doctor_id: 1,
-        lock_version: 23,
-        appointmentType:{
-            id: 1,
-            name: "pregled grla",
-            created_at: "2019-12-03 09:03:07",
-            updated_at: "2019-12-03 09:03:07",
-          },
-          operationsRoom:{
-            id: 1,
-            number: 1,
-            name: "sala za preglede opste prakse",
-            clinic_id: 1,
-            created_at: "2019-12-16 09:48:33",
-            updated_at: "2019-12-16 09:48:33",
-            reserved: 0,
-          },
-      }];
-
-const medicalRecord = {
-    id: 1,
-    patient_id: 2,
-    created_at: "2019-12-11 15:41:25",
-    updated_at: "2019-12-11 15:41:25",
-    medicalReports: {
-        all: [
-          {
-            id: 1,
-            created_at: "2019-12-11 15:44:20",
-            updated_at: "2019-12-11 15:46:01",
-            medical_record_id: 1,
-            diagnose_id: 1,
-            information: null,
-            diagnose: {
-                id: 1,
-                name: "sore throat",
-                description: "patient has red sored throat",
-                created_at: "2019-12-11 15:43:22",
-                updated_at: "2019-12-11 15:43:22",
-                clinical_center_id: null,
-              },
-            doctor: {
-                id: 1,
-                created_at: "2019-11-25 15:28:10",
-                updated_at: "2019-12-20 15:28:41",
-                clinic_id: 1,
-                stars_count: "2.5",
-                user:  {
-                    id: 15,
-                    name: "miki",
-                    email: "miki@predator.rs",
-                    created_at: "2019-12-02 16:32:14",
-                    updated_at: "2019-12-02 16:32:14",
-                    ensurance_id: "123123",
-                    phone_number: "1239812",
-                    last_name: "predator",
-                    address: "asjldh",
-                    city: "jsalda",
-                    state: "jasdh",
-                    userable_id: 2,
-                    userable_type: "App\Doctor",
-                    has_loggedin: 0,
-                  },
-              },
-            prescriptions: {
-                all: [
-                  {
-                    id: 1,
-                    medical_report_id: 1,
-                    medicine_id: 2,
-                    info: "3x na dan",
-                    created_at: "2019-12-11 15:53:55",
-                    updated_at: "2019-12-11 16:01:39",
-                    medicine:{
-                        id: 2,
-                        name: "novi lek",
-                        created_at: "2019-12-05 12:07:54",
-                        updated_at: "2019-12-05 12:07:54",
-                      },
-                    nurse: {
-                        id: 1,
-                        created_at: "2019-11-25 15:29:24",
-                        updated_at: "2019-11-25 15:32:56",
-                        clinic_id: 1,
-                        user:{
-                            id: 11,
-                            name: "nurse",
-                            email: "nurse@nurse.rs",
-                            created_at: "2019-11-25 15:29:24",
-                            updated_at: "2019-12-10 13:22:25",
-                            ensurance_id: "9809808",
-                            phone_number: "91238120",
-                            last_name: "nurse",
-                            address: "saidjaslk",
-                            city: "novi sad",
-                            state: "sersf",
-                            userable_id: 1,
-                            userable_type: "App\Nurse",
-                            has_loggedin: 1,
-                          },
-                      },
-                    nurse_id: null,
-                  },
-                ],
-              },
-          },
-        ],
-      },
-    medicalDatas: {
-      all: [
-        {
-          id: 1,
-          name: "weight",
-          unit: "kg",
-          created_at: "2019-12-22 13:24:41",
-          updated_at: "2019-12-22 13:24:56",
-          medical_data_medical_record:{
-            medical_record_id: 1,
-            medical_data_id: 1,
-            value: "80",
-          },
-        },
-        {
-          id: 2,
-          name: "height",
-          unit: "kg",
-          created_at: "2019-12-22 13:25:37",
-          updated_at: "2019-12-22 13:25:37",
-          medical_data_medical_record:{
-            medical_record_id: 1,
-            medical_data_id: 2,
-            value: "180",
-          },
-        },
-        {
-          id: 3,
-          name: "blood group",
-          unit: null,
-          created_at: "2019-12-22 13:26:22",
-          updated_at: "2019-12-22 13:26:22",
-          medical_data_medical_record: {
-            medical_record_id: 1,
-            medical_data_id: 3,
-            value: "0",
-          },
-        },
-      ],
-    },
-  }
 
 
 
@@ -260,8 +43,11 @@ class Profile extends Component {
         
     }
 
-    componentDidMount(){
-        this.props.me();
+    componentDidMount = async () => {
+        const res = await this.props.me();        
+        await this.props.getMedicalRecord(res.payload.userable_id);
+        await this.props.appointmentHistory(res.payload.userable_id);
+        
     }
 
     onSubmitClick = async () => {
@@ -350,7 +136,7 @@ class Profile extends Component {
     }
 
     renderContent = () => {
-        if(this.props.user === undefined){
+        if(this.props.user === undefined || this.props.patients === null){
             return (
                 <div>
                     Loading
@@ -390,10 +176,10 @@ class Profile extends Component {
                                 {this.state.editMode ? <MDBBtn gradient="blue"  onClick = {this.onSubmitClick}>Submit</MDBBtn> : ''}
                             </TabPanel>
                             <TabPanel>
-                                <PatientsHistory appointments = {apps}/>
+                                <PatientsHistory appointments = {this.props.appointmentsHistory}/>
                             </TabPanel>
                             <TabPanel>
-                                <MedicalRecord medicalRecord = {medicalRecord} />
+                                <MedicalRecord medicalRecord = {this.props.patients.medicalRecord} />
                             </TabPanel>
                         </Tabs>
 
@@ -415,8 +201,10 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
     return{
-        user: state.auth.currentUser
+        user: state.auth.currentUser,
+        patients: state.patients,
+        appointmentsHistory: state.appointments
     }
 };
 
-export default connect(mapStateToProps, {me, update})(Profile);
+export default connect(mapStateToProps, {me, update, getMedicalRecord, appointmentHistory})(Profile);

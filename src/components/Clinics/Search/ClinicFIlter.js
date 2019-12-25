@@ -108,6 +108,7 @@ class ClinicFIlter extends Component {
             
             return(
                 <MDBBadge className= 'app_type_badge'
+                    key = {type.id}
                     tag="a"
                     color = {this.state.appointment_type === type.id ? 'default': 'teal'}
                     onClick = {()=> this.onAppointmentTypeClick(type)}
@@ -151,7 +152,6 @@ class ClinicFIlter extends Component {
                     onChange={(e) => this.onChange(e)}
                 />
                  <DatePicker
-                    //selected={this.state.startDate}
                     onChange={this.handleChange}
                     dateFormat="yyyy-mm-dd"
                     value={this.state.date === null ? this.state.startDate : this.state.date}
@@ -177,7 +177,7 @@ class ClinicFIlter extends Component {
                 <MDBCard id='filter-card'>
                     <MDBCardBody>
                         <MDBCardTitle>
-                            <MDBBadge  tag="a" onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}<i class="fas fa-filter"></i> </MDBBadge>
+                            <MDBBadge  tag="a" onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}<i className="fas fa-filter"></i> </MDBBadge>
 
                         </MDBCardTitle>
                     </MDBCardBody>

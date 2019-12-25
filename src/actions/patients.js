@@ -81,3 +81,17 @@ export const seePatientProfile = (id) => {
         return dispatch({type: 'GET_ONE_PATIENT', payload:response.data});
     }
 }
+
+export const getMedicalRecord = id => {
+    return async dispatch => {
+        let response;
+        try {
+            response = await patientsService.getMedicalRecord(id);
+        }catch(e) {
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+        return dispatch({type: 'MEDICAL_RECORD_FETCHED', payload:response.data});
+    }
+}

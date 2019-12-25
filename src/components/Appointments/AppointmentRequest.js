@@ -9,8 +9,6 @@ import _ from 'loadsh';
 class AppointmentRequest extends Component {
 
     constructor(props){
-        const date = new Date();
-        const m = date.getMonth() +1;
         let c = '2019-01-01 00:00:00';
         super(props);
         this.state = {

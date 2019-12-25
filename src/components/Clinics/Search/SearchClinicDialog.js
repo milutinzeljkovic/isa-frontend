@@ -96,20 +96,20 @@ class SearchClinicDialog extends Component {
                 <MDBListGroupItem 
                     key = {clinic.id}
                 >  
-                    <div className="d-flex w-100 justify-content-between" hover href>
+                    <div className="d-flex w-100 justify-content-between">
                         <h1 className="mb-1"  onClick = {() => this.onClinicClickHandle(clinic)} >{clinic.name}</h1>
                     </div>
-                    <MDBBadge  tag="a" color="teal" onClick = {() => this.onClinicClickHandle(clinic)}>details <i class="fas fa-info"></i></MDBBadge>
+                    <MDBBadge  tag="a" color="teal" onClick = {() => this.onClinicClickHandle(clinic)}>details <i className="fas fa-info"></i></MDBBadge>
                     <p className="mb-1">{clinic.description}</p>
                     <small className="text-muted">
-                    <i class="fas fa-map-marker-alt"></i> {clinic.address}
+                    <i className="fas fa-map-marker-alt"></i> {clinic.address}
                     </small>
                     <ReactStars
                         count={5}
                         size={24}
                         edit={canRate}
                         onChange={ (newRating) => this.ratingChanged(newRating,clinic)}
-                        value={starsValue}
+                        value={parseInt(starsValue)}
                         color2={'#ffd700'} />
                 </MDBListGroupItem>
             )

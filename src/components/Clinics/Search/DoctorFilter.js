@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBCardBody, MDBInput, MDBCardTitle, MDBBadge} from "mdbreact";
+import {  MDBInput, MDBBadge} from "mdbreact";
 import ReactStars from 'react-stars'
 import DatePicker from "react-datepicker";
 import { searchDoctors } from '../../../actions/clinic';
@@ -163,6 +163,7 @@ class DoctorFilter extends Component {
 
                     <TabPanel>
                         <table>
+                        <tbody>
                         <tr>
                             <td>                
                                 <MDBInput
@@ -197,6 +198,7 @@ class DoctorFilter extends Component {
                                     color2={'#ffd700'} />
                             </td>
                         </tr>
+                        </tbody>
                         </table>
                     </TabPanel>
                     <TabPanel>
