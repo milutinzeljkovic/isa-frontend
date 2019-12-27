@@ -30,13 +30,13 @@ class Profile extends Component {
         if (prevProps.user !== this.props.user) {
             if(this.props.user !== undefined){                
                 this.setState({
-                    name: this.props.user.name,
-                    last_name: this.props.user.last_name,
-                    email: this.props.user.email,
-                    address: this.props.user.address,
-                    city: this.props.user.city,
-                    state: this.props.user.state,
-                    ensurance_id: this.props.user.ensurance_id
+                    name: this.props.user === undefined ? '' : this.props.user.name,
+                    last_name: this.props.user === undefined ? '' : this.props.user.last_name,
+                    email: this.props.user === undefined ? '' : this.props.user.email,
+                    address: this.props.user === undefined ? '' : this.props.user.address,
+                    city: this.props.user === undefined ? '' : this.props.user.city,
+                    state: this.props.user === undefined ? '' : this.props.user.state,
+                    ensurance_id: this.props.user === undefined ? '' : this.props.user.ensurance_id
                 })
             }
         }

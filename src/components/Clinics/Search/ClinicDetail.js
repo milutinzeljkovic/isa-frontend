@@ -139,9 +139,9 @@ class ClinicDetail extends Component {
                             size={24}
                             edit={canRate}
                             onChange={ (newRating) => this.ratingChanged(newRating,doctor)}
-                            value={doctor.stars_count === null ? 0 : doctor.stars_count}
+                            value={doctor.stars_count === null ? 0 : parseInt(doctor.stars_count)}
                             color2={'#ffd700'} />
-                    <MDBBadge outline tag="a" color="orange darken-4" onClick = { () => this.onShowAppointmentsClickHandler(doctor)}>{this.state.doctorAppointments === doctor.id ? 'Hide termins ' : 'Show termins '}<i class="far fa-calendar-check"></i></MDBBadge>
+                    <MDBBadge tag="a" color="orange darken-4" onClick = { () => this.onShowAppointmentsClickHandler(doctor)}>{this.state.doctorAppointments === doctor.id ? 'Hide termins ' : 'Show termins '}<i className="far fa-calendar-check"></i></MDBBadge>
                     <MDBListGroup>
                     {
                         this.state.doctorAppointments === doctor.id ? 
@@ -172,7 +172,7 @@ class ClinicDetail extends Component {
                         <MDBCardText>
                             {this.props.clinic.address}
                         </MDBCardText>
-                        <MDBBadge outline tag="a" color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i class="fas fa-user-md"></i></MDBBadge>
+                        <MDBBadge tag="a" color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i className="fas fa-user-md"></i></MDBBadge>
 
                         <MDBListGroup>
                             {this.renderDoctorsFilter()}

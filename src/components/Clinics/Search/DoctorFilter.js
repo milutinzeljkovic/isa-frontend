@@ -141,7 +141,7 @@ class DoctorFilter extends Component {
         return _.map(types, type => {            
             
             return(
-                <MDBBadge className= 'app_type_badge'
+                <MDBBadge className= 'app_type_badge' key = {type.id}
                     tag="a"
                     color = {this.state.appointment_type === type.id ? 'default': 'teal'}
                     onClick = {()=> this.onAppointmentTypeClick(type)}
@@ -203,6 +203,7 @@ class DoctorFilter extends Component {
                     </TabPanel>
                     <TabPanel>
                         <table>
+                            <tbody>
                             <tr>
                                 <td>
                                     min: 
@@ -225,6 +226,7 @@ class DoctorFilter extends Component {
                                     color2={'#ffd700'} />
                                 </td>
                             </tr>
+                            </tbody>
                         </table>
                     </TabPanel>
                 </Tabs>

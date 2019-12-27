@@ -63,6 +63,7 @@ class AppointmentRequest extends Component {
             
             return(
                 <MDBBadge className= 'app_type_badge'
+                    key = {type.id}
                     tag="a"
                     color = {this.state.appointment_type === type.id ? 'danger': 'teal'}
                     onClick = {()=> this.onAppointmentTypeClick(type)}
@@ -150,7 +151,7 @@ class AppointmentRequest extends Component {
         if(this.state.doctorOnVacation || this.state.doctorNotFree){
             return(
                 <div>
-                    <p>Could not reserve that date, Doctor is busy <a onClick = {this.resetState}>pick another time</a></p>
+                    <p>Could not reserve that date, Doctor is busy <a href onClick = {this.resetState}>pick another time</a></p>
                 </div>
             )
         }else{

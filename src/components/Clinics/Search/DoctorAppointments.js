@@ -59,7 +59,7 @@ class DoctorAppointments extends Component {
 
         if(appointments.length === 0){
             return(
-                <a onClick = {this.toggleRequestAppointment}>no appointments left, click to send reservation request</a>
+                <a  href onClick = {this.toggleRequestAppointment}>no appointments left, click to send reservation request</a>
             )
         }
 
@@ -114,7 +114,7 @@ class DoctorAppointments extends Component {
                                 }   
                             </div>
                             <div className="d-flex w-100 justify-content-between">
-                                <MDBBadge tag="a" color="teal" onClick = { () => this.onInfoClick(appointment)}>info <i class="fas fa-info"/></MDBBadge>
+                                <MDBBadge tag="a" color="teal" onClick = { () => this.onInfoClick(appointment)}>info <i className="fas fa-info"/></MDBBadge>
 
                             </div>
 
@@ -122,7 +122,7 @@ class DoctorAppointments extends Component {
                     </MDBListGroupItem>
             )}else{
                 return(
-                    <MDBListGroupItem>
+                    <MDBListGroupItem key={1}>
                         Loading...
                     </MDBListGroupItem>
                 )
@@ -135,7 +135,7 @@ class DoctorAppointments extends Component {
     render() {
         return (
             <div>
-                {this.props.doctor === null ? '': this.props.doctor.selectedDoctor.appointments.length !== 0 ? <a onClick = {this.toggleRequestAppointment}>Send custom request</a> : ''}
+                {this.props.doctor === null ? '': this.props.doctor.selectedDoctor.appointments.length !== 0 ? <a href onClick = {this.toggleRequestAppointment}>Send custom request</a> : ''}
                 { this.props.doctor === null ? 'loading' : this.renderAppointments(this.props.doctor.selectedDoctor.appointments)}
                 <AppointmentDetailCheckout show={this.state.showCheckout} toggle={this.toggleCheckoutDialog} appointment = {this.state.appointment} />
                 <AppointmentRequest show = {this.state.showRequestAppointment} toggle = {this.toggleRequestAppointment} doctor = {this.props.doctor === null ? null : this.props.doctor.selectedDoctor} />
