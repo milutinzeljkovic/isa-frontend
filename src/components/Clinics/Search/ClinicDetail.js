@@ -75,9 +75,7 @@ class ClinicDetail extends Component {
         
     }
 
-    renderAppointments = (appointments) => {
-        console.log('render appointmets call');
-        
+    renderAppointments = (appointments) => {        
         return(
             <DoctorAppointments appointments = {appointments}/>
         )
@@ -86,9 +84,9 @@ class ClinicDetail extends Component {
     renderDoctorsFilter = () => {
         if(this.state.showDoctors && this.props.doctors !== [] ){
             return (
-                <MDBListGroupItem>
+                <div>
                     <DoctorFilter clinic_id = {this.props.clickedClinic.id}/>
-                </MDBListGroupItem>
+                </div>
             )
         }
     }
@@ -102,14 +100,15 @@ class ClinicDetail extends Component {
                 canRateDoctors.push(app.doctor_id);
             });
         }catch(e){
-            console.log('error appointment history', this.props.patientHistory);
             
         }
 
             
-            return _.map(doctors, doctor => {   
+            return _.map(doctors, (doctor,index) => {   
                 const canRate = canRateDoctors.includes(doctor.id);           
                 return(
+                    <MDBCard id ={ index === 0 ? 'doctor-card-0':  'doctor-card'} key = {doctor.id}>
+
                     <MDBListGroupItem 
                         key = {doctor.id}
                     >
@@ -126,11 +125,19 @@ class ClinicDetail extends Component {
                         {
                                 doctor.user !== undefined
                                 ? 
-                                <p className="mb-1">{doctor.user.email}</p>
+                                <div style={{ display: "inline" }}>
+                                    <p className="mb-1">
+                                        {doctor.user.email}
+                                    {
+                                        canRate ? <MDBBadge tag="a" style={{ margin: "1%" }} key = {'doc'} color="danger">had appointment</MDBBadge> : ''
+                                    }
+                                    </p>
+                
+                                </div>
                                 :
-                                <p className="mb-1">{doctor.email}</p>
-
-                            }
+                                ''
+                            
+                        }
                         <small className="text-muted">
                             {doctor.address}
                         </small>
@@ -141,6 +148,7 @@ class ClinicDetail extends Component {
                             onChange={ (newRating) => this.ratingChanged(newRating,doctor)}
                             value={doctor.stars_count === null ? 0 : parseInt(doctor.stars_count)}
                             color2={'#ffd700'} />
+                    
                     <MDBBadge tag="a" color="orange darken-4" onClick = { () => this.onShowAppointmentsClickHandler(doctor)}>{this.state.doctorAppointments === doctor.id ? 'Hide termins ' : 'Show termins '}<i className="far fa-calendar-check"></i></MDBBadge>
                     <MDBListGroup>
                     {
@@ -152,6 +160,7 @@ class ClinicDetail extends Component {
                     }
                     </MDBListGroup>
                     </MDBListGroupItem>
+                    </MDBCard>
                 )
             })
         }
@@ -173,11 +182,12 @@ class ClinicDetail extends Component {
                             {this.props.clinic.address}
                         </MDBCardText>
                         <MDBBadge tag="a" color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i className="fas fa-user-md"></i></MDBBadge>
-
-                        <MDBListGroup>
+                        <div>
                             {this.renderDoctorsFilter()}
+                        </div>
+                        <div>
                             {this.renderDoctors(this.props.doctors)}
-                        </MDBListGroup>
+                        </div>
                     </MDBCardBody>
                 </MDBCard>
             </div>

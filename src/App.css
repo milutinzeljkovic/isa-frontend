@@ -17,6 +17,12 @@
   color: white;
 }
 
+#clinic-card{
+  margin-top: 1%;
+}
+
+#doctor-card{
+}
 .app_type_badge{
   margin-left: 2%;
 }

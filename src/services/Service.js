@@ -1,6 +1,6 @@
 import axios from 'axios';
 import browserHistory from '../history';
-const baseDomain = 'http://localhost:8000';
+const baseDomain = process.env.REACT_APP_ENV === 'DEV' ? process.env.REACT_APP_BACKEND_URL_DEV : process.env.REACT_APP_BACKEND_URL_PROD;
 const baseURL = `${baseDomain}/api`;
 
 
@@ -8,7 +8,7 @@ class Service {
     constructor(){
         this.client = axios.create({
             baseURL
-        })
+        })        
         this.setInterceptor();
         this.setResponseInterceptor();
     }

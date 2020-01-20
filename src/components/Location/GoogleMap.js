@@ -36,7 +36,6 @@ class GoogleMap extends Component {
   }
 
   renderView() {
-    console.log(this.props.selectedLocation);
     if(this.props.selectedLocation === null) {
       return (
         <Fragment>

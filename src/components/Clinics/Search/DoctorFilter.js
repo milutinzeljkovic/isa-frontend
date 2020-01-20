@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  MDBInput, MDBBadge} from "mdbreact";
+import {  MDBInput, MDBBadge, MDBCard, MDBCardBody} from "mdbreact";
 import ReactStars from 'react-stars'
 import DatePicker from "react-datepicker";
 import { searchDoctors } from '../../../actions/clinic';
@@ -154,13 +154,14 @@ class DoctorFilter extends Component {
 
     render() {
         return (
-            <div>
+            <MDBCard>
+
                 <Tabs>
                     <TabList>
                         <Tab>Search</Tab>
                         <Tab>Filters</Tab>
                     </TabList>
-
+                <MDBCardBody>
                     <TabPanel>
                         <table>
                         <tbody>
@@ -229,8 +230,9 @@ class DoctorFilter extends Component {
                             </tbody>
                         </table>
                     </TabPanel>
+                    </MDBCardBody>
                 </Tabs>
-            </div>
+                </MDBCard>
         );
     }
 }

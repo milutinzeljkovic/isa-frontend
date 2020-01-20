@@ -63,7 +63,7 @@ class DoctorAppointments extends Component {
             )
         }
 
-        return _.map(appointments, appointment => {
+        return _.map(appointments, (appointment, index) => {
             const arr = appointment.date.split(' ');
             let date = arr[0];
             let parts = date.split('-');
@@ -122,7 +122,7 @@ class DoctorAppointments extends Component {
                     </MDBListGroupItem>
             )}else{
                 return(
-                    <MDBListGroupItem key={1}>
+                    <MDBListGroupItem key={index}>
                         Loading...
                     </MDBListGroupItem>
                 )
