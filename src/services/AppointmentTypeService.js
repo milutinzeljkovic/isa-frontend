@@ -11,6 +11,14 @@ class AppointmentTypeService extends Service{
     getAppointmentTypes(){
         return this.getApiClient().get(`${resource1}/get`);
     }
+
+    deleteAppointmentTypes(id){
+        return this.getApiClient().delete(`${resource1}/delete/${id}`);
+    }
+
+    updateAppointmentType(data){
+        return this.getApiClient().put(`${resource1}/update/${data.id}`, data);
+    }
 }
 
 

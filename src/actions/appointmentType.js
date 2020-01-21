@@ -33,3 +33,16 @@ export const getAppointmentTypes = () => {
     }
 }
 
+export const deleteAppointmentType = (id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await appointmentTypeService.deleteAppointmentTypes(id);
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+    }
+}
+
