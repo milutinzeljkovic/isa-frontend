@@ -1,6 +1,6 @@
 export default (state = null, action) => {
     switch(action.type){
-        case 'GETALLAPPTYPES':
+        case 'GET_DIAGNOSES':
             return  action.payload;
         default: return state;
     }

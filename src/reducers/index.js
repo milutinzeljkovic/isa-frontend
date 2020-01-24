@@ -9,6 +9,10 @@ import clinicAdminReducer from './clinicAdmin';
 import prescriptionsReducer from './prescriptions';
 import operatingRoomsReducer from './operatingRooms';
 import appointmentTypesReducer from './appointmentTypes';
+import appointmentReducer from './appointmentReducer';
+import doctors from './doctors';
+import medicines from './medicines';
+import diagnoses from './diagnoses';
 
 export default combineReducers({
    auth: authReducer,
@@ -20,5 +24,9 @@ export default combineReducers({
    clinicAdmin: clinicAdminReducer,
    prescriptions: prescriptionsReducer,
    operatingRooms: operatingRoomsReducer,
-   appointmentTypes: appointmentTypesReducer
+   appointmentTypes: appointmentTypesReducer,
+   appointments: appointmentReducer,
+   doctors,
+   medicines,
+   diagnoses
 });

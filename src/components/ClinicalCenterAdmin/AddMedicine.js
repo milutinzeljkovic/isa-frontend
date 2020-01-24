@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 import { connect } from 'react-redux';
-import { addMedicine } from '../../actions/medicine';
+import { addMedicine } from '../../actions/medicines';
 import browserHistory from '../../history';
 
 

@@ -32,6 +32,10 @@ class PatientService extends Service{
     getPatient(id){
         return this.getApiClient().get(`${resource}/show/${id}`);
     }
+
+    getMedicalRecord(id){
+        return this.getApiClient().get(`${resource}/medical-record/${id}`);
+    }
 }
 
 

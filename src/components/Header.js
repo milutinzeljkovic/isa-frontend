@@ -150,10 +150,10 @@ renderRight = () => {
     return(
       <MDBNavbarNav right>
         <MDBNavItem>
-          <MDBNavLink to="/profile">{this.props.auth.currentUser.email}</MDBNavLink>
+          <MDBNavLink to="/profile"><i className="fas fa-user-circle"></i> {this.props.auth.currentUser.email}</MDBNavLink>
         </MDBNavItem>
         <MDBNavItem>
-          <MDBNavLink to="/" onClick = {()=> this.handleLogoutButtonClick()}>Logout</MDBNavLink>
+          <MDBNavLink to="/" onClick = {()=> this.handleLogoutButtonClick()}><i className="fas fa-sign-out-alt"></i> Logout</MDBNavLink>
         </MDBNavItem>
       </MDBNavbarNav>
     )
@@ -209,6 +209,17 @@ renderLinks = () => {
     )
   }else if (this.props.auth.currentUser.userable_type === 'App\\Doctor' ){
     return(
+      <div style = {{display:'flex'}}>
+      <MDBNavItem>
+        <MDBDropdown>
+            <MDBDropdownToggle nav caret>
+              <span className="mr-2">Menu</span>
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <MDBDropdownItem><Link to='/doctor/calendar'>Calendar</Link></MDBDropdownItem>
+            </MDBDropdownMenu>
+          </MDBDropdown>
+      </MDBNavItem>
       <MDBNavItem>
         <MDBDropdown>
             <MDBDropdownToggle nav caret>
@@ -219,6 +230,7 @@ renderLinks = () => {
             </MDBDropdownMenu>
           </MDBDropdown>
       </MDBNavItem>
+      </div>
     )
   }else if (this.props.auth.currentUser.userable_type === 'App\\ClinicAdmin'){
     return(
@@ -243,10 +255,10 @@ renderLinks = () => {
       <MDBNavItem>
       <MDBDropdown>
               <MDBDropdownToggle nav caret>
-                <span className="mr-2">Menu</span>
+                <span className="mr-2"><i className="fas fa-bars"></i> Menu</span>
               </MDBDropdownToggle>
               <MDBDropdownMenu>
-                <MDBDropdownItem><Link to='/clinics'>Clinics</Link></MDBDropdownItem>
+                <MDBDropdownItem><Link to='/clinics'><i className="fas fa-clinic-medical"></i> Clinics</Link></MDBDropdownItem>
               </MDBDropdownMenu>
         </MDBDropdown>
       </MDBNavItem>
@@ -292,7 +304,7 @@ renderLeft = () => {
     return(
         <MDBNavbarNav left>
           <MDBNavItem>
-            <MDBNavLink to="/home">Home</MDBNavLink>
+            <MDBNavLink to="/home"><i className="fas fa-home"></i> Home</MDBNavLink>
           </MDBNavItem>
           {this.renderLinks()}
         </MDBNavbarNav>
@@ -321,6 +333,13 @@ render() {
       <AddClinicalCenterAdmin show={this.state.newClinicalCenterAdminDialog} toggle={this.toggleNewClinicalCenterAdminDialog} />
       <AddDiagnose show={this.state.addDiagnoseDialog} toggle={this.toggleAddDiagnoseDialog} />
       <AddMedicine show={this.state.addMedicineDialog} toggle={this.toggleAddMedicineDialog} />
+
+      {
+        this.state.newAppointmentDialog ? 
+        <AvailableAppointmentsDialog show={this.state.newAppointmentDialog} toggle={this.toggleNewAppointmentDialog}/>
+        :
+        ''
+      }
       <AddOperatingRoom show={this.state.newOperatingRoomDialog} toggle={this.toggleNewOperatingRoomDialog} />
       {this.state.newAppointmentDialog ? <AvailableAppointmentsDialog show={this.state.newAppointmentDialog} toggle={this.toggleNewAppointmentDialog}/> : ''}
       {this.state.newAppointmentTypeDialog ? <AddAppointmentType show={this.state.newAppointmentTypeDialog} toggle={this.toggleNewAppointmentTypeDialog}/> : ''}

@@ -11,22 +11,52 @@ class ClinicService extends Service{
     search(terms) {
         let queryParams = '';
         if(terms !== undefined){
+            queryParams += '?';
             terms.forEach(term => {
-                queryParams += '?';
-                queryParams += term.name;
-                queryParams += '=';
-                queryParams += term.value;
-                queryParams += '&';
+                if(term.value !== null){
+                    queryParams += term.name;
+                    queryParams += '=';
+                    queryParams += term.value;
+                    queryParams += '&';
+                }
             });
         }
         
         return this.getApiClient().get(`${resource}${queryParams}`);
     }
 
+    searchDoctors(terms) {
+        let queryParams = '';
+        if(terms !== undefined){
+            queryParams += '?';
+            terms.forEach(term => {
+                if(term.value !== null){
+                    queryParams += term.name;
+                    queryParams += '=';
+                    queryParams += term.value;
+                    queryParams += '&';
+                }
+            });
+        }
+        
+        return this.getApiClient().get(`/doctors${queryParams}`);
+    }
+
+    showClinic(id){
+        return this.getApiClient().get(`${resource}/${id}`);
+    }
+
     fetchDoctors(clinic){
         return this.getApiClient().get(`${resource}/doctors/${clinic.id}`);
     }
 
+    rateClinic(clinic,stars){
+        return this.getApiClient().post(`/reactions/${clinic}?stars_count=${stars}&clinic_id=${clinic}`);
+    }
+
+    rateDoctor(doctor,stars){
+        return this.getApiClient().post(`/reactions/doctor/${doctor}?stars_count=${stars}`);
+    }
     
 }
 

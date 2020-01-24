@@ -17,6 +17,20 @@
   color: white;
 }
 
+#rating-div{
+  display: inline-block;
+}
+
+#clinic-card{
+  margin-top: 1%;
+}
+
+#doctor-card{
+}
+.app_type_badge{
+  margin-left: 2%;
+}
+
 .App-link {
   color: #09d3ac;
 }
@@ -24,12 +38,17 @@
   margin-top: 2%;
 }
 #clinics_result{
-  max-height: 650px;
-  overflow: scroll;
+
 }
 #map-div{
+  position: -webkit-sticky;
+  position: sticky; 
   width: 500px!important;
   height: 400px;
+}
+
+#address-search-clinics{
+  margin-top: 2%;
 }
 #clinic-image{
   max-height: 100px;

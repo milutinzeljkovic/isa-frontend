@@ -1,6 +1,6 @@
 import axios from 'axios';
 import browserHistory from '../history';
-const baseDomain = 'http://localhost:8000';
+const baseDomain = process.env.REACT_APP_ENV === 'DEV' ? process.env.REACT_APP_BACKEND_URL_DEV : process.env.REACT_APP_BACKEND_URL_PROD;
 const baseURL = `${baseDomain}/api`;
 
 
@@ -8,7 +8,7 @@ class Service {
     constructor(){
         this.client = axios.create({
             baseURL
-        })
+        })        
         this.setInterceptor();
         this.setResponseInterceptor();
     }
@@ -31,40 +31,39 @@ class Service {
             return response;
           }, function (error) {
 
-            console.log(error.response.data.status);
-            if(error.response.data.status === 'Authorization Token not found'){
-                browserHistory.push('/login');
-                return Promise.reject(error);
-            }else if(error.response.data.status === 'Token is Expired'){
-                console.log('istekao token');
-                const token = window.localStorage.getItem("token");
-
-                let config = {
-                    headers: {
-                      Authorization: `bearer ${token}`,
+            if(error.response !== undefined){
+              if(error.response.data.status === 'Authorization Token not found'){
+                  browserHistory.push('/login');
+                  return Promise.reject(error);
+              }else if(error.response.data.status === 'Token is Expired'){
+                  const token = window.localStorage.getItem("token");
+                  let config = {
+                      headers: {
+                        Authorization: `bearer ${token}`,
+                      }
                     }
-                  }
-                  
-                  let data = {
-                    data: 'data'
-                  }
-                  
-                  axios.post(`${baseURL}/auth/refresh/`, data, config).then((resp)=>{
-                        localStorage.setItem("token",resp.data.access_token);
+                    
+                    let data = {
+                      data: 'data'
+                    }
+                    
+                    axios.post(`${baseURL}/auth/refresh/`, data, config).then((resp)=>{
+                          localStorage.setItem("token",resp.data.access_token);
 
-                        const token = window.localStorage.getItem("token");
-                        let config = {
-                            headers: {
-                              Authorization: `bearer ${token}`,
+                          const token = window.localStorage.getItem("token");
+                          let config = {
+                              headers: {
+                                Authorization: `bearer ${token}`,
+                              }
                             }
-                          }
-                          axios.post(`${baseURL}/auth/me/`, data, config).then((resp)=>{
-                          })
-                  })
-                
-            }else if(error.response.data.status === 'Token is Invalid'){
-                browserHistory.push('/login');
-                return Promise.reject(error);
+                            axios.post(`${baseURL}/auth/me/`, data, config).then((resp)=>{
+                            })
+                    })
+                  
+              }else if(error.response.data.status === 'Token is Invalid'){
+                  browserHistory.push('/login');
+                  return Promise.reject(error);
+              }
             }
             return Promise.reject(error);
             

@@ -4,7 +4,13 @@ import { MDBTable, MDBTableBody } from 'mdbreact';
 import _ from 'loadsh';
 import { connect } from 'react-redux';
 import { me } from '../../actions/auth';
+import { appointmentHistory } from  '../../actions/appointment';
 import { update } from "../../actions/patients";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import PatientsHistory from './PatientsHistory';
+import MedicalRecord from './MedicalRecord';
+import {getMedicalRecord} from '../../actions/patients';
 
 
 
@@ -18,27 +24,30 @@ class Profile extends Component {
             editMode: false,
         }
     }
-    datas = ['name','last_name','address','city','state','ensurance_id']
+    datas = ['name','email','last_name','address','city','state','ensurance_id']
 
     componentDidUpdate(prevProps, prevState){  
         if (prevProps.user !== this.props.user) {
             if(this.props.user !== undefined){                
                 this.setState({
-                    name: this.props.user.name,
-                    last_name: this.props.user.last_name,
-                    email: this.props.user.email,
-                    address: this.props.user.address,
-                    city: this.props.user.city,
-                    state: this.props.user.state,
-                    ensurance_id: this.props.user.ensurance_id
+                    name: this.props.user === undefined ? '' : this.props.user.name,
+                    last_name: this.props.user === undefined ? '' : this.props.user.last_name,
+                    email: this.props.user === undefined ? '' : this.props.user.email,
+                    address: this.props.user === undefined ? '' : this.props.user.address,
+                    city: this.props.user === undefined ? '' : this.props.user.city,
+                    state: this.props.user === undefined ? '' : this.props.user.state,
+                    ensurance_id: this.props.user === undefined ? '' : this.props.user.ensurance_id
                 })
             }
         }
         
     }
 
-    componentDidMount(){
-        this.props.me();
+    componentDidMount = async () => {
+        const res = await this.props.me();        
+        await this.props.getMedicalRecord(res.payload.userable_id);
+        await this.props.appointmentHistory(res.payload.userable_id);
+        
     }
 
     onSubmitClick = async () => {
@@ -97,11 +106,6 @@ class Profile extends Component {
                     state: e.target.value
                 });
             break;
-            case 'ensurance_id':
-                this.setState({
-                    ensurance_id: e.target.value
-                });
-            break;
             default: 
 
         }
@@ -118,7 +122,7 @@ class Profile extends Component {
                             className="form-control"  
                             value ={this.state[data]}
                             onChange = {e=>this.onInputChange(e,data)}
-                            disabled = {this.state.editMode ? "" : "disabled"}
+                            disabled = {this.state.editMode ? "" : "disabled" || data === 'email' || data ==='ensuranceid'}
                         />
                     </td>
                 </tr>
@@ -127,7 +131,7 @@ class Profile extends Component {
     }
 
     renderContent = () => {
-        if(this.props.user === undefined){
+        if(this.props.user === undefined || this.props.patients === null){
             return (
                 <div>
                     Loading
@@ -151,12 +155,29 @@ class Profile extends Component {
 
                     <div className="col-sm-8" id='patients-profile-card-2'>
                         <MDBCard style={{ width: "100%" }}>
-                            <MDBTable>
-                                <MDBTableBody>
-                                    {this.renderTable()}
-                                </MDBTableBody>
-                            </MDBTable>
-                            {this.state.editMode ? <MDBBtn gradient="blue"  onClick = {this.onSubmitClick}>Submit</MDBBtn> : ''}
+                        <Tabs>
+                            <TabList>
+                                <Tab>Datas</Tab>
+                                <Tab>History</Tab>
+                                <Tab>Medical record</Tab>
+                            </TabList>
+
+                            <TabPanel>
+                                <MDBTable>
+                                    <MDBTableBody>
+                                        {this.renderTable()}
+                                    </MDBTableBody>
+                                </MDBTable>
+                                {this.state.editMode ? <MDBBtn gradient="blue"  onClick = {this.onSubmitClick}>Submit</MDBBtn> : ''}
+                            </TabPanel>
+                            <TabPanel>
+                                <PatientsHistory appointments = {this.props.appointmentsHistory}/>
+                            </TabPanel>
+                            <TabPanel>
+                                <MedicalRecord medicalRecord = {this.props.patients.medicalRecord} />
+                            </TabPanel>
+                        </Tabs>
+
                         </MDBCard>
                     </div>
                 </div>
@@ -175,8 +196,10 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
     return{
-        user: state.auth.currentUser
+        user: state.auth.currentUser,
+        patients: state.patients,
+        appointmentsHistory: state.appointments
     }
 };
 
-export default connect(mapStateToProps, {me, update})(Profile);
+export default connect(mapStateToProps, {me, update, getMedicalRecord, appointmentHistory})(Profile);
