@@ -17,3 +17,24 @@ export const  filterDoctors = (filter) => {
         payload: filter
     }
 }
+
+
+export const getAppointment = () =>{
+
+    return async dispatch => {
+        let response;
+        response = await doctorService.getAppointment();
+        return dispatch({ type: 'FETCH_APPOINTMENT', payload: response.data });
+    
+    }
+  
+}
+
+export const finishReport = (data) =>{
+
+    return async dispatch => {
+        await doctorService.finishReport(data);
+    
+    }
+  
+}

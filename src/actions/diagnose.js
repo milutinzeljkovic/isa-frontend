@@ -15,3 +15,17 @@ export const addDiagnose = data => {
     }
 }
 
+export const getDiagnoses = () => {
+    return async dispatch => {
+        try{
+            let response =await diagnoseService.getDiagnoses();
+            return dispatch({ type: 'GET_DIAGNOSES', payload: response.data })
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+        
+    }
+}
+

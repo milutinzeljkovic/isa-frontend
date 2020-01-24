@@ -19,7 +19,7 @@ import ChangePassword from './components/ChangePassword';
 import AddDiagnose from './components/ClinicalCenterAdmin/AddDiagnose';
 import AddMedicine from './components/ClinicalCenterAdmin/AddMedicine';
 import AvailableAppointmentsDialog from './components/ClinicAdmin/AvailableAppointmentsDialog';
-import WorkingCalendar from './components/WorkingCalendar'
+import Vacation from './components/Vacation'
 import PrescriptionsTable from './components/Nurse/PrescriptionsTable';
 //import PageNotFound from './components/NotFound/PageNotFound';
 //import PageNotFound from './components/NotFound/PageNotFound';
@@ -30,6 +30,8 @@ import PatientSearch from './components/Clinics/Search/PatientSearch';
 import PatientSearchResultsTable from './components/Patients/PatientsSearchResultsTable';
 import AdminsClinicDetails from './components/ClinicAdmin/AdminsClinicDetails';
 import PatientProfileSearch from './components/Patients/PatientProfileSearch';
+import WorkingCalendar from './components/Doctor/WorkingCalendar';
+
 
 class App extends Component {
 
@@ -64,8 +66,8 @@ class App extends Component {
         <Route path='/diagnose/add' exact component = {AddDiagnose}/>
         <Route path='/medicine/add' exact component = {AddMedicine}/>
 
-        <Route path='/vacation' exact component = {WorkingCalendar}/>
-        <Route path='/calendar' exact component = {WorkingCalendar}/>
+        <Route path='/vacation' exact component = {Vacation}/>
+        <Route path='/doctor/calendar' exact component = {WorkingCalendar}/>
 
         <Route path='/prescriptions' exact component = {PrescriptionsTable}/>
 

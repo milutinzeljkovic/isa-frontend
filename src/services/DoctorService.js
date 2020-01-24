@@ -8,6 +8,16 @@ class DoctorService extends Service{
         return this.getApiClient().get(`${resource}/appointments/${id}`);
     }
 
+    getAppointment(){
+        return this.getApiClient().get(`${resource}/calendar`);
+
+    }
+
+    finishReport(data){
+        return this.getApiClient().post(`${resource}/finish-report`,data);
+
+    }
+
   
 }
 

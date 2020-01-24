@@ -61,6 +61,8 @@ class RegisterDialog extends Component {
     }
 
     handleStateChange = (e) => {
+        console.log('a');
+
         this.setState({
             state: e.target.value
         })
