@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCloseIcon, MDBListGroup, MDBListGroupItem, MDBIcon,MDBBadge} from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCloseIcon, MDBListGroup, MDBListGroupItem, MDBIcon,MDBBadge, MDBRow, MDBCol} from 'mdbreact';
 import { connect } from 'react-redux';
 import { rateDoctor } from '../../../actions/clinic';
-
+import image from '../../../images/doctor-avatar.png';
+import ExampleComponent from "react-rounded-image";
 import _ from 'loadsh';
 import {showClinic} from '../../../actions/clinic';
 import { fetchDoctor } from '../../../actions/doctors'; 
@@ -112,6 +113,18 @@ class ClinicDetail extends Component {
                     <MDBListGroupItem 
                         key = {doctor.id}
                     >
+                    <MDBRow>
+                        <MDBCol md="4">
+                        <ExampleComponent
+                            image={image}
+                            roundedColor="#321124"
+                            imageWidth="150"
+                            imageHeight="150"
+                            roundedSize="0"
+                            />
+
+                        </MDBCol>
+                        <MDBCol md="8">
                         <div className="d-flex w-100 justify-content-between">
                             {
                                 doctor.user !== undefined
@@ -166,6 +179,8 @@ class ClinicDetail extends Component {
                         ''
                     }
                     </MDBListGroup>
+                        </MDBCol>
+                    </MDBRow>
                     </MDBListGroupItem>
                     </MDBCard>
                 )

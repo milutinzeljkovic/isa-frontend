@@ -13,7 +13,6 @@ export const addClinic = (clinic) =>{
 }
 
 export const searchClinics = (params) => {   
-    console.log(params);
          
     let terms = [];
     if(params !== undefined && params.name !== undefined){
@@ -55,12 +54,7 @@ export const searchClinics = (params) => {
         terms.push(c);
     
     }
-    console.log(terms);
     
-    
-
-    
-
     return async dispatch => {
         let response;
         response = await clinicService.search(terms);        

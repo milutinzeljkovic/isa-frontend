@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'loadsh';
-import { MDBCard, MDBListGroup, MDBListGroupItem, MDBBadge } from "mdbreact";
-
+import { MDBCard, MDBListGroup, MDBListGroupItem, MDBBadge, MDBRow, MDBCol } from "mdbreact";
+import image from '../../../images/clinic.png';
+import ExampleComponent from "react-rounded-image";
 import ReactStars from 'react-stars'
 import { searchClinics, rateClinic, showClinic } from '../../../actions/clinic';
 import { fetchUsersLoction } from '../../../actions/location';
@@ -106,17 +107,11 @@ class SearchClinicDialog extends Component {
                 <MDBListGroupItem 
                     key = {clinic.id}
                 >  
-
-                    <div className="d-flex w-100 justify-content-between">
-                        <h1 className="mb-1"  onClick = {() => this.onClinicClickHandle(clinic)} >{clinic.name}</h1>
-                    </div>
-                    <MDBBadge  tag="a" color="teal" onClick = {() => this.onClinicClickHandle(clinic)}>details <i className="fas fa-info"></i></MDBBadge>
-                    {canRate ? <MDBBadge tag="a" style={{ margin: "1%" }} color="danger">visited</MDBBadge> : ''}
-                    <p className="mb-1">{clinic.description}</p>
-                    <small className="text-muted">
-                    <i className="fas fa-map-marker-alt"></i> {clinic.address}
-                    </small>
-                    <ReactStars
+                <MDBRow>
+                    <MDBCol md="4">
+                    <img src = {image} style={{width: "90%"}} ></img>
+                    <div class="d-inline-flex p-2 bd-highlight">
+                        <ReactStars
                         count={5}
                         size={24}
                         edit={canRate}
@@ -125,10 +120,26 @@ class SearchClinicDialog extends Component {
                         color2={'#ffd700'} />
                     {
                         starsValue !== null ? 
-                        <MDBBadge color='blue'>{starsValue}</MDBBadge>
+                            <MDBBadge style={{height:"5%"}} color='blue'>{starsValue}</MDBBadge>
                         :
                         ''
                     }
+                    </div>
+                    </MDBCol>
+                    <MDBCol md="8">
+                    <div className="d-flex w-100 justify-content-between">
+                        <h1 className="mb-1"  onClick = {() => this.onClinicClickHandle(clinic)} >{clinic.name}</h1>
+                    </div>
+                    <div>
+                    <small className="text-muted">
+                    <i className="fas fa-map-marker-alt"></i> {clinic.address}
+                    </small>
+                    </div>
+                    <MDBBadge  tag="a" color="teal" onClick = {() => this.onClinicClickHandle(clinic)}>details <i className="fas fa-info"></i></MDBBadge>
+                    {canRate ? <MDBBadge tag="a" style={{ margin: "1%" }} color="danger">visited</MDBBadge> : ''}
+                    <p className="mb-1">{clinic.description}</p>
+                    </MDBCol>
+                </MDBRow>
 
                 </MDBListGroupItem>
                 </MDBCard>
