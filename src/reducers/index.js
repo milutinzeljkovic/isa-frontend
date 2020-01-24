@@ -11,6 +11,8 @@ import operatingRoomsReducer from './operatingRooms';
 import appointmentTypesReducer from './appointmentTypes';
 import appointmentReducer from './appointmentReducer';
 import doctors from './doctors';
+import medicines from './medicines';
+import diagnoses from './diagnoses';
 
 export default combineReducers({
    auth: authReducer,
@@ -24,5 +26,7 @@ export default combineReducers({
    operatingRooms: operatingRoomsReducer,
    appointmentTypes: appointmentTypesReducer,
    appointments: appointmentReducer,
-   doctors
+   doctors,
+   medicines,
+   diagnoses
 });

@@ -8,6 +8,10 @@ class MedicineService extends Service{
         return this.getApiClient().post(`${resource}/add`, medicine);
     }
 
+    getMedicines() {
+        return this.getApiClient().get(`${resource}`);
+    }
+
   
 }
 

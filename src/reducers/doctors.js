@@ -2,6 +2,8 @@ export default (state = null, action) => {
     switch(action.type){
         case 'DOCTOR_FETCHED':
             return  {...state, selectedDoctor: action.payload};
+        case 'FETCH_APPOINTMENT':
+                return  {...state, doctorAppointments: action.payload};
         case 'APPOINTMENT_RESERVED':
             let pom = [];
             

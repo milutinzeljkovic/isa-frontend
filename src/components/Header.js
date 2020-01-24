@@ -209,6 +209,17 @@ renderLinks = () => {
     )
   }else if (this.props.auth.currentUser.userable_type === 'App\\Doctor' ){
     return(
+      <div style = {{display:'flex'}}>
+      <MDBNavItem>
+        <MDBDropdown>
+            <MDBDropdownToggle nav caret>
+              <span className="mr-2">Menu</span>
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <MDBDropdownItem><Link to='/doctor/calendar'>Calendar</Link></MDBDropdownItem>
+            </MDBDropdownMenu>
+          </MDBDropdown>
+      </MDBNavItem>
       <MDBNavItem>
         <MDBDropdown>
             <MDBDropdownToggle nav caret>
@@ -219,6 +230,7 @@ renderLinks = () => {
             </MDBDropdownMenu>
           </MDBDropdown>
       </MDBNavItem>
+      </div>
     )
   }else if (this.props.auth.currentUser.userable_type === 'App\\ClinicAdmin'){
     return(

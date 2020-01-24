@@ -15,3 +15,18 @@ export const addMedicine = data => {
     }
 }
 
+
+export const getMedicines = () => {
+    return async dispatch => {
+        try{
+            let response =await medicineService.getMedicines();
+            return dispatch({ type: 'GET_MEDICINES', payload: response.data })
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+        
+    }
+}
+

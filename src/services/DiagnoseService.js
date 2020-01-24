@@ -8,7 +8,9 @@ class DiagnoseService extends Service{
         return this.getApiClient().post(`${resource}/add`, diagnose);
     }
 
-  
+    getDiagnoses() {
+        return this.getApiClient().get(`${resource}`);
+    }
 }
 
 
