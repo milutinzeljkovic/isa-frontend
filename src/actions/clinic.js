@@ -12,7 +12,9 @@ export const addClinic = (clinic) =>{
     } 
 }
 
-export const searchClinics = (params) => {        
+export const searchClinics = (params) => {   
+    console.log(params);
+         
     let terms = [];
     if(params !== undefined && params.name !== undefined){
         const c = {
@@ -45,6 +47,17 @@ export const searchClinics = (params) => {
         }
         terms.push(c);
     }
+    if(params !== undefined && params.address !== undefined){
+        const c = {
+            name: 'address',
+            value: params.address
+        }
+        terms.push(c);
+    
+    }
+    console.log(terms);
+    
+    
 
     
 

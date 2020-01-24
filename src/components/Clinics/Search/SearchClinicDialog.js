@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'loadsh';
 import { MDBCard, MDBListGroup, MDBListGroupItem, MDBBadge } from "mdbreact";
+
 import ReactStars from 'react-stars'
 import { searchClinics, rateClinic, showClinic } from '../../../actions/clinic';
 import { fetchUsersLoction } from '../../../actions/location';
 import GoogleMapUpdater from './GoogleMapUpdater';
 import { appointmentHistory } from '../../../actions/appointment';
 import { me } from '../../../actions/auth';
+
 
 import ClinicDetail from './ClinicDetail';
 import ClinicFilter from './ClinicFIlter';
@@ -37,6 +39,11 @@ class SearchClinicDialog extends Component {
         this.setState({
             clinicsLoaded: true
         })
+    }
+
+    onAddressChange = event => {
+        console.log(event.target.value);
+        
     }
 
 
@@ -91,6 +98,8 @@ class SearchClinicDialog extends Component {
         return _.map(clinics, (clinic,index) => {            
             const canRate = canRateClinics.includes(clinic.id);           
             const starsValue = clinic.stars_count === null ? 0 : clinic.stars_count;
+            console.log(starsValue);
+            
             
             return(
                 <MDBCard id ={ index === 0 ? 'clinic-card-0':  'clinic-card'}>
@@ -114,6 +123,13 @@ class SearchClinicDialog extends Component {
                         onChange={ (newRating) => this.ratingChanged(newRating,clinic)}
                         value={parseInt(starsValue)}
                         color2={'#ffd700'} />
+                    {
+                        starsValue !== null ? 
+                        <MDBBadge color='blue'>{starsValue}</MDBBadge>
+                        :
+                        ''
+                    }
+
                 </MDBListGroupItem>
                 </MDBCard>
             )
@@ -134,11 +150,7 @@ class SearchClinicDialog extends Component {
                         ? 
                         <div className = 'row'>
                             <div className="col-xl-8">
-                                {this.props.clinics !== null && this.props.clinics.selectedClinic ===  undefined 
-                                    ? 
-                                    <ClinicFilter/> 
-                                    : 
-                                    ''}
+
                                 {
                                     this.props.clinics !== null && this.props.clinics.selectedClinic !==  undefined ? 
                                     <ClinicDetail clinic = {this.props.clinics.selectedClinic} />
@@ -153,7 +165,14 @@ class SearchClinicDialog extends Component {
                             <div className="col-xl-4" id = 'map-div'>
                                 <MDBCard style={{ width: "100%", height: "90%" }} id= 'map-card'>
                                     { this.props.clinics === null ? ' ' : <GoogleMapUpdater />}
-                                </MDBCard>  
+                                </MDBCard> 
+                                {this.props.clinics !== null && this.props.clinics.selectedClinic ===  undefined 
+                                    ? 
+                                    <ClinicFilter/> 
+                                    : 
+                                    ''
+                                }
+
                             </div>
                     </div>
                     :

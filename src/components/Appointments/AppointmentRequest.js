@@ -104,10 +104,15 @@ class AppointmentRequest extends Component {
         params.doctorId = this.props.doctor.id;
         if(params.appointment_type !== null){
             try{
-                const res = await this.props.requestAppointment(params);
-                if(res.payload !== 'Could not reserve appointment form a given date' && res.payload !== 'Doctor is not free'){
+                const res = await this.props.requestAppointment(params);                
+                if(res.payload !== 'Could not reserve appointment form a given date' && res.payload !== 'Doctor is not free' && res.payload !== 'error'){                    
                     this.setState({
                         appointmentRequested: true
+                    })
+                }
+                if(res.payload === 'error'){
+                    this.setState({
+                        error: true
                     })
                 }
                 if(res.payload === 'Could not reserve appointment form a given date'){
@@ -122,7 +127,7 @@ class AppointmentRequest extends Component {
                     }
                 }
                 
-            }catch(e){
+            }catch(e){                
                 this.setState({
                     error: true
                 })
@@ -141,10 +146,22 @@ class AppointmentRequest extends Component {
         })
     }
 
-    renderAppointmentRequest = doctor => {
+    renderAppointmentRequest = doctor => {        
+        if(this.state.error){
+            return(
+                <div>
+                    Bad request
+                    <br></br>
+                    <a href onClick = {this.resetState}>Try again</a>
+
+                </div>
+            )
+        }
         if(this.state.appointmentRequested){
             return(<div>
-                <p>Request sent</p>
+                <p>Request sent, check your email for answer</p>
+                <br></br>
+                <MDBBtn onClick = {this.resetState}>OK</MDBBtn>
             </div>
             )
         }
@@ -190,7 +207,6 @@ class AppointmentRequest extends Component {
  
                     <MDBModalBody>
                         { 
-                            
                             this.props.doctor !== undefined ?
                             this.renderAppointmentRequest(this.props.doctor)
                             :

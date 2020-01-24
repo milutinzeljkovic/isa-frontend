@@ -24,7 +24,7 @@ class Profile extends Component {
             editMode: false,
         }
     }
-    datas = ['name','last_name','address','city','state','ensurance_id']
+    datas = ['name','email','last_name','address','city','state','ensurance_id']
 
     componentDidUpdate(prevProps, prevState){  
         if (prevProps.user !== this.props.user) {
@@ -106,11 +106,6 @@ class Profile extends Component {
                     state: e.target.value
                 });
             break;
-            case 'ensurance_id':
-                this.setState({
-                    ensurance_id: e.target.value
-                });
-            break;
             default: 
 
         }
@@ -127,7 +122,7 @@ class Profile extends Component {
                             className="form-control"  
                             value ={this.state[data]}
                             onChange = {e=>this.onInputChange(e,data)}
-                            disabled = {this.state.editMode ? "" : "disabled"}
+                            disabled = {this.state.editMode ? "" : "disabled" || data === 'email' || data ==='ensuranceid'}
                         />
                     </td>
                 </tr>

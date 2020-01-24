@@ -20,10 +20,12 @@ class ClinicFIlter extends Component {
         
         super(props);
         this.debouncedOnChange = _.debounce(this.debouncedOnChange.bind(this), 500); 
+        this.debouncedOnChangeAddress = _.debounce(this.debouncedOnChangeAddress.bind(this), 500);
         this.state = {
             date: null,
             appointment_type: null,
             stars: null,
+            address: null,
             startDate: c,
             showFilters: false,
             name: '',
@@ -31,7 +33,7 @@ class ClinicFIlter extends Component {
                 name: null,
                 appointment_type: null,
                 date: null,
-                stars: null
+                stars: null,
             }
         }
         
@@ -118,6 +120,10 @@ class ClinicFIlter extends Component {
             )
         })
     }
+    onAddressChange = event => {
+        this.setStateAsync({address: event.target.value});
+        this.debouncedOnChangeAddress(event.target.value);
+    }
 
     onChange = event => {        
         this.setStateAsync({ name: event.target.value });
@@ -128,9 +134,20 @@ class ClinicFIlter extends Component {
         this.searchByName(value);
     }
 
+    debouncedOnChangeAddress(value) {
+        this.searchByAddress(value);
+    }
+
     searchByName = value => {
         let params = {...this.state};
         params.name = value;
+        this.props.searchClinics(params);
+    }
+
+    searchByAddress = value => {        
+        let params = {...this.state};
+        
+        params.address = value;
         this.props.searchClinics(params);
     }
 
@@ -151,6 +168,13 @@ class ClinicFIlter extends Component {
                     type="text"
                     onChange={(e) => this.onChange(e)}
                 />
+                <MDBInput
+                    label="Clinic address"
+                    group
+                    type="text"
+                    onChange={(e) => this.onAddressChange(e)}
+                />
+                
                  <DatePicker
                     onChange={this.handleChange}
                     dateFormat="yyyy-mm-dd"
