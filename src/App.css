@@ -40,6 +40,16 @@
 #clinics_result{
 
 }
+
+#octor-image-avatar{
+  border-radius: 50%;
+  alt:"Avatar"
+}
+
+#appointment_card{
+  width: 80%;
+  margin-top: 2%;
+}
 #map-div{
   position: -webkit-sticky;
   position: sticky; 

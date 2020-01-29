@@ -17,6 +17,25 @@ class AppointmentService extends Service{
     requestAppointment(appointment) {
         return this.getApiClient().post(`${resource}/request/${appointment.doctorId}?date=${appointment.date}&appointment_type=${appointment.appointment_type}`);
     }
+    
+    searchAppointments(terms) {
+        console.log(terms);
+        
+        let queryParams = '';
+        if(terms !== undefined){
+            queryParams += '?';
+            terms.forEach(term => {
+                if(term.value !== null){
+                    queryParams += term.name;
+                    queryParams += '=';
+                    queryParams += term.value;
+                    queryParams += '&';
+                }
+            });
+        }
+        
+        return this.getApiClient().get(`${resource}${queryParams}`);
+    }
 }
 
 

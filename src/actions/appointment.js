@@ -47,3 +47,30 @@ export const requestAppointment = appointment => {
         }
     }
 }
+
+export const searchAppointment = params=> {    
+    let terms = [];
+    if(params !== undefined && params.type !== null){
+        const c = {
+            name: 'type',
+            value: params.type.id
+        }
+        terms.push(c);
+    }
+
+    if(params !== undefined && params.date !== undefined){
+        const c = {
+            name: 'date',
+            value: params.date
+        }
+        terms.push(c);
+    }
+
+    return async dispatch => {
+        let response;
+        response = await appointmentService.searchAppointments(terms);        
+        return dispatch({ type: 'FETCH_APPOINTMENTS', payload: response.data });
+        
+    }
+}
+
