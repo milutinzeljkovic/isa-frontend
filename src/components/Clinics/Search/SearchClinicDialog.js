@@ -98,9 +98,7 @@ class SearchClinicDialog extends Component {
         }
         return _.map(clinics, (clinic,index) => {            
             const canRate = canRateClinics.includes(clinic.id);           
-            const starsValue = clinic.stars_count === null ? 0 : clinic.stars_count;
-            console.log(starsValue);
-            
+            const starsValue = clinic.stars_count === null ? 0 : clinic.stars_count;            
             
             return(
                 <MDBCard id ={ index === 0 ? 'clinic-card-0':  'clinic-card'}>

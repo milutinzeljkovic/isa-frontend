@@ -32,6 +32,7 @@ class AppointmentSearchResult extends Component {
     renderAppointments = appointments => {
         return _.map(appointments, (app,index) => {
             return(
+                
                 <MDBCard id ='appointment_card'>
                 <MDBListGroupItem 
                     key = {app.id}
