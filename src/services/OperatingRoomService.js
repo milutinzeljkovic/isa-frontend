@@ -1,6 +1,6 @@
 import Service from './Service';
 
-const resource = '/operatingRoom';
+const resource = '/operating-room';
 
 class OperatingRoomService extends Service{
 

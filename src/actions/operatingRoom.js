@@ -23,9 +23,11 @@ export const getAllOpRooms = () => {
                 return dispatch({ type: 'ERROR', payload: 'error' })
             }
         }
-
-        if(response.status === 200){
-            return dispatch({ type: 'GETALLOPROOMS', payload: response.data })
+        if(response){
+            if(response.status === 200){
+                return dispatch({ type: 'GETALLOPROOMS', payload: response.data })
+            }
         }
+
     }
 }

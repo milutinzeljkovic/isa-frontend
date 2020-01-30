@@ -4,6 +4,8 @@ export default (state = null, action) => {
             return  action.payload;
         case 'GETALLDOCTORS':
             return action.payload;
+        case 'CLINIC_DOCTORS':
+            return {...state, clinicDoctors: action.payload}
         case 'FETCHING_DOCTORS_ERROR':
             return state;
         case 'FETCH_CLINIC_ADMIN_CLINIC':

@@ -5,15 +5,31 @@ import _ from 'loadsh';
 class MedicalRecord extends Component {
 
 
-    renderMedicalDatas = datas => {        
-        return _.map(datas, data => {            
+    renderMedicalDatas = medicalRecord => {        
             return(
-                <tr key = {data.unit}>
-                   <td><h5 className="mb-1">{data.name}</h5></td>
-                   <td><h5 className="mb-1">{data.medical_data_medical_record.value} {data.unit}</h5></td>
+                <tbody>
+                <tr>
+                   <td><h5 className="mb-1">height:</h5></td>
+                   <td><h5 className="mb-1">{medicalRecord.height} cm</h5></td>
                 </tr>
+                <tr >
+                    <td><h5 className="mb-1">weight:</h5></td>
+                    <td><h5 className="mb-1">{medicalRecord.weight} kg</h5></td>
+                </tr>
+                <tr>
+                    <td><h5 className="mb-1">blood type:</h5></td>
+                    <td><h5 className="mb-1">{medicalRecord.blood_type}</h5></td>
+                </tr>
+                <tr>
+                    <td><h5 className="mb-1">allergy:</h5></td>
+                    <td><h5 className="mb-1">{medicalRecord.allergy}</h5></td>
+                </tr>
+                <tr>
+                    <td><h5 className="mb-1">diopter:</h5></td>
+                    <td><h5 className="mb-1">{medicalRecord.diopter}</h5></td>
+                </tr>
+                </tbody>
             )
-        })
     }
 
     renderPrescriptions = datas => {
@@ -70,9 +86,7 @@ class MedicalRecord extends Component {
                     <MDBBadge  tag="a" color="teal">Medical datas</MDBBadge>
 
                     <table>
-                        <tbody>
-                            {this.renderMedicalDatas(this.props.medicalRecord.medical_datas)}
-                        </tbody>
+                            {this.renderMedicalDatas(this.props.medicalRecord)}
                     </table>
                 </MDBListGroupItem>
                 <MDBListGroupItem key = {2}>

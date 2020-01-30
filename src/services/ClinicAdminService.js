@@ -1,6 +1,6 @@
 import Service from './Service';
 
-const resource = '/clinicAdmin';
+const resource = '/clinic-admin';
 
 class ClinicAdminService extends Service{
 
@@ -10,6 +10,10 @@ class ClinicAdminService extends Service{
 
     getAllDoctors(){
         return this.getApiClient().get(`${resource}/doctors`);
+    }
+
+    getClinicDoctors(){
+        return this.getApiClient().get(`${resource}/doctors/clinic`);
     }
 
     getClinicAdminClinic(){

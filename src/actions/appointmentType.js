@@ -33,3 +33,21 @@ export const getAppointmentTypes = () => {
     }
 }
 
+export const getAppointmentTypesClinic = () => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await appointmentTypeService.getAppointmentTypesClinic();
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+        if(response){
+            if(response.status === 200){
+                return dispatch({ type: 'APPOINTMENT_TYPES_CLINIC', payload: response.data })
+            }
+        }
+        
+    }
+}

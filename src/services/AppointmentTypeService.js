@@ -1,15 +1,19 @@
 import Service from './Service';
 
-const resource1 = '/appointmentType';
+const resource = '/appointment-types';
 
 class AppointmentTypeService extends Service{
 
     addAppointmentType(appType) {
-        return this.getApiClient().post(`${resource1}/add`, appType);
+        return this.getApiClient().post(`${resource}/`, appType);
     }
 
     getAppointmentTypes(){
-        return this.getApiClient().get(`${resource1}/get`);
+        return this.getApiClient().get(`${resource}/`);
+    }
+
+    getAppointmentTypesClinic(){
+        return this.getApiClient().get(`${resource}/clinic`);
     }
 }
 

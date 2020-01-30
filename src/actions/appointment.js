@@ -5,10 +5,15 @@ const appointmentService = ServiceFactory.get('appointments');
 export const defineAppointment = data => {
     return async dispatch => {
         try{
-            await appointmentService.addAppointment(data);
+           let res =  await appointmentService.addAppointment(data);
+           return res;
         }catch(e){
             if(e.response.status === 500){
                 return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+            if(e.response.status === 400)
+            {
+                return e.response
             }
         }
         
