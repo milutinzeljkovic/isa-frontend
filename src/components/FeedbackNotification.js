@@ -12,7 +12,6 @@ class FeedbackNotification extends Component {
                 title="Notification"
                 message={this.props.notificationMessage}
                 text="just now"
-                bodyColor= {this.props.notificationColor}
                 autohide={3000}
                 style={{
                 position: "fixed",

@@ -52,9 +52,60 @@ export const getClinicAdminClinic = () => {
 
 export const updateClinic = (data) => {
     return async dispatch => {
+        try{
+            await clinicAdminService.updateClinic(data);
+        }catch(e){
+            if(e.response.status === 500){
+                dispatch({ type: 'ERROR', payload: 'error'});
+            }
+        }
+    }
+}
+
+export const setEntityToBeUpdated = (data) => {
+    return dispatch => {
+        dispatch({ type: 'ENTITY_TO_BE_UPDATED', payload: data});
+    }
+}
+
+export const seeIfBookedDoctor = (id) => {
+    return async dispatch => {
         let response;
         try{
-            response = await clinicAdminService.updateClinic(data);
+            response = await clinicAdminService.seeIfBooked(id);
+        }catch(e){
+            if(e.response.status === 500){
+                dispatch({ type: 'ERROR', payload: 'error'});
+            }
+        }
+
+        if(response.status === 200){
+            dispatch({type: 'SET-UPDATABLE', payload: response.data});
+        }
+    }
+}
+
+export const deleteDoctor = (id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.deleteDoctor(id);
+        }catch(e){
+            if(e.response.status === 500){
+                dispatch({ type: 'ERROR', payload: 'error'});
+            }
+        }
+
+        if(response.status === 200){
+            dispatch({type: 'DELETE-DOCTOR', payload: response.data});
+        }
+    }
+}
+
+export const updateDoctor = (doctor) => {
+    return async dispatch => {
+        try{
+            await clinicAdminService.updateDoctor(doctor);
         }catch(e){
             if(e.response.status === 500){
                 dispatch({ type: 'ERROR', payload: 'error'});

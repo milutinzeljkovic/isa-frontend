@@ -32,6 +32,7 @@ import PatientProfileSearch from './components/Patients/PatientProfileSearch';
 import DoctorHomePage from './components/HomePage/DoctorHomePage';
 import ClinicAdminHomePage from './components/HomePage/ClinicAdminHomePage';
 import AdminOptionPage from './components/ClinicAdmin/AdminOptionPage';
+import ClinicAdminUpdatePage from './components/ClinicAdmin/ClinicAdminUpdatePage';
 
 class App extends Component {
 
@@ -92,10 +93,13 @@ class App extends Component {
         <Route path='/get/myClinic' exact component = {AdminsClinicDetails}/>
         <Route path='/patient/profile' exact component = {PatientProfileSearch}/>
 
-        <Route path='/clinic-admin/all-doctors' render={(props) => <AdminOptionPage {...props} mode={'Doctor mode'} />}/>
-        <Route path='/clinic-admin/all-appointment-types' render={(props) => <AdminOptionPage {...props} mode={'App type mode'} />}/>
-        <Route path='/clinic-admin/all-operating-rooms' render={(props) => <AdminOptionPage {...props} mode={'Op room mode'}/>}/>
-         
+        <Route path='/clinic-admin/all-doctors' exact render={(props) => <AdminOptionPage {...props} mode={'Doctor mode'} />}/>
+        <Route path='/clinic-admin/all-appointment-types' exact render={(props) => <AdminOptionPage {...props} mode={'App type mode'} />}/>
+        <Route path='/clinic-admin/all-operating-rooms' exact render={(props) => <AdminOptionPage {...props} mode={'Op room mode'}/>}/>
+
+        <Route path='/clinic-admin/update-doctor' exact render={(props) => <ClinicAdminUpdatePage {...props} mode={'Doctor mode'}/>}/>
+        <Route path='/clinic-admin/update-appointment-types' exact render={(props) => <ClinicAdminUpdatePage {...props} mode={'App type mode'}/>}/>
+        <Route path='/clinic-admin/update-operating-rooms' exact render={(props) => <ClinicAdminUpdatePage {...props} mode={'Op room mode'}/>}/>
       </Router>
     );
   }

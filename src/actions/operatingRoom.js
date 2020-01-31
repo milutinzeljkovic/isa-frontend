@@ -29,3 +29,49 @@ export const getAllOpRooms = () => {
         }
     }
 }
+
+export const seeIfBookedOpRoom = (id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await operatingRoomService.seeIfBookedOpRoom(id);
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+
+        if(response.status === 200){
+            dispatch({type: 'SET-UPDATABLE', payload: response.data});
+        }
+    }
+}
+
+export const deleteOperatingRoom = (id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await operatingRoomService.deleteOperatingRoom(id);
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+
+        if(response.status === 200){
+            dispatch({type: 'DELETE_OPERATING_ROOM', payload: response.data});
+        }
+    }
+}
+
+export const updateOpRoom = (data) => {
+    return async dispatch => {
+        try{
+            await operatingRoomService.updateOperatingRoom(data);
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+    }
+}

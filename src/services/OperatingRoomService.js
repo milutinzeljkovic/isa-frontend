@@ -19,6 +19,10 @@ class OperatingRoomService extends Service{
     deleteOperatingRoom(id){
         return this.getApiClient().delete(`${resource}/delete/${id}`);
     }
+
+    seeIfBookedOpRoom(id){
+        return this.getApiClient().get(`${resource}/used/${id}`);
+    }
 }
 
 export default OperatingRoomService;

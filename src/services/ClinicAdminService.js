@@ -27,6 +27,10 @@ class ClinicAdminService extends Service{
     deleteDoctor(id){
         return this.getApiClient().delete(`/doctors/delete/${id}`);
     }
+
+    seeIfBooked(id){
+        return this.getApiClient().get(`/doctors/booked/${id}`);
+    }
 }
 
 

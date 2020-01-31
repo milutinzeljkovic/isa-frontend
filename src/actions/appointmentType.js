@@ -29,7 +29,6 @@ export const getAppointmentTypes = () => {
         if(response.status === 200){
             return dispatch({ type: 'GETALLAPPTYPES', payload: response.data })
         }
-        
     }
 }
 
@@ -43,6 +42,39 @@ export const deleteAppointmentType = (id) => {
                 return dispatch({ type: 'ERROR', payload: 'error' })
             }
         }
+
+        if(response.status === 200){
+            return dispatch({ type: 'DELETE_APPOINTMENT_TYPE', payload: response.data })
+        } 
+    }
+}
+
+export const seeIfUsedAppType = (id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await appointmentTypeService.seeIfUsed(id);
+        }catch(e){
+            if(e.response.status === 500){
+                dispatch({ type: 'ERROR', payload: 'error'});
+            }
+        }
+
+        if(response.status === 200){
+            dispatch({type: 'SET-UPDATABLE', payload: response.data});
+        }
+    }
+}
+
+export const updateAppType = (data) => {
+    return async dispatch => {
+        try{
+            await appointmentTypeService.updateAppointmentType(data);
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        } 
     }
 }
 

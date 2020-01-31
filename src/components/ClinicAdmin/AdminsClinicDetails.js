@@ -21,11 +21,11 @@ class AdminsClinicDetails extends Component {
         if (prevProps.clinicAdmin !== this.props.clinicAdmin) {
             if(this.props.clinicAdmin !== undefined){                
                 this.setState({
-                    id: this.props.clinicAdmin.id,
-                    name: this.props.clinicAdmin.name,
-                    address: this.props.clinicAdmin.address,
-                    description: this.props.clinicAdmin.description,
-                    clinic_center: this.props.clinicAdmin.clinical_center_id
+                    id: this.props.clinicAdmin.clinic.id,
+                    name: this.props.clinicAdmin.clinic.name,
+                    address: this.props.clinicAdmin.clinic.address,
+                    description: this.props.clinicAdmin.clinic.description,
+                    clinic_center: this.props.clinicAdmin.clinic.clinical_center_id
                 })
             }
         }
@@ -39,11 +39,11 @@ class AdminsClinicDetails extends Component {
     onEditButtonClick = () => {
         if(this.state.editMode){
             this.setState({
-                id: this.props.clinicAdmin.id,
-                name: this.props.clinicAdmin.name,
-                address: this.props.clinicAdmin.address,
-                description: this.props.clinicAdmin.description,
-                clinic_center: this.props.clinicAdmin.clinical_center_id
+                id: this.props.clinicAdmin.clinic.id,
+                name: this.props.clinicAdmin.clinic.name,
+                address: this.props.clinicAdmin.clinic.address,
+                description: this.props.clinicAdmin.clinic.description,
+                clinic_center: this.props.clinicAdmin.clinic.clinical_center_id
             })
         }
         this.setState({

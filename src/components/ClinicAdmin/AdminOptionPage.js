@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn, MDBNotification } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
 import { connect } from 'react-redux';
-import { getAllDoctors, /*deleteDoctor*/ } from '../../actions/clinicAdmin';
-import {getAppointmentTypes, deleteAppointmentType} from '../../actions/appointmentType';
-import { getAllOpRooms, /*deleteOperatingRoom*/} from '../../actions/operatingRoom';
+import { getAllDoctors, setEntityToBeUpdated, seeIfBookedDoctor, deleteDoctor } from '../../actions/clinicAdmin';
+import { getAppointmentTypes, deleteAppointmentType, seeIfUsedAppType } from '../../actions/appointmentType';
+import { getAllOpRooms, seeIfBookedOpRoom, deleteOperatingRoom } from '../../actions/operatingRoom';
+import { getDoctorsWorkingHours } from '../../actions/workingHours';
 import _ from 'loadsh';
 import FeedbackNotification from '../FeedbackNotification';
+import browserHistory from '../../history';
 
 class AdminOptionPage extends Component {
 
@@ -13,13 +15,12 @@ class AdminOptionPage extends Component {
         super(props);
         this.state = {
             showNotification: false,
-            notificationMessage: '',
-            notificationColor: 'red'
+            notificationMessage: ''
         }
     }
 
     componentWillMount(){
-        if(this.props.mode === 'Doctors mode'){
+        if(this.props.mode === 'Doctor mode'){
             this.props.getAllDoctors();
         }else if(this.props.mode === 'App type mode'){
             this.props.getAppointmentTypes();
@@ -27,34 +28,86 @@ class AdminOptionPage extends Component {
             this.props.getAllOpRooms();
         }
     }
+    
+    updateDoctor = async (doctor) => {
+        await this.props.setEntityToBeUpdated(doctor);
+        await this.props.seeIfBookedDoctor(doctor.id);
+        await this.props.getDoctorsWorkingHours(doctor.id);
+        browserHistory.push("/clinic-admin/update-doctor");
+    }
 
-    deleteAppType = (appTypeId) => {
-        this.setState({
-            showNotification: !this.state.showNotification,
-            notificationMessage: 'proba',
-            notificationColor: 'green'
-        });
+    updateOperatingRoom = async (opRoom) => {
+        await this.props.setEntityToBeUpdated(opRoom);
+        await this.props.seeIfBookedOpRoom(opRoom.id);
+        browserHistory.push("/clinic-admin/update-operating-rooms");
+    }
 
-        this.timeExit();
-        //this.props.deleteAppointmentType(appTypeId);
+    updateAppointmentType = async (appType) => {
+        await this.props.setEntityToBeUpdated(appType);
+        await this.props.seeIfUsedAppType(appType.id);
+        browserHistory.push("/clinic-admin/update-appointment-types");
     }
 
     timeExit(){
         setTimeout(
             function() {
-                this.setState({showNotification: !this.state.showNotification,});
-            }
-            .bind(this),
-            3000
-        );
+                this.setState({showNotification: !this.state.showNotification});
+            }.bind(this),3000);
     }
 
-    deleteDoctor = (doctorId) =>{
-        this.props.deleteDoctor(doctorId);
+    deleteDoctor = async (doctorId, name) =>{
+        await this.props.seeIfBookedDoctor(doctorId);
+        if(this.props.update.updatable[0] === "true"){
+            this.setState({
+                showNotification: !this.state.showNotification,
+                notificationMessage: 'Doctor ' + name + ' is not available for deleting because he is booked in an appointment'
+            })
+            this.timeExit();
+        }else {
+            this.props.deleteDoctor(doctorId);
+            this.setState({
+                showNotification: !this.state.showNotification,
+                notificationMessage: 'Doctor ' + name + ' has been successfully deleted'
+            })
+            this.timeExit();
+        }
     }
 
-    deleteOperatingRoom = (opRoomId) =>{
-        this.props.deleteOperatingRoom(opRoomId);
+    deleteOperatingRoom = async (opRoomId, opRoomNumber) =>{
+        await this.props.seeIfBookedOpRoom(opRoomId);
+        if(this.props.update.updatable[0] === "true"){
+            this.setState({
+                showNotification: !this.state.showNotification,
+                notificationMessage: 'Operating room number ' + opRoomNumber + ' is not available for deleting because it is being used in an appointment'
+            })
+            this.timeExit();
+        }else {
+            this.props.deleteOperatingRoom(opRoomId);
+            this.setState({
+                showNotification: !this.state.showNotification,
+                notificationMessage: 'You have successfully deleted this operating room'
+            })
+            this.timeExit();
+        }
+        
+    }
+
+    deleteAppType = async (appTypeId) => {
+        await this.props.seeIfUsedAppType(appTypeId);
+        if(this.props.update.updatable[0] === "true"){
+            this.setState({
+                showNotification: !this.state.showNotification,
+                notificationMessage: 'This appointment type is not available for deleting because it is being used in an appointment'
+            })
+            this.timeExit();
+        }else {
+            this.props.deleteAppointmentType(appTypeId);
+            this.setState({
+                showNotification: !this.state.showNotification,
+                notificationMessage: 'You have successfully deleted this appointment type'
+            })
+            this.timeExit();
+        }
     }
 
     renderDoctorList= (doctors) =>{ 
@@ -69,10 +122,10 @@ class AdminOptionPage extends Component {
                 <td>{doctor.user.address}</td>
                 <td>{doctor.user.phone_number}</td>
                 <td>
-                    <MDBBtn color="primary" onClick={() => this.deleteDoctor(doctor.user.id)}>Delete</MDBBtn>
+                    <MDBBtn color="danger" onClick={() => this.deleteDoctor(doctor.user.id, doctor.user.name)}>Delete</MDBBtn>
                 </td>
                 <td>
-                    <MDBBtn color="primary">Update</MDBBtn>
+                    <MDBBtn color="primary" onClick={() => this.updateDoctor(doctor.user)}>Update</MDBBtn>
                 </td>
             </tr>
           )
@@ -87,10 +140,10 @@ class AdminOptionPage extends Component {
             <tr key={appointmentType.id}>
                 <td>{appointmentType.name}</td>
                 <td>
-                  <MDBBtn color="primary" onClick={() => this.deleteAppType(appointmentType.id)}>Delete</MDBBtn>
+                  <MDBBtn color="danger" onClick={() => this.deleteAppType(appointmentType.id)}>Delete</MDBBtn>
                 </td>
                 <td>
-                  <MDBBtn color="primary">Update</MDBBtn>
+                  <MDBBtn color="primary" onClick={() => this.updateAppointmentType(appointmentType)}>Update</MDBBtn>
                 </td>
             </tr>
           )
@@ -106,10 +159,10 @@ class AdminOptionPage extends Component {
                 <td>{opRoom.name}</td>
                 <td>{opRoom.number}</td>
                 <td>
-                  <MDBBtn color="primary" onClick={() => this.deleteDoctor(opRoom.id)}>Delete</MDBBtn>
+                  <MDBBtn color="danger" onClick={() => this.deleteOperatingRoom(opRoom.id, opRoom.number)}>Delete</MDBBtn>
                 </td>
                 <td>
-                  <MDBBtn color="primary">Update</MDBBtn>
+                  <MDBBtn color="primary" onClick={() => this.updateOperatingRoom(opRoom)}>Update</MDBBtn>
                 </td>
             </tr>
           )
@@ -119,27 +172,16 @@ class AdminOptionPage extends Component {
     renderTableBody = () => {
         if(this.props.mode === 'Doctor mode'){
             return(
-                <MDBTableBody>
-                    { this.props.clinicAdmin === null ? '' : this.renderDoctorList(this.props.clinicAdmin)}
-                </MDBTableBody> 
+                this.props.clinicAdmin === null ? '' : this.renderDoctorList(this.props.clinicAdmin)
             )
         }else if(this.props.mode === 'App type mode'){
             return(
-                <MDBTableBody>
-                    { this.props.appointmentTypes === null ? '' : this.renderAppointmentTypeList(this.props.appointmentTypes)}
-                </MDBTableBody> 
+                this.props.appointmentTypes === null ? '' : this.renderAppointmentTypeList(this.props.appointmentTypes)
             )
         }else if(this.props.mode === 'Op room mode'){
             return(
-                <MDBTableBody>
-                    { this.props.operatingRooms === null ? '' : this.renderOperatingRoomList(this.props.operatingRooms)}
-                </MDBTableBody> 
+                this.props.operatingRooms === null ? '' : this.renderOperatingRoomList(this.props.operatingRooms)
             )
-        }else {
-            return(
-                <MDBTableBody> </MDBTableBody> 
-            )
-            
         }
     }
 
@@ -181,7 +223,7 @@ class AdminOptionPage extends Component {
     render(){
         return(
             <div className='container' style={{paddingTop:'50px'}}>
-                <MDBTable>
+                <MDBTable hover>
                     <MDBTableHead color="info-color" textWhite>
                         {this.renderTableHead()}
                     </MDBTableHead>
@@ -190,7 +232,7 @@ class AdminOptionPage extends Component {
                     </MDBTableBody>
                 </MDBTable>
 
-                {this.state.showNotification === true ? <FeedbackNotification show={this.state.showNotification} showNotification={this.state.showNotification} notificationColor={this.state.notificationColor} notificationMessage={this.state.notificationMessage}/> : ''}
+                {this.state.showNotification === true ? <FeedbackNotification show={this.state.showNotification} notificationMessage={this.state.notificationMessage}/> : ''}
             </div>
         );
     }
@@ -200,8 +242,9 @@ const mapStateToProps = (state) => {
     return {
       clinicAdmin: state.clinicAdmin,
       operatingRooms: state.operatingRooms,
-      appointmentTypes: state.appointmentTypes
+      appointmentTypes: state.appointmentTypes,
+      update: state.update
     }
   }
   
-  export default connect(mapStateToProps, {getAllDoctors, getAllOpRooms, getAppointmentTypes, deleteAppointmentType/*, deleteDoctor, deleteOperatingRoom*/})(AdminOptionPage);
+  export default connect(mapStateToProps, {getAllDoctors, getAllOpRooms, getAppointmentTypes, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor})(AdminOptionPage);

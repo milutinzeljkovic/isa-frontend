@@ -19,6 +19,10 @@ class AppointmentTypeService extends Service{
     updateAppointmentType(data){
         return this.getApiClient().put(`${resource1}/update/${data.id}`, data);
     }
+
+    seeIfUsed(id){
+        return this.getApiClient().get(`${resource1}/used/${id}`);
+    }
 }
 
 
