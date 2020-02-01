@@ -9,7 +9,9 @@ export default (state = null, action) => {
         case 'FETCHING_DOCTORS_ERROR':
             return state;
         case 'FETCH_CLINIC_ADMIN_CLINIC':
-            return action.payload;
+            return {...state, clinic: action.payload};
+        case 'DELETE-DOCTOR':
+            return state.filter(val => val.id !== action.payload);
         default: return state;
     }
 

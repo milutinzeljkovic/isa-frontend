@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { MDBCard, MDBListGroup, MDBListGroupItem, MDBBadge, MDBRow, MDBCol } from "mdbreact";
+import { MDBCard, MDBListGroupItem, MDBBadge, MDBRow, MDBCol } from "mdbreact";
 import AppointmentDetailCheckout from './AppointmentDetailCheckout';
 import image from '../../images/doctor-avatar.png';
 import ExampleComponent from "react-rounded-image";

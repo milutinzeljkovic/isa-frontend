@@ -163,7 +163,6 @@ class AvailableAppointmentsDialog extends Component {
                 <MDBInput
                     label="Type the cost of the checkup"
                     group
-                    type="email"
                     validate
                     error="wrong"
                     success="right"

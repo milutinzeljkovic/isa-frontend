@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBIcon, MDBBtn} from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardText, MDBIcon, MDBBtn} from 'mdbreact';
 import { MDBTable, MDBTableBody } from 'mdbreact';
 import _ from 'loadsh';
 import { connect } from 'react-redux';

@@ -32,6 +32,10 @@ import AdminsClinicDetails from './components/ClinicAdmin/AdminsClinicDetails';
 import PatientProfileSearch from './components/Patients/PatientProfileSearch';
 import WorkingCalendar from './components/Doctor/WorkingCalendar';
 
+import DoctorHomePage from './components/HomePage/DoctorHomePage';
+import ClinicAdminHomePage from './components/HomePage/ClinicAdminHomePage';
+import AdminOptionPage from './components/ClinicAdmin/AdminOptionPage';
+import ClinicAdminUpdatePage from './components/ClinicAdmin/ClinicAdminUpdatePage';
 
 class App extends Component {
 
@@ -57,6 +61,7 @@ class App extends Component {
           return <Profile />
         }} />
         <Route path='/staff' exact component = {PatientTableByClinic} />
+        <Route path='/doctor/all-patients' exact component = {PatientTableByClinic} />
         <Route path='/clinics/add' exact component = {AddClinicDialog} />
         <Route path='/clinics' exact component = {SearchClinicDialog} />
         <Route path='/clinics/add/admin' exact component = {AddClinicAdmin} />
@@ -76,6 +81,10 @@ class App extends Component {
         { this.props.auth.currentUser !==undefined ? <Route path='/home' exact render = {()=>{
           if(this.props.auth !== undefined && this.props.auth.currentUser.userable_type === 'App\\Patient'){
             return <PatientHomePage />
+          }else if(this.props.auth !== undefined && this.props.auth.currentUser.userable_type === 'App\\Doctor'){
+            return <DoctorHomePage />
+          }else if(this.props.auth !== undefined && this.props.auth.currentUser.userable_type === 'App\\ClinicAdmin'){
+            return <ClinicAdminHomePage />
           }
         }} /> : ''}
         <Route path='/operationRoom/add' exact component = {AddOperatingRoom}/>
@@ -85,6 +94,14 @@ class App extends Component {
         <Route path='/patients/searchResults' exact component = {PatientSearchResultsTable}/>
         <Route path='/get/myClinic' exact component = {AdminsClinicDetails}/>
         <Route path='/patient/profile' exact component = {PatientProfileSearch}/>
+
+        <Route path='/clinic-admin/all-doctors' exact render={(props) => <AdminOptionPage {...props} mode={'Doctor mode'} />}/>
+        <Route path='/clinic-admin/all-appointment-types' exact render={(props) => <AdminOptionPage {...props} mode={'App type mode'} />}/>
+        <Route path='/clinic-admin/all-operating-rooms' exact render={(props) => <AdminOptionPage {...props} mode={'Op room mode'}/>}/>
+
+        <Route path='/clinic-admin/update-doctor' exact render={(props) => <ClinicAdminUpdatePage {...props} mode={'Doctor mode'}/>}/>
+        <Route path='/clinic-admin/update-appointment-types' exact render={(props) => <ClinicAdminUpdatePage {...props} mode={'App type mode'}/>}/>
+        <Route path='/clinic-admin/update-operating-rooms' exact render={(props) => <ClinicAdminUpdatePage {...props} mode={'Op room mode'}/>}/>
       </Router>
     );
   }

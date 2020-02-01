@@ -19,7 +19,21 @@ class AddMedStaffDialog extends Component {
             password: '',
             phone_number: '',
             password_confirmation: '',
-            role: 'nurse'
+            role: '',
+            mondayFrom: '',
+            mondayTo: '',
+            tuesdayFrom: '',
+            tuesdayTo: '',
+            wednesdayFrom: '',
+            wednesdayTo: '',
+            thursdayFrom: '',
+            thursdayTo: '',
+            fridayFrom: '',
+            fridayTo: '',
+            saturdayFrom: '',
+            saturdayTo: '',
+            sundayFrom: '',
+            sundayTo: ''
         };
     }
 
@@ -90,8 +104,91 @@ class AddMedStaffDialog extends Component {
         })
     }
 
+    handleMondayFromChange = (e) => {
+        this.setState({
+            mondayFrom: e.target.value
+        })
+    }
+
+    handleMondayToChange = (e) => {
+        this.setState({
+            mondayTo: e.target.value
+        })
+    }
+
+    handleTuesdayFromChange = (e) => {
+        this.setState({
+            tuesdayFrom: e.target.value
+        })
+    }
+
+    handleTuesdayToChange = (e) => {
+        this.setState({
+            tuesdayTo: e.target.value
+        })
+    }
+
+    handleWednesdayFromChange = (e) => {
+        this.setState({
+            wednesdayFrom: e.target.value
+        })
+    }
+
+    handleWednesdayToChange = (e) => {
+        this.setState({
+            wednesdayTo: e.target.value
+        })
+    }
+
+    handleThursdayFromChange = (e) => {
+        this.setState({
+            thursdayFrom: e.target.value
+        })
+    }
+
+    handleThursdayToChange = (e) => {
+        this.setState({
+            thursdayTo: e.target.value
+        })
+    }
+
+    handleFridayFromChange = (e) => {
+        this.setState({
+            fridayFrom: e.target.value
+        })
+    }
+
+    handleFridayToChange = (e) => {
+        this.setState({
+            fridayTo: e.target.value
+        })
+    }
+
+    handleSaturdayFromChange = (e) => {
+        this.setState({
+            saturdayFrom: e.target.value
+        })
+    }
+
+    handleSaturdayToChange = (e) => {
+        this.setState({
+            saturdayTo: e.target.value
+        })
+    }
+
+    handleSundayFromChange = (e) => {
+        this.setState({
+            sundayFrom: e.target.value
+        })
+    }
+
+    handleSundayToChange = (e) => {
+        this.setState({
+            sundayTo: e.target.value
+        })
+    }
+
     handleOnSubmit = () => {
-        console.log(this.props.auth.currentUser.userable_type);
         this.props.registerMedStaff(this.state);
         this.props.toggle();
         browserHistory.push("/");
@@ -102,31 +199,29 @@ class AddMedStaffDialog extends Component {
             <form onSubmit={this.handleSubmit}>
                 <p className="h5 text-center mb-4">Add medical staff to your clinic</p>
                 <div className="grey-text">
-                <label htmlFor="select1">Choose medical staff role</label>
                 <select name="select1" className="browser-default custom-select" onChange={(e) => this.handleRoleChange(e)}>
+                    <option disabled defaultValue>Choose type of medical staff</option>
                     <option value="nurse">Nurse</option>
                     <option value="doctor">Doctor</option>
                 </select>
                 <MDBInput
-                    label="Type your name"
+                    label="Type the name"
                     group
-                    type="email"
                     validate
                     error="wrong"
                     success="right"
                     onChange={(e) => this.handleNameChange(e)}
                 />
                 <MDBInput
-                    label="Type your last name"
+                    label="Type the last name"
                     group
-                    type="email"
                     validate
                     error="wrong"
                     success="right"
                     onChange={(e) => this.handleLastNameChange(e)}
                 />
                 <MDBInput
-                    label="Type your email"
+                    label="Type their email"
                     group
                     type="email"
                     validate
@@ -135,45 +230,40 @@ class AddMedStaffDialog extends Component {
                     onChange={(e) => this.handleEmailChange(e)}
                 />
                 <MDBInput
-                    label="Type your phone number"
+                    label="Type their phone number"
                     group
-                    type="email"
                     validate
                     error="wrong"
                     success="right"
                     onChange={(e) => this.handlePhoneNumberChange(e)}
                 />
                 <MDBInput
-                    label="Type your address"
+                    label="Type their address"
                     group
-                    type="email"
                     validate
                     error="wrong"
                     success="right"
                     onChange={(e) => this.handleAddressChange(e)}
                 />
                 <MDBInput
-                    label="Type your city"
+                    label="Type their city"
                     group
-                    type="email"
                     validate
                     error="wrong"
                     success="right"
                     onChange={(e) => this.handleCityChange(e)}
                 />
                 <MDBInput
-                    label="Type your state"
+                    label="Type their state"
                     group
-                    type="email"
                     validate
                     error="wrong"
                     success="right"
                     onChange={(e) => this.handleStateChange(e)}
                 />
                 <MDBInput
-                    label="Type your ensurance id"
+                    label="Type their ensurance id"
                     group
-                    type="email"
                     validate
                     error="wrong"
                     success="right"
@@ -193,6 +283,44 @@ class AddMedStaffDialog extends Component {
                     validate
                     onChange={(e) => this.handlePasswrodConfirmationChange(e)}
                 />
+                <label htmlFor="hours"><span style={{fontSize:"16px", color:"black"}}><strong>Define working days and hours</strong></span></label>
+                <div style={{paddingBottom:"40px"}} name="hours">
+                    <label htmlFor="1">Monday</label>
+                    <div className="grey-text" name="1">
+                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleMondayFromChange(e)} type="number"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleMondayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                    </div>
+                    <label htmlFor="2">Tuesday</label>
+                    <div className="grey-text" name="2">
+                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleTuesdayFromChange(e)} min="0" max="24" type="number"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleTuesdayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                    </div>
+                    <label htmlFor="3">Wednesday</label>
+                    <div className="grey-text" name="3">
+                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleWednesdayFromChange(e)} min="0" max="24" type="number"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleWednesdayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                    </div>
+                    <label htmlFor="4">Thursday</label>
+                    <div className="grey-text" name="4">
+                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleThursdayFromChange(e)} min="0" max="24" type="number"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleThursdayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                    </div>
+                    <label htmlFor="5">Friday</label>
+                    <div className="grey-text" name="5">
+                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleFridayFromChange(e)} min="0" max="24" type="number"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleFridayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                    </div>
+                    <label htmlFor="6">Saturday</label>
+                    <div className="grey-text" name="6">
+                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleSaturdayFromChange(e)} min="0" max="24" type="number"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleSaturdayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                    </div>
+                    <label htmlFor="7">Sunday</label>
+                    <div className="grey-text" name="7">
+                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleSundayFromChange(e)} min="0" max="24" type="number"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleSundayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                    </div>
+                </div>
                 </div>
                 <div className="text-center">
                 <MDBBtn onClick = {() => this.handleOnSubmit()} >Add</MDBBtn>

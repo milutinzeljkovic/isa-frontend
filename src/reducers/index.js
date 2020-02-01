@@ -13,6 +13,7 @@ import appointmentReducer from './appointmentReducer';
 import doctors from './doctors';
 import medicines from './medicines';
 import diagnoses from './diagnoses';
+import updatesReducer from './update';
 
 export default combineReducers({
    auth: authReducer,
@@ -28,5 +29,6 @@ export default combineReducers({
    appointments: appointmentReducer,
    doctors,
    medicines,
-   diagnoses
+   diagnoses,
+   update: updatesReducer
 });
