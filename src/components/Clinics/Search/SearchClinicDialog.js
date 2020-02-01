@@ -15,6 +15,8 @@ import { me } from '../../../actions/auth';
 import ClinicDetail from './ClinicDetail';
 import ClinicFilter from './ClinicFIlter';
 
+
+
 class SearchClinicDialog extends Component {
 
     constructor(props){
@@ -107,7 +109,13 @@ class SearchClinicDialog extends Component {
                 >  
                 <MDBRow>
                     <MDBCol md="4">
-                    <img src = {image} style={{width: "90%"}} ></img>
+                    <ExampleComponent
+                            image={image}
+                            roundedColor="#321124"
+                            imageWidth="150"
+                            imageHeight="150"
+                            roundedSize="0"
+                            />
                     <div class="d-inline-flex p-2 bd-highlight">
                         <ReactStars
                         count={5}

@@ -25,9 +25,10 @@ export const getAppointmentTypes = () => {
                 return dispatch({ type: 'ERROR', payload: 'error' })
             }
         }
-
-        if(response.status === 200){
-            return dispatch({ type: 'GETALLAPPTYPES', payload: response.data })
+        if(response){
+            if(response.status === 200){
+                return dispatch({ type: 'GETALLAPPTYPES', payload: response.data })
+            }
         }
         
     }

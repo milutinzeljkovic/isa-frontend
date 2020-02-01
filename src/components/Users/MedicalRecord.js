@@ -40,7 +40,7 @@ class MedicalRecord extends Component {
                         <td><h5 className="mb-1">presctiption: {data.info} {data.medicine.name}</h5></td>
                     </tr>
                     <tr>
-                        <td><h5 className="mb-1">approved by: {data.nurse.user.name} {data.nurse.user.email}</h5></td>
+                        { data.nurse?  <td><h5 className="mb-1">approved by: {data.nurse.user.name} {data.nurse.user.email}</h5></td> : "" }
                     </tr>
                     </tbody>
                     

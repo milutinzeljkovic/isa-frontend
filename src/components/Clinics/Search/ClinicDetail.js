@@ -13,6 +13,18 @@ import ReactStars from 'react-stars'
 import DoctorAppointments from './DoctorAppointments';
 import DoctorFilter from './DoctorFilter';
 
+import image1 from '../../../images/rnd1.jpg';
+import image2 from '../../../images/rnd2.jpg';
+import image3 from '../../../images/rnd3.jpg';
+import image4 from '../../../images/rnd4.jpg';
+import image5 from '../../../images/rnd5.jpg';
+import image6 from '../../../images/rnd6.jpg';
+import image7 from '../../../images/rnd7.jpg';
+import image8 from '../../../images/rnd7.jpg';
+import image9 from '../../../images/rnd7.jpg';
+import image10 from '../../../images/rnd7.jpg';
+var images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10];
+
 
 class ClinicDetail extends Component {
 
@@ -93,6 +105,7 @@ class ClinicDetail extends Component {
     }
 
     renderDoctors = (doctors) => {
+
         if(this.state.showDoctors){
             let canRateDoctors = [];
         
@@ -105,7 +118,8 @@ class ClinicDetail extends Component {
         }
 
             
-            return _.map(doctors, (doctor,index) => {   
+            return _.map(doctors, (doctor,index) => {
+                let rnd = Math.floor(Math.random() * 10);   
                 const canRate = canRateDoctors.includes(doctor.id);           
                 return(
                     <MDBCard id ={ index === 0 ? 'doctor-card-0':  'doctor-card'} key = {doctor.id}>
@@ -116,7 +130,7 @@ class ClinicDetail extends Component {
                     <MDBRow>
                         <MDBCol md="4">
                         <ExampleComponent
-                            image={image}
+                            image={images[rnd]}
                             roundedColor="#321124"
                             imageWidth="150"
                             imageHeight="150"
@@ -194,22 +208,35 @@ class ClinicDetail extends Component {
                 <MDBCard id = 'clinic-detail-card'>
                     <MDBCardBody>
                         <MDBCloseIcon onClick = {this.hancleCloseClick}/>
-                        <MDBCardTitle>{this.props.clinic.name}</MDBCardTitle>
-                        <MDBCardText>
-                            {this.props.clinic.description}
-                        </MDBCardText>
-                        
-                        <MDBIcon icon="compass" />
-                        <MDBCardText>
-                            {this.props.clinic.address}
-                        </MDBCardText>
-                        <MDBBadge tag="a" color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i className="fas fa-user-md"></i></MDBBadge>
-                        <div>
-                            {this.renderDoctorsFilter()}
-                        </div>
-                        <div>
-                            {this.renderDoctors(this.props.doctors)}
-                        </div>
+                        <MDBRow>
+                            <MDBCol md = "8">
+                            <MDBCardTitle>{this.props.clinic.name}</MDBCardTitle>
+                            <MDBCardText>
+                                {this.props.clinic.description}
+                            </MDBCardText>
+                            
+                            <MDBIcon icon="compass" />
+                            <MDBCardText>
+                                {this.props.clinic.address}
+                            </MDBCardText>
+                            </MDBCol>
+                            <MDBCol md = "4">
+                            <ExampleComponent
+                            image={image}
+                            roundedColor="#321124"
+                            imageWidth="150"
+                            imageHeight="150"
+                            roundedSize="0"
+                            />
+                            </MDBCol>
+                            </MDBRow>
+                            <MDBBadge tag="a" color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i className="fas fa-user-md"></i></MDBBadge>
+                            <div>
+                                {this.renderDoctorsFilter()}
+                            </div>
+                            <div>
+                                {this.renderDoctors(this.props.doctors)}
+                            </div>
                     </MDBCardBody>
                 </MDBCard>
             </div>

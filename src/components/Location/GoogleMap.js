@@ -19,21 +19,23 @@ class GoogleMap extends Component {
     const lat = this.props.selectedLocation ? this.props.selectedLocation.lat : 0;
     const lng = this.props.selectedLocation ? this.props.selectedLocation.lng : 0;
 
-    let myMap = new google.maps.Map(this.refs.map, {
-      zoom:17,
-      center:{
-        lat,
-        lng
-      }
-    });
+    let myMap;
+      myMap = new google.maps.Map(this.refs.map, {
+        zoom:17,
+        center:{
+          lat,
+          lng
+        }
+      });
+      new google.maps.Marker({
+        position: myMap.center,
+        map: myMap,
+        icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        zoomControl: false,
+      });
+    
+  } 
 
-    new google.maps.Marker({
-      position: myMap.center,
-      map: myMap,
-      icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-      zoomControl: false,
-    });
-  }
 
   renderView() {
     if(this.props.selectedLocation === null) {

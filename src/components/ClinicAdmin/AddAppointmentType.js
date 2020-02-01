@@ -9,7 +9,8 @@ class AddAppointmentType extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ''
+            name: '',
+            price: ''
         };
     }
 
@@ -17,6 +18,11 @@ class AddAppointmentType extends Component {
     handleNameChange = (e) => {
         this.setState({
             name: e.target.value
+        })
+    }
+    handlePriceChange = (e) => {
+        this.setState({
+            price: e.target.value
         })
     }
 
@@ -40,6 +46,15 @@ class AddAppointmentType extends Component {
                     error="wrong"
                     success="right"
                     onChange={(e) => this.handleNameChange(e)}
+                />
+                <MDBInput
+                    label="Type the price"
+                    group
+                    type="number"
+                    validate
+                    error="wrong"
+                    success="right"
+                    onChange={(e) => this.handlePriceChange(e)}
                 />
                 </div>
                 <div className="text-center">
