@@ -11,7 +11,7 @@ class AddDiagnose extends Component {
         super(props);
         this.state = {
             name: '',
-            description: '',
+            label: '',
         };
     }
 
@@ -19,8 +19,8 @@ class AddDiagnose extends Component {
         this.setState({name: event.target.value});
     }
 
-    handleDescriptionChange = event =>  {
-        this.setState({description: event.target.value});
+    handleLabelChange = event =>  {
+        this.setState({label: event.target.value});
     }
     
     handleOnSubmit = () => {
@@ -47,6 +47,17 @@ class AddDiagnose extends Component {
                     <form onSubmit={() => this.handleSubmit()}>
                     <div className="grey-text">
                     <MDBInput
+                        label="Type label diagnose"
+                        group
+                        type="text"
+                        validate
+
+                        required
+
+                        onChange={(e) => this.handleLabelChange(e)}
+                    />
+                  
+                    <MDBInput
                         label="Type name diagnose"
                         group
                         type="text"
@@ -56,16 +67,6 @@ class AddDiagnose extends Component {
                         onChange={(e) => this.handleNameChange(e)}
                     />
                  
-                    <MDBInput
-                        label="Type description diagnose"
-                        group
-                        type="text"
-                        validate
-
-                        required
-
-                        onChange={(e) => this.handleDescriptionChange(e)}
-                    />
                   
                     </div>
                     <div className="text-center">
