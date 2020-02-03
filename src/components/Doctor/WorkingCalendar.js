@@ -7,8 +7,9 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import { connect } from 'react-redux';
 import { getAppointment } from '../../actions/doctors';
-import { getMedicines } from '../../actions/medicines';
-import { getDiagnoses } from '../../actions/diagnose';
+
+import { getDataForDoctor } from '../../actions/doctors';
+import browserHistory from '../../history';
 
 import _ from 'loadsh';
 
@@ -22,7 +23,6 @@ import "@fullcalendar/list/main.css";
 import "@fullcalendar/list/main.js";
 
 import { MDBContainer } from "mdbreact";
-import StartAppointmentDialog from './StartAppointmentDialog';
 
 class WorkingCalendar extends Component {
   calendarComponentRef = React.createRef();
@@ -44,8 +44,6 @@ class WorkingCalendar extends Component {
 
   async componentWillMount() {
     await this.props.getAppointment();
-    await this.props.getMedicines();
-    await this.props.getDiagnoses();
 
   }
 
@@ -73,12 +71,19 @@ class WorkingCalendar extends Component {
 
   }
 
-  handleClick = (info ) => {
-    this.setState({
-      data: info.event,
-      showStartAppointmentDialog: true,
-      done: this.props.doctors.doctorAppointments.done
-    })
+  handleClick = async (info ) => {
+    await this.props.getDataForDoctor(info.event.id);
+
+
+
+  
+    browserHistory.push({
+    pathname:`/doctor/start-appointment/${info.event.id}`,
+    });
+
+    
+
+
 
   }
 
@@ -104,7 +109,6 @@ class WorkingCalendar extends Component {
           />
 
         </MDBContainer>
-        <StartAppointmentDialog diagnoses={this.props.diagnoses} medicines={this.props.medicines} data={this.state.data} show={this.state.showStartAppointmentDialog} toggle={this.hideStartAppointmentDialog} />
 
       </div>
 
@@ -118,11 +122,10 @@ class WorkingCalendar extends Component {
 const mapStateToProps = (state) => {
   return {
     doctors: state.doctors,
-    medicines: state.medicines,
-    diagnoses: state.diagnoses
+
 
   }
 }
 
 
-export default connect(mapStateToProps, {getMedicines,getDiagnoses, getAppointment })(WorkingCalendar);
+export default connect(mapStateToProps, {getDataForDoctor, getAppointment })(WorkingCalendar);

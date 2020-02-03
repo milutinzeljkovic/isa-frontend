@@ -36,6 +36,7 @@ import DoctorHomePage from './components/HomePage/DoctorHomePage';
 import ClinicAdminHomePage from './components/HomePage/ClinicAdminHomePage';
 import AdminOptionPage from './components/ClinicAdmin/AdminOptionPage';
 import ClinicAdminUpdatePage from './components/ClinicAdmin/ClinicAdminUpdatePage';
+import StartAppointmentDialog from './components/Doctor/StartAppointmentDialog'
 
 class App extends Component {
 
@@ -75,7 +76,7 @@ class App extends Component {
         <Route path='/doctor/calendar' exact component = {WorkingCalendar}/>
 
         <Route path='/prescriptions' exact component = {PrescriptionsTable}/>
-
+        <Route path='/doctor/start-appointment/:id' exact component={StartAppointmentDialog}/>
         
         <Route path='/add/appointment' exact component = {AvailableAppointmentsDialog}/>
         { this.props.auth.currentUser !==undefined ? <Route path='/home' exact render = {()=>{

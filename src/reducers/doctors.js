@@ -4,6 +4,8 @@ export default (state = null, action) => {
             return  {...state, selectedDoctor: action.payload};
         case 'FETCH_APPOINTMENT':
                 return  {...state, doctorAppointments: action.payload};
+        case 'DATA_FOR_DOCTOR':
+            return  {...state, dataForDoctor: action.payload};
         case 'APPOINTMENT_RESERVED':
             let pom = [];
             
