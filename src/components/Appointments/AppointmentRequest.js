@@ -115,6 +115,11 @@ class AppointmentRequest extends Component {
                         msg: res.payload
                     })
                 }
+                if(res.payload.doctor_id !== undefined){
+                    this.setState({
+                        appointmentRequested: true
+                    })
+                }
 
                 if(res.payload.search('Work hours') !== -1){
                     this.setState({
