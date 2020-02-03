@@ -18,6 +18,10 @@ class DoctorService extends Service{
 
     }
 
+    getDataForDoctor(id){
+        return this.getApiClient().get(`${resource}/get-data/${id}`);
+    }
+
   
 }
 

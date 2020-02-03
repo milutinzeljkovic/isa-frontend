@@ -31,7 +31,7 @@ import PatientSearchResultsTable from './components/Patients/PatientsSearchResul
 import AdminsClinicDetails from './components/ClinicAdmin/AdminsClinicDetails';
 import PatientProfileSearch from './components/Patients/PatientProfileSearch';
 import WorkingCalendar from './components/Doctor/WorkingCalendar';
-
+import StartAppointmentDialog from './components/Doctor/StartAppointmentDialog'
 
 class App extends Component {
 
@@ -70,7 +70,7 @@ class App extends Component {
         <Route path='/doctor/calendar' exact component = {WorkingCalendar}/>
 
         <Route path='/prescriptions' exact component = {PrescriptionsTable}/>
-
+        <Route path='/doctor/start-appointment/:id' exact component={StartAppointmentDialog}/>
         
         <Route path='/add/appointment' exact component = {AvailableAppointmentsDialog}/>
         { this.props.auth.currentUser !==undefined ? <Route path='/home' exact render = {()=>{

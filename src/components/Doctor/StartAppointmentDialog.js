@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBBtn, MDBInput, MDBModal, MDBModalBody, } from 'mdbreact';
+import { MDBContainer, MDBBtn, MDBInput } from 'mdbreact';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { connect } from 'react-redux';
 import { finishReport } from '../../actions/doctors';
+import browserHistory from '../../history';
+import { getMedicines } from '../../actions/medicines';
+import { getDiagnoses } from '../../actions/diagnose';
 
 import _ from 'loadsh';
 
@@ -19,10 +22,103 @@ class StartAppointmentDialog extends Component {
             diopter: '',
             blood_type: '',
             medicines: [],
-            diagnose: '',
+            diagnose: {},
             therapy: '',
+            done: false
         };
+
     }
+
+    async componentWillMount() {
+        await this.props.getMedicines();
+        await this.props.getDiagnoses();
+
+        if (this.props.doctors.dataForDoctor.medical_record === undefined) {
+            if (this.props.doctors.dataForDoctor.height !== null)
+                this.setState({
+                    height: this.props.doctors.dataForDoctor.height
+                })
+            if (this.props.doctors.dataForDoctor.weight !== null)
+                this.setState({
+                    weight: this.props.doctors.dataForDoctor.weight
+                })
+            if (this.props.doctors.dataForDoctor.blood_type !== null)
+                this.setState({
+                    blood_type: this.props.doctors.dataForDoctor.blood_type
+                })
+            if (this.props.doctors.dataForDoctor.diopter !== null)
+                this.setState({
+                    diopter: this.props.doctors.dataForDoctor.diopter
+                })
+            if (this.props.doctors.dataForDoctor.allergy !== null)
+                this.setState({
+                    allergy: this.props.doctors.dataForDoctor.allergy
+                })
+
+
+        } else {
+
+
+            if (this.props.doctors.dataForDoctor.medical_record.height !== null)
+                this.setState({
+                    height: this.props.doctors.dataForDoctor.medical_record.height
+                })
+            if (this.props.doctors.dataForDoctor.medical_record.weight !== null)
+                this.setState({
+                    weight: this.props.doctors.dataForDoctor.medical_record.weight
+                })
+            if (this.props.doctors.dataForDoctor.medical_record.blood_type !== null)
+                this.setState({
+                    blood_type: this.props.doctors.dataForDoctor.medical_record.blood_type
+                })
+            if (this.props.doctors.dataForDoctor.medical_record.diopter !== null)
+                this.setState({
+                    diopter: this.props.doctors.dataForDoctor.medical_record.diopter
+                })
+            if (this.props.doctors.dataForDoctor.medical_record.allergy !== null)
+                this.setState({
+                    allergy: this.props.doctors.dataForDoctor.medical_record.allergy
+                })
+            if (this.props.doctors.dataForDoctor.information !== null)
+                this.setState({
+                    therapy: this.props.doctors.dataForDoctor.information
+                })
+
+            let diag = this.state.diagnose;
+
+            diag.name = this.props.doctors.dataForDoctor.diagnose.name;
+            diag.label = this.props.doctors.dataForDoctor.diagnose.label;
+
+            this.setState({ diagnose: diag })
+
+            let med = this.state.medicines;
+            _.map(this.props.doctors.dataForDoctor.prescriptions, pres => {
+                let newMed = {};
+
+                newMed.name = pres.medicine.name;
+                newMed.label = pres.medicine.label;
+                newMed.info = pres.info;
+                med.push(newMed);
+
+            })
+            this.setState({
+                medicines: med,
+            })
+            if(this.props.doctors.dataForDoctor.appointment.done === 1)
+                this.setState({
+                    done: true,
+                })
+
+
+        }
+
+    }
+
+
+
+
+
+
 
 
     handeDescriptionForMedicineChange = (event, i) => {
@@ -50,7 +146,7 @@ class StartAppointmentDialog extends Component {
         this.setState({ blood_type: event.target.value });
     }
     handleTherapyChange = event => {
-        
+
         this.setState({ therapy: event.target.value });
     }
 
@@ -101,116 +197,134 @@ class StartAppointmentDialog extends Component {
 
     }
 
+    previousPage() {
+
+        browserHistory.push('/doctor/calendar');
+
+    }
+
     handleOnSubmit = (e) => {
         e.preventDefault();
 
-        const datas = { ...this.state, appointment_id: this.props.data.id };
+        let app_id = this.props.location.pathname.split('/')[3]
+
+        const datas = { ...this.state, appointment_id: app_id };
 
         this.props.finishReport(datas);
-        this.props.toggle()
-
+        browserHistory.push('/doctor/calendar');
     }
+
+
 
 
     render() {
         return (
             <MDBContainer>
-                <MDBModal isOpen={this.props.show} toggle={this.props.toggle}>
-                    <MDBModalBody>
-                        <form onSubmit={(e)=>this.handleOnSubmit(e)}>
-                            <label>
-                                Medical record
+                <form onSubmit={(e) => this.handleOnSubmit(e)}>
+                    <label>
+                        Medical record
                             </label>
-                            <MDBInput
-                                label="Height"
-                                group
-                                type="text"
-                                validate
+                    <MDBInput
+                        label="Height"
+                        group
+                        type="text"
+                        validate
+                        required
+                        value={this.state.height}
+                        onChange={(e) => this.handleHeightChange(e)}
+                    />
+                    <MDBInput
+                        label="Weight"
+                        group
+                        type="text"
+                        validate
 
-                                required
+                        required
+                        value={this.state.weight}
 
-                                onChange={(e) => this.handleHeightChange(e)}
-                            />
-                            <MDBInput
-                                label="Weight"
-                                group
-                                type="text"
-                                validate
+                        onChange={(e) => this.handleWeightChange(e)}
+                    />
+                    <MDBInput
+                        label="Blood type"
+                        group
+                        type="text"
+                        validate
 
-                                required
+                        required
+                        value={this.state.blood_type}
 
-                                onChange={(e) => this.handleWeightChange(e)}
-                            />
-                            <MDBInput
-                                label="Blood type"
-                                group
-                                type="text"
-                                validate
+                        onChange={(e) => this.handleBloodTypeChange(e)}
+                    />
+                    <MDBInput
+                        label="Diopter"
+                        group
+                        type="text"
+                        validate
 
-                                required
+                        required
+                        value={this.state.diopter}
 
-                                onChange={(e) => this.handleBloodTypeChange(e)}
-                            />
-                            <MDBInput
-                                label="Diopter"
-                                group
-                                type="text"
-                                validate
 
-                                required
+                        onChange={(e) => this.handleDiopterChange(e)}
+                    />
+                    <MDBInput
+                        label="Allergy"
+                        group
+                        type="text"
+                        validate
 
-                                onChange={(e) => this.handleDiopterChange(e)}
-                            />
-                            <MDBInput
-                                label="Allergy"
-                                group
-                                type="text"
-                                validate
+                        required
+                        value={this.state.allergy}
 
-                                required
-
-                                onChange={(e) => this.handleAllergyChange(e)}
-                            />
-                            <label>
-                                Medical report
+                        onChange={(e) => this.handleAllergyChange(e)}
+                    />
+                    <label>
+                        Medical report
                             </label>
-                            <Autocomplete
-                                multiple
-                                options={this.renderMedicines(this.props.medicines)}
-                                getOptionLabel={option => option.name}
-                                onChange={this.handleMedicineChange}
-                                renderInput={params => (
-                                    <TextField
-                                        {...params}
-                                        variant="standard"
+                    <Autocomplete
+                        multiple
+                        options={this.renderMedicines(this.props.medicines)}
+                        getOptionLabel={option => option.name}
+                        onChange={this.handleMedicineChange}
+                        defaultValue={this.state.medicines}
+                        disabled={this.state.done}
 
-                                        label="Medicines"
-                                        placeholder="Medicines"
-                                        fullWidth
-                                    />
-                                )}
+                        renderInput={params => (
+                            <TextField
+                                {...params}
+                                variant="standard"
+
+                                label="Medicines"
+                                placeholder="Medicines"
+                                fullWidth
                             />
-                            {_.isEmpty(this.state.medicines) ? '' :
-                                _.map(this.state.medicines, (medicine, index) => {
-                                    return (
-                                        <MDBInput
-                                            key={medicine.label}
-                                            label={'Descripton for: ' + medicine.name}
-                                            group
-                                            id={medicine.label}
-                                            type="text"
-                                            validate
-                                            onChange={(e) => this.handeDescriptionForMedicineChange(e, index)}
-                                        />
-                                    )
+                        )}
+                    />
+                    {_.isEmpty(this.state.medicines) ? '' :
+                        _.map(this.state.medicines, (medicine, index) => {
+                            return (
+                                <MDBInput
+                                    key={medicine.label}
+                                    label={'Descripton for: ' + medicine.name}
+                                    group
+                                    id={medicine.label}
+                                    type="text"
+                                    validate
+                                    disabled={this.state.done}
+
+                                    value={medicine.info}
+                                    onChange={(e) => this.handeDescriptionForMedicineChange(e, index)}
+                                />
+                            )
 
 
-                                })
+                        })
 
-                            }
+                    }
+                    {
+                        this.state.done === false ?
 
                             <Autocomplete
-                                id="tags-standard"
                                 options={this.renderDiagnoses(this.props.diagnoses)}
                                 getOptionLabel={option => option.name}
                                 onChange={(event, value) => this.handleDiagnoseChange(event, value)}
@@ -218,40 +332,62 @@ class StartAppointmentDialog extends Component {
                                     <TextField
                                         {...params}
                                         variant="standard"
-                                        label="Diagnoses"
-                                        placeholder="Diagnoses"
+                                        label="Diagnose"
+                                        placeholder="Diagnose"
                                         fullWidth
 
 
                                     />
                                 )}
+                            /> :
+                            <MDBInput
+                                label="Diagnose"
+                                group
+                                type="text"
+                                validate
+                                disabled
+                                required
+                                value={this.state.diagnose.name}
+
+                                onChange={(e) => this.handleTherapyChange(e)}
                             />
-                            <div className="md-form">
-                                <label htmlFor="form7">Therapy</label>
+                    }
 
-                                <textarea id="form7"
-                                    className="md-textarea form-control"
-                                    rows="3" onChange={(e) => this.handleTherapyChange(e)}
-                                ></textarea>
-                            </div>
-                            <div className="text-center mt-4">
-                                <MDBBtn onClick={this.props.toggle} color="danger" outline type="submit">
-                                    Close
-                                </MDBBtn>
-                                <MDBBtn onClick={(e) => this.handleOnSubmit(e)} color="success" outline type="submit">
-                                    Start
-                                </MDBBtn>
-                            </div>
-                        </form>
 
-                    </MDBModalBody>
-                </MDBModal>
+                    <MDBInput
+                        label="Therapy"
+                        group
+                        type="text"
+                        validate
+                        disabled={this.state.done}
+                        required
+                        value={this.state.therapy}
+
+                        onChange={(e) => this.handleTherapyChange(e)}
+                    />
+                    <div className="text-center mt-4">
+                        <MDBBtn onClick={this.previousPage} color="danger" outline  >
+                            Close
+                                </MDBBtn>
+                        <MDBBtn onClick={(e) => this.handleOnSubmit(e)} color="success" outline type="submit">
+                            Start
+                                </MDBBtn>
+                    </div>
+                </form>
+
             </MDBContainer>
         );
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        doctors: state.doctors,
+        medicines: state.medicines,
+        diagnoses: state.diagnoses
+
+    }
+}
 
 
-
-export default connect(null, { finishReport })(StartAppointmentDialog);
+export default connect(mapStateToProps, { getMedicines, getDiagnoses, finishReport })(StartAppointmentDialog);

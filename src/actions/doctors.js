@@ -11,6 +11,15 @@ export const fetchDoctor = (id) => {
     }
 }
 
+export const getDataForDoctor = (id) => {
+    
+    return async dispatch => {
+        let response;
+        response = await doctorService.getDataForDoctor(id);
+        return dispatch({ type: 'DATA_FOR_DOCTOR', payload: response.data });
+    }
+}
+
 export const  filterDoctors = (filter) => {
     return {
         type: 'DOCTOR_FILTER',
