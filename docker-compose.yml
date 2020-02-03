@@ -1,0 +1,13 @@
+version: '3'
+services:
+  react-app:
+    build:
+      context: ./src
+      dockerfile: ./Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./src:/app
+    ports:
+      - '3000:3000'
+    restart: on-failure
+    container_name: react-app

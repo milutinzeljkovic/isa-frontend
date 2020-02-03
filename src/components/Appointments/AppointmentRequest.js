@@ -12,13 +12,17 @@ class AppointmentRequest extends Component {
         let c = '2019-01-01 00:00:00';
         super(props);
         this.state = {
+            err: false,
+            msg: null,
             appointment_type: null,
             startDate: c,
             date: null,
             appointmentRequested: false,
             error: false,
             doctorOnVacation: false,
-            doctorNotFree: false
+            doctorNotFree: false,
+            workHours: false,
+            workHoursMessage: null
         }
     }
     onAppointmentTypeClick = type => {
@@ -104,7 +108,21 @@ class AppointmentRequest extends Component {
         params.doctorId = this.props.doctor.id;
         if(params.appointment_type !== null){
             try{
-                const res = await this.props.requestAppointment(params);                
+                const res = await this.props.requestAppointment(params);       
+                if(res.payload.doctor_id === undefined){
+                    this.setState({
+                        err: true,
+                        msg: res.payload
+                    })
+                }
+
+                if(res.payload.search('Work hours') !== -1){
+                    this.setState({
+                        workHours: true,
+                        workHoursMessage: res.payload
+                    })
+                }
+                         
                 if(res.payload !== 'Could not reserve appointment form a given date' && res.payload !== 'Doctor is not free' && res.payload !== 'error'){                    
                     this.setState({
                         appointmentRequested: true
@@ -142,20 +160,30 @@ class AppointmentRequest extends Component {
             appointmentRequested: false,
             error: false,
             doctorOnVacation: false,
-            doctorNotFree: false
+            doctorNotFree: false,
+            workHoursMessage: null,
+            workHours:false,
+            err:false,
+            msg: null
         })
     }
 
-    renderAppointmentRequest = doctor => {        
-        if(this.state.error){
-            return(
-                <div>
-                    Bad request
-                    <br></br>
-                    <a href onClick = {this.resetState}>Try again</a>
-
-                </div>
-            )
+    renderAppointmentRequest = doctor => {   
+        console.log(this.state);
+        
+        if(this.state.err){
+            return(<div>
+                <p>{this.state.msg}</p>
+                <br></br>
+                <a href onClick = {this.resetState}>try again</a>
+            </div>)
+        }     
+        if(this.state.workHours){
+            return(<div>
+                <p>{this.state.workHoursMessage}</p>
+                <br></br>
+                <a href onClick = {this.resetState}>pick another time</a>
+            </div>)
         }
         if(this.state.appointmentRequested){
             return(<div>

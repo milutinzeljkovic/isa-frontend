@@ -12,6 +12,7 @@ import { appointmentHistory } from '../../../actions/appointment';
 import ReactStars from 'react-stars'
 import DoctorAppointments from './DoctorAppointments';
 import DoctorFilter from './DoctorFilter';
+import WorkingHours from './WorkingHours';
 
 import image1 from '../../../images/rnd1.jpg';
 import image2 from '../../../images/rnd2.jpg';
@@ -55,6 +56,18 @@ class ClinicDetail extends Component {
         this.setState({
             showDoctors: !this.state.showDoctors,
             doctorAppointments: null
+        })
+    }
+
+    onShowWorkingHoursClickHandle = async  doctor => {
+        if(this.state.doctorWorkignHours === doctor.id){
+            this.setState({
+                doctorWorkignHours: null
+            })
+            return;
+        }
+        this.setState({
+            doctorWorkignHours: doctor.id
         })
     }
 
@@ -189,6 +202,16 @@ class ClinicDetail extends Component {
                         this.state.doctorAppointments === doctor.id ? 
                         
                         <DoctorAppointments key={doctor.id} id ={ doctor.id} />
+                        :
+                        ''
+                    }
+                    </MDBListGroup>
+                    <MDBBadge tag="a" color="orange darken-4" onClick = { () => this.onShowWorkingHoursClickHandle(doctor)}>{this.state.doctorWorkignHours === doctor.id ? 'Hide workign hours ' : 'Show workign hours '}<i className="far fa-calendar-check"></i></MDBBadge>
+                    <MDBListGroup>
+                    {
+                        this.state.doctorWorkignHours === doctor.id ? 
+                        
+                        <WorkingHours workingHours = {doctor.working_days} />
                         :
                         ''
                     }

@@ -12,7 +12,6 @@ class AppointmentSearchDialog extends Component {
         const date = new Date();
         const m = date.getMonth() +1;
         let c = date.getFullYear() + '-' + m + '-' + date.getDate();
-        console.log(c);
         super(props);
         this.state = {
             startDate: c,
@@ -99,7 +98,7 @@ class AppointmentSearchDialog extends Component {
 
 const mapStateToProps = state => {
     return{
-        appointmentTypes: state.appointmentTypes
+        appointmentTypes: state.appointmentTypes !== null ? state.appointmentTypes.allAppTypes : null
     }
 }
 

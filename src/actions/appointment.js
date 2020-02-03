@@ -31,6 +31,7 @@ export const reserveAppointment = id => {
     }
 }
 
+
 export const appointmentHistory = id => {
     return async dispatch => {
         try{
