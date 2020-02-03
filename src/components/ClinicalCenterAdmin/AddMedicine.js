@@ -11,11 +11,16 @@ class AddMedicine extends Component {
         super(props);
         this.state = {
             name: '',
+            label: ''
         };
     }
 
     handleNameChange = event => {
         this.setState({name: event.target.value});
+    }
+
+    handleLabelChange = event => {
+        this.setState({label: event.target.value});
     }
 
   
@@ -43,6 +48,15 @@ class AddMedicine extends Component {
                 <MDBModalBody>
                     <form onSubmit={() => this.handleSubmit()}>
                     <div className="grey-text">
+                    <MDBInput
+                        label="Type label medicine"
+                        group
+                        type="text"
+                        validate
+                        error="wrong"
+                        success="right"
+                        onChange={(e) => this.handleLabelChange(e)}
+                    />
                     <MDBInput
                         label="Type name medicine"
                         group

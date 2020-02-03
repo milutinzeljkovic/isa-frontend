@@ -104,7 +104,7 @@ class StartAppointmentDialog extends Component {
             this.setState({
                 medicines: med,
             })
-            if(this.props.doctors.dataForDoctor.appointment.done === 1)
+            if (this.props.doctors.dataForDoctor.appointment.done === 1)
                 this.setState({
                     done: true,
                 })
@@ -365,12 +365,20 @@ class StartAppointmentDialog extends Component {
 
                         onChange={(e) => this.handleTherapyChange(e)}
                     />
+                    <MDBBtn disabled={this.state.done}
+                        color="info" outline  >
+                        Zakazi pregled
+                                </MDBBtn>
+                    <MDBBtn disabled={this.state.done}
+                        color="info" outline  >
+                        Zakazi operaciju
+                                </MDBBtn>
                     <div className="text-center mt-4">
                         <MDBBtn onClick={this.previousPage} color="danger" outline  >
                             Close
                                 </MDBBtn>
                         <MDBBtn onClick={(e) => this.handleOnSubmit(e)} color="success" outline type="submit">
-                            Start
+                            Finish
                                 </MDBBtn>
                     </div>
                 </form>
