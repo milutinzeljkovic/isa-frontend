@@ -7,6 +7,7 @@ import { finishReport } from '../../actions/doctors';
 import browserHistory from '../../history';
 import { getMedicines } from '../../actions/medicines';
 import { getDiagnoses } from '../../actions/diagnose';
+import SheduleAnOperation from './SheduleAnOperation';
 
 import _ from 'loadsh';
 
@@ -24,9 +25,17 @@ class StartAppointmentDialog extends Component {
             medicines: [],
             diagnose: {},
             therapy: '',
-            done: false
+            done: false,
+            sheduleAnOperationDialog: false
         };
 
+    }
+
+    toggleSheduleAnOperationDialog = () => {
+
+        this.setState({
+            sheduleAnOperationDialog: !this.state.sheduleAnOperationDialog
+        });
     }
 
     async componentWillMount() {
@@ -220,6 +229,8 @@ class StartAppointmentDialog extends Component {
     render() {
         return (
             <MDBContainer>
+                <SheduleAnOperation appointment_id={ this.props.location.pathname.split('/')[3]} show={this.state.sheduleAnOperationDialog} toggle={this.toggleSheduleAnOperationDialog} />
+
                 <form onSubmit={(e) => this.handleOnSubmit(e)}>
                     <label>
                         Medical record
@@ -369,7 +380,7 @@ class StartAppointmentDialog extends Component {
                         color="info" outline  >
                         Zakazi pregled
                                 </MDBBtn>
-                    <MDBBtn disabled={this.state.done}
+                    <MDBBtn  disabled={this.state.done} onClick = {this.toggleSheduleAnOperationDialog}
                         color="info" outline  >
                         Zakazi operaciju
                                 </MDBBtn>

@@ -47,3 +47,13 @@ export const finishReport = (data) =>{
     }
   
 }
+
+
+export const sheduleAnOperation = (data) =>{
+
+    return async dispatch => {
+        await doctorService.sheduleAnOperation(data);
+    
+    }
+  
+}

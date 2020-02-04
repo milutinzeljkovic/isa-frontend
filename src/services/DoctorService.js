@@ -18,6 +18,11 @@ class DoctorService extends Service{
 
     }
 
+    sheduleAnOperation(data){
+        return this.getApiClient().post(`${resource}/shedule-operation`,data);
+
+    }
+
     getDataForDoctor(id){
         return this.getApiClient().get(`${resource}/get-data/${id}`);
     }
