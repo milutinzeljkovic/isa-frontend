@@ -19,6 +19,7 @@ class GoogleMap extends Component {
     const lat = this.props.selectedLocation ? this.props.selectedLocation.lat : 0;
     const lng = this.props.selectedLocation ? this.props.selectedLocation.lng : 0;
 
+    try{
     let myMap;
       myMap = new google.maps.Map(this.refs.map, {
         zoom:17,
@@ -33,6 +34,9 @@ class GoogleMap extends Component {
         icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
         zoomControl: false,
       });
+    }catch(e){
+      
+    }
     
   } 
 
