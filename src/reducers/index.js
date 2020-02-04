@@ -14,6 +14,7 @@ import doctors from './doctors';
 import medicines from './medicines';
 import diagnoses from './diagnoses';
 import updatesReducer from './update';
+import vacationReducer from './vacation';
 
 export default combineReducers({
    auth: authReducer,
@@ -30,5 +31,6 @@ export default combineReducers({
    doctors,
    medicines,
    diagnoses,
-   update: updatesReducer
+   update: updatesReducer,
+   vacations: vacationReducer
 });

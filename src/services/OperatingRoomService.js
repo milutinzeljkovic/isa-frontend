@@ -23,6 +23,10 @@ class OperatingRoomService extends Service{
     seeIfBookedOpRoom(id){
         return this.getApiClient().get(`${resource}/used/${id}`);
     }
+
+    searchOperatingRooms(data){
+        return this.getApiClient().get(`${resource}?name=${data.name}&number=${data.number}&date=${data.date}`);
+    }
 }
 
 export default OperatingRoomService;

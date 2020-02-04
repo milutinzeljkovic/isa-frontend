@@ -4,6 +4,8 @@ export default (state = null, action) => {
             return  {...state, operatingRooms: action.payload};
         case 'DELETE_OPERATING_ROOM':
             return state.operatingRooms.filter(val => val.id !== action.payload);
+        case 'SET-OPERATING-ROOMS':
+            return  {...state, operatingRooms: action.payload};
         default: return state;
     }
 
