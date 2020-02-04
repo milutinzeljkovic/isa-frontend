@@ -245,6 +245,7 @@ renderLinks = () => {
             <MDBDropdownItem><Link to='/operationRoom/add' onClick = {this.toggleNewOperatingRoomDialog}>New operation room</Link></MDBDropdownItem>
             <MDBDropdownItem><Link to='/add/appointmentType' onClick = {this.toggleNewAppointmentTypeDialog}>New appointment type</Link></MDBDropdownItem>
             <MDBDropdownItem><Link to='/get/myClinic' >My clinic</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/vacation-requests' >Vacation requests</Link></MDBDropdownItem>
           </MDBDropdownMenu>
         </MDBDropdown>
       </MDBNavItem>

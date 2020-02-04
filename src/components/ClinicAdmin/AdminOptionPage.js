@@ -1,22 +1,40 @@
 import React, { Component } from 'react';
-import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead, MDBCollapse, MDBBtn, MDBRow, MDBInput } from 'mdbreact';
+
 import { connect } from 'react-redux';
 import { getAllDoctors, setEntityToBeUpdated, seeIfBookedDoctor, deleteDoctor } from '../../actions/clinicAdmin';
 import { getAppointmentTypesClinic, deleteAppointmentType, seeIfUsedAppType } from '../../actions/appointmentType';
-import { getAllOpRooms, seeIfBookedOpRoom, deleteOperatingRoom } from '../../actions/operatingRoom';
+import { getAllOpRooms, seeIfBookedOpRoom, deleteOperatingRoom, searchOperatingRooms } from '../../actions/operatingRoom';
 import { getDoctorsWorkingHours } from '../../actions/workingHours';
 import _ from 'loadsh';
 import FeedbackNotification from '../FeedbackNotification';
 import browserHistory from '../../history';
+import DatePicker from "react-datepicker";
 
 class AdminOptionPage extends Component {
 
     constructor(props){
         super(props);
+        const date = new Date();
+        const m = date.getMonth() +1;
+        let c = date.getFullYear() + '-' + m + '-' + date.getDate();
+        this.debouncedOnChange = _.debounce(this.debouncedOnChange.bind(this), 500); 
+        this.debouncedOnChangeNumber = _.debounce(this.debouncedOnChangeNumber.bind(this), 500); 
         this.state = {
             showNotification: false,
-            notificationMessage: ''
+            notificationMessage: '',
+            collapseID: false,
+            dateSelected: c,
+            name: '',
+            number: '',
+            enteredDate: false
         }
+    }
+
+    toggleCollapse = collapseID => () => {
+        this.setState({
+          collapseID: !this.state.collapseID
+        });
     }
 
     componentWillMount(){
@@ -28,6 +46,69 @@ class AdminOptionPage extends Component {
             this.props.getAllOpRooms();
         }
     }
+
+    handleNameChange = event => {
+        this.setState({ name: event.target.value });
+        this.debouncedOnChange(event.target.value);
+    }
+
+    debouncedOnChange(value) {
+        this.searchByName(value);
+    }
+
+    searchByName = value => {
+        let params = {name: value, number: this.state.number, date: null};
+        if(this.state.enteredDate === true){
+            params.date = this.state.dateSelected;
+        }
+        this.props.searchOperatingRooms(params);
+    }
+
+    handleNumberChange = event => {
+        this.setState({ number: event.target.value });
+        this.debouncedOnChangeNumber(event.target.value);
+    }
+
+    debouncedOnChangeNumber(value) {
+        this.searchByNumber(value);
+    }
+
+    searchByNumber = value => {
+        let params = {name: this.state.name, number: value, date: null};
+        if(this.state.enteredDate === true){
+            params.date = this.state.dateSelected;
+        }
+        this.props.searchOperatingRooms(params);
+    }
+
+    setStateAsync(state) {
+        return new Promise((resolve) => {
+          this.setState(state, resolve)
+        });
+    }
+
+    handleDateChange = async date => {
+
+        const d = new Date(date.getTime());
+        let formatted_date = d.getFullYear() +'-'+(d.getMonth() +1) +'-'+ d.getDate();
+        
+        if(formatted_date === this.state.dateSelected){
+            
+            await this.setStateAsync({
+                dateSelected: null,
+                enteredDate: false
+            })
+        }else{
+            await this.setStateAsync({
+                dateSelected: formatted_date,
+                enteredDate: true
+            })
+        }
+        
+        let params = {name:this.state.name, number:this.state.number, date: this.state.dateSelected};
+        this.props.searchOperatingRooms(params);
+
+    };
     
     updateDoctor = async (doctor) => {
         await this.props.setEntityToBeUpdated(doctor);
@@ -219,6 +300,46 @@ class AdminOptionPage extends Component {
         }
     }
 
+    renderSearchBar = () => {
+        return(
+            <div>
+                <MDBRow>
+                    <MDBBtn color="primary" style={{marginLeft:'35px'}} onClick={this.toggleCollapse("basicCollapse1")}><span style={{color: 'white'}}>Search</span></MDBBtn>
+                </MDBRow>
+            <>
+                <MDBRow>
+                    <MDBCollapse id="basicCollapse1" isOpen={this.state.collapseID}>
+                        <div style={{width:'200px', marginLeft:'35px'}}>
+                            <MDBInput
+                            label="Name"
+                            group
+                            onChange={(e) => this.handleNameChange(e)}>
+
+                            </MDBInput>
+                            <MDBInput
+                            label="Number"
+                            group
+                            onChange={(e) => this.handleNumberChange(e)}>
+                                
+                            </MDBInput>
+                            <label htmlFor="picker">
+                                Date
+                            </label>
+                            <DatePicker
+                            name="picker"
+                            value = {this.state.dateSelected === null ? '' : this.state.dateSelected}
+                            onChange={(date) => this.handleDateChange(date)}
+                            minDate={new Date()}
+                            >
+                            </DatePicker>
+                        </div>
+                    </MDBCollapse>
+                </MDBRow>
+            </>
+        </div>
+        )
+    }
+
 
     render(){
         return(
@@ -231,6 +352,9 @@ class AdminOptionPage extends Component {
                         {this.renderTableBody()}
                     </MDBTableBody>
                 </MDBTable>
+                <MDBRow>
+                    {this.props.mode === 'Op room mode' ? this.renderSearchBar() : ''}
+                </MDBRow>
 
                 {this.state.showNotification === true ? <FeedbackNotification show={this.state.showNotification} notificationMessage={this.state.notificationMessage}/> : ''}
             </div>
@@ -247,4 +371,4 @@ const mapStateToProps = (state) => {
     }
   }
   
-  export default connect(mapStateToProps, {getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor})(AdminOptionPage);
+  export default connect(mapStateToProps, {getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor, searchOperatingRooms})(AdminOptionPage);

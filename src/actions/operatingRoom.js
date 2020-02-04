@@ -77,3 +77,20 @@ export const updateOpRoom = (data) => {
         }
     }
 }
+
+export const searchOperatingRooms = (data) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await operatingRoomService.searchOperatingRooms(data);
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+
+        if(response.status === 200){
+            return dispatch({ type: 'SET-OPERATING-ROOMS', payload: response.data})
+        }
+    }
+}
