@@ -67,7 +67,7 @@ class MedicalRecord extends Component {
                        <td><h5 className="mb-1">description:</h5></td><td><h5> {data.diagnose.description}</h5></td>
                     </tr>
                     <tr>
-                       <td><h5 className="mb-1">diagnose date:</h5></td><td><h5> {data.diagnose.created_at}</h5></td>
+                       <td><h5 className="mb-1">diagnose date:</h5></td><td><h5> {data.appointment.date}</h5></td>
                     </tr>
                 </tbody>
                 </table>
