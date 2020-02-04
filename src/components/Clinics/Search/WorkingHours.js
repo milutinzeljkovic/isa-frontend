@@ -31,10 +31,10 @@ class WorkingHours extends Component {
             <div>
                 <table>
                     <tbody>
+                    {this.renderWorkignHours(this.props.workingHours)}
 
                     </tbody>
                 </table>
-                {this.renderWorkignHours(this.props.workingHours)}
             </div>
         );
     }
