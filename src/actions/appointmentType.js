@@ -7,8 +7,10 @@ export const newAppointmentType = data => {
         try{
             await appointmentTypeService.addAppointmentType(data);
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
         
@@ -21,10 +23,13 @@ export const getAppointmentTypes = () => {
         try{
             response = await appointmentTypeService.getAppointmentTypes();
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
+
         if(response){
             if(response.status === 200){
                 return dispatch({ type: 'GETALLAPPTYPES', payload: response.data })
@@ -39,8 +44,10 @@ export const deleteAppointmentType = (id) => {
         try{
             response = await appointmentTypeService.deleteAppointmentTypes(id);
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
 
@@ -56,8 +63,10 @@ export const seeIfUsedAppType = (id) => {
         try{
             response = await appointmentTypeService.seeIfUsed(id);
         }catch(e){
-            if(e.response.status === 500){
-                dispatch({ type: 'ERROR', payload: 'error'});
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    dispatch({ type: 'ERROR', payload: 'error'});
+                }
             }
         }
 
@@ -72,8 +81,10 @@ export const updateAppType = (data) => {
         try{
             await appointmentTypeService.updateAppointmentType(data);
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         } 
     }
@@ -85,8 +96,10 @@ export const getAppointmentTypesClinic = () => {
         try{
             response = await appointmentTypeService.getAppointmentTypesClinic();
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
         if(response){

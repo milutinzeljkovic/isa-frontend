@@ -8,12 +8,14 @@ export const defineAppointment = data => {
            let res =  await appointmentService.addAppointment(data);
            return res;
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
-            }
-            if(e.response.status === 400)
-            {
-                return e.response
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
+                if(e.response.status === 400)
+                {
+                    return e.response
+                }
             }
         }
         

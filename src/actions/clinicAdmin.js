@@ -7,8 +7,10 @@ export const registerMedStaff = data => {
         try{
             response = await clinicAdminService.registerMedStaff(data);
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+                }
             }
         }
         
@@ -27,8 +29,10 @@ export const getAllDoctors = () => {
         try{
             response = await clinicAdminService.getAllDoctors();
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'FETCHING_DOCTORS_ERROR', payload: 'Fetching all doctors failed' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'FETCHING_DOCTORS_ERROR', payload: 'Fetching all doctors failed' })
+                }
             }
         }
 
@@ -55,8 +59,10 @@ export const updateClinic = (data) => {
         try{
             await clinicAdminService.updateClinic(data);
         }catch(e){
-            if(e.response.status === 500){
-                dispatch({ type: 'ERROR', payload: 'error'});
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    dispatch({ type: 'ERROR', payload: 'error'});
+                }
             }
         }
     }
@@ -74,8 +80,10 @@ export const seeIfBookedDoctor = (id) => {
         try{
             response = await clinicAdminService.seeIfBooked(id);
         }catch(e){
-            if(e.response.status === 500){
-                dispatch({ type: 'ERROR', payload: 'error'});
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    dispatch({ type: 'ERROR', payload: 'error'});
+                }
             }
         }
 
@@ -91,8 +99,10 @@ export const deleteDoctor = (id) => {
         try{
             response = await clinicAdminService.deleteDoctor(id);
         }catch(e){
-            if(e.response.status === 500){
-                dispatch({ type: 'ERROR', payload: 'error'});
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    dispatch({ type: 'ERROR', payload: 'error'});
+                }
             }
         }
 
@@ -107,8 +117,10 @@ export const updateDoctor = (doctor) => {
         try{
             await clinicAdminService.updateDoctor(doctor);
         }catch(e){
-            if(e.response.status === 500){
-                dispatch({ type: 'ERROR', payload: 'error'});
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    dispatch({ type: 'ERROR', payload: 'error'});
+                }
             }
         }
     }
@@ -120,8 +132,10 @@ export const getClinicDoctors = () => {
         try{
             response = await clinicAdminService.getClinicDoctors();
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'FETCHING_DOCTORS_ERROR', payload: 'Fetching all doctors failed' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'FETCHING_DOCTORS_ERROR', payload: 'Fetching all doctors failed' })
+                }
             }
         }
         if(!response){
