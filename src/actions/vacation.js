@@ -7,8 +7,10 @@ export const getVacationRequests = () => {
         try{
             response = await vacationService.getVacationRequests();
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
 
@@ -24,8 +26,10 @@ export const declineVacationRequest = (id, message) => {
         try{
             response = await vacationService.declineVacationRequest(id, message);
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
 
@@ -41,8 +45,10 @@ export const approveVacationRequest = (id) => {
         try{
             response = await vacationService.approveVacationRequest(id);
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
 

@@ -8,8 +8,10 @@ export const getDoctorsWorkingHours = (id) => {
         try{
             response = await workingHoursService.getDoctorsWorkingHours(id);
         }catch(e){
-            if(e.response.status === 500){
-                dispatch({ type: 'ERROR', payload: 'error'});
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    dispatch({ type: 'ERROR', payload: 'error'});
+                }
             }
         }
 
@@ -24,8 +26,10 @@ export const updateDoctorsWorkingDay = (data,id) => {
         try{
             await workingHoursService.updateDoctorsWorkingDay(data,id);
         }catch(e){
-            if(e.response.status === 500){
-                dispatch({ type: 'ERROR', payload: 'error'});
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    dispatch({ type: 'ERROR', payload: 'error'});
+                }
             }
         }
     }

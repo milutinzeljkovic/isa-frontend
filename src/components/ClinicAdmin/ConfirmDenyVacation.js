@@ -22,7 +22,7 @@ class ConfirmDenyVacation extends Component {
 
     confirmVacation = async (id) => {
       await this.props.approveVacationRequest(id);
-      //window.location.reload();
+      window.location.reload();
     }
 
     toggleDeclineModal = () => {

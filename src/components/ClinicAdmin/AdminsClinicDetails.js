@@ -5,6 +5,7 @@ import _ from 'loadsh';
 import { connect } from 'react-redux';
 import { getClinicAdminClinic } from '../../actions/clinicAdmin';
 import { updateClinic } from "../../actions/clinicAdmin";
+import  LocationDialog  from "../Location/LocationDialog";
 
 
 class AdminsClinicDetails extends Component {
@@ -54,10 +55,13 @@ class AdminsClinicDetails extends Component {
 
     onSubmitClick = async () => {
         const data = {...this.state};
+        data.address = this.props.clinicAdress;
+        console.log(data);
         delete data.editMode;
         await this.props.updateClinic(data);
         this.setState({
-            editMode: false
+            editMode: false,
+            address: this.props.clinicAdress
         })
     }
 
@@ -94,7 +98,7 @@ class AdminsClinicDetails extends Component {
                             className="form-control"  
                             value ={this.state[data]}
                             onChange = {e=>this.onInputChange(e,data)}
-                            disabled = {this.state.editMode ? "" : "disabled"}
+                            disabled = {this.state.editMode && data !== 'address' ? "" : "disabled"}
                         />
                     </td>
                 </tr>
@@ -123,6 +127,7 @@ class AdminsClinicDetails extends Component {
                         <MDBRow>
                         <MDBBtn gradient="blue"  onClick = {this.onEditButtonClick}>Edit</MDBBtn>
                         {this.state.editMode ? <MDBBtn gradient="blue"  onClick = {this.onSubmitClick}>Submit</MDBBtn> : ''}
+                        {this.state.editMode ? <LocationDialog/> : ''}
                         </MDBRow>
                     </div>
                 </div>
@@ -142,6 +147,7 @@ class AdminsClinicDetails extends Component {
 const mapStateToProps = state => {
     return{
         clinicAdmin: state.clinicAdmin,
+        clinicAdress: state.selectedLocation === null ? '':  state.selectedLocation.usersLocation
     }
 };
 

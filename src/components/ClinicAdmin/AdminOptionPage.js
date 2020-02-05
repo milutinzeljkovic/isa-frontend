@@ -4,7 +4,7 @@ import { MDBTable, MDBTableBody, MDBTableHead, MDBCollapse, MDBBtn, MDBRow, MDBI
 import { connect } from 'react-redux';
 import { getAllDoctors, setEntityToBeUpdated, seeIfBookedDoctor, deleteDoctor } from '../../actions/clinicAdmin';
 import { getAppointmentTypesClinic, deleteAppointmentType, seeIfUsedAppType } from '../../actions/appointmentType';
-import { getAllOpRooms, seeIfBookedOpRoom, deleteOperatingRoom, searchOperatingRooms } from '../../actions/operatingRoom';
+import { getAllOpRooms, seeIfBookedOpRoom, deleteOperatingRoom, searchOperatingRooms, setOperatingRoomCalendar } from '../../actions/operatingRoom';
 import { getDoctorsWorkingHours } from '../../actions/workingHours';
 import _ from 'loadsh';
 import FeedbackNotification from '../FeedbackNotification';
@@ -191,6 +191,11 @@ class AdminOptionPage extends Component {
         }
     }
 
+    seeAvailabilityCalendar = async opRoom => {
+        await this.props.setOperatingRoomCalendar(opRoom);
+        browserHistory.push('/operating-room/calendar');
+    }
+
     renderDoctorList= (doctors) =>{ 
 
         return _.map(doctors, doctor => {
@@ -245,6 +250,9 @@ class AdminOptionPage extends Component {
                 <td>
                   <MDBBtn color="primary" onClick={() => this.updateOperatingRoom(opRoom)}>Update</MDBBtn>
                 </td>
+                <td>
+                  <MDBBtn color="info" onClick={() => this.seeAvailabilityCalendar(opRoom)}>Availability</MDBBtn>
+                </td>
             </tr>
           )
         })
@@ -295,6 +303,7 @@ class AdminOptionPage extends Component {
                     <th>Number</th>
                     <th>Delete</th>
                     <th>Update</th>
+                    <th>See availability</th>
                 </tr>
             )
         }
@@ -371,4 +380,4 @@ const mapStateToProps = (state) => {
     }
   }
   
-  export default connect(mapStateToProps, {getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor, searchOperatingRooms})(AdminOptionPage);
+  export default connect(mapStateToProps, {getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor, searchOperatingRooms, setOperatingRoomCalendar})(AdminOptionPage);

@@ -56,8 +56,10 @@ export const searchPatients = (data) => {
         try{
             response = await patientsService.searchPatients(data);
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
 
@@ -74,8 +76,10 @@ export const seePatientProfile = (id) => {
         try {
             response = await patientsService.getPatient(id);
         }catch(e) {
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
         return dispatch({type: 'GET_ONE_PATIENT', payload:response.data});
@@ -88,8 +92,10 @@ export const getMedicalRecord = id => {
         try {
             response = await patientsService.getMedicalRecord(id);
         }catch(e) {
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
         return dispatch({type: 'MEDICAL_RECORD_FETCHED', payload:response.data});

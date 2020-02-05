@@ -38,6 +38,7 @@ import AdminOptionPage from './components/ClinicAdmin/AdminOptionPage';
 import ClinicAdminUpdatePage from './components/ClinicAdmin/ClinicAdminUpdatePage';
 import StartAppointmentDialog from './components/Doctor/StartAppointmentDialog';
 import ConfirmDenyVacation from './components/ClinicAdmin/ConfirmDenyVacation';
+import OperatingRoomCalendar from './components/ClinicAdmin/OperatingRoomCalendar';
 
 class App extends Component {
 
@@ -105,6 +106,7 @@ class App extends Component {
         <Route path='/clinic-admin/update-appointment-types' exact render={(props) => <ClinicAdminUpdatePage {...props} mode={'App type mode'}/>}/>
         <Route path='/clinic-admin/update-operating-rooms' exact render={(props) => <ClinicAdminUpdatePage {...props} mode={'Op room mode'}/>}/>
         <Route path='/vacation-requests' exact component = {ConfirmDenyVacation}/>
+        <Route path='/operating-room/calendar' exact component = {OperatingRoomCalendar}/>
       </Router>
     );
   }

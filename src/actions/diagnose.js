@@ -7,8 +7,10 @@ export const addDiagnose = data => {
         try{
             await diagnoseService.addDiagnose(data);
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
         
@@ -21,8 +23,10 @@ export const getDiagnoses = () => {
             let response =await diagnoseService.getDiagnoses();
             return dispatch({ type: 'GET_DIAGNOSES', payload: response.data })
         }catch(e){
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR', payload: 'error' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
             }
         }
         

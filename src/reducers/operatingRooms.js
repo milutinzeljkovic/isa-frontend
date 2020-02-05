@@ -6,6 +6,12 @@ export default (state = null, action) => {
             return state.operatingRooms.filter(val => val.id !== action.payload);
         case 'SET-OPERATING-ROOMS':
             return  {...state, operatingRooms: action.payload};
+        case 'OPERATING-ROOM-CALENDAR':
+            return {...state, calendarOpRoom: action.payload};
+        case 'SET-OPERATING-ROOM-APPOINTMENTS':
+            return {...state, operatingRoomAppointments: action.payload};
+        case 'SET-FIRST-FREE-DATE':
+            return {...state, firstFreeDate: action.payload};
         default: return state;
     }
 

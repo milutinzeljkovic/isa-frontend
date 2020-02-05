@@ -7,11 +7,13 @@ export const register = data => {
         try{
             response = await usersService.register(data);
         }catch(e){
-            if(e.response.status === 401){
-                return dispatch({ type: 'ERROR_MAIL_CONFIRMATION', payload: 'Failed to sign up' });
-            }
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+            if(e.response !== undefined){
+                if(e.response.status === 401){
+                    return dispatch({ type: 'ERROR_MAIL_CONFIRMATION', payload: 'Failed to sign up' });
+                }
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+                }
             }
         }
         
@@ -30,9 +32,10 @@ export const registerClinicAdmin = (data, clinic_id) => {
         try{
             await usersService.registerClinicAdmin(data, clinic_id);
         }catch(e){
-            
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+                }
             }
         }
     }
@@ -44,9 +47,11 @@ export const registerClinicalCenterAdmin = data => {
     return async dispatch => {
         try{
              await usersService.registerClinicalCenterAdmin(data);
-        }catch(e){            
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+        }catch(e){
+            if(e.response !== undefined){            
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+                }
             }
         }
     }
@@ -56,9 +61,11 @@ export const vacation = data => {
     return async dispatch => {
         try{
              await usersService.vacation(data);
-        }catch(e){            
-            if(e.response.status === 500){
-                return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+        }catch(e){
+            if(e.response !== undefined){            
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR_MAIL_EXISTS', payload: 'Failed to sign up' })
+                }
             }
         }
     }
@@ -70,9 +77,11 @@ export const changePassword = data => {
         try{
             response = await usersService.changePassword(data);
         }catch(e){            
-           if(e.response.status === 401){
-               return dispatch({ type: 'PASSWORD_CHANGE_ERROR', payload: e.response.data.error})
-           }
+            if(e.response !== undefined){
+                if(e.response.status === 401){
+                    return dispatch({ type: 'PASSWORD_CHANGE_ERROR', payload: e.response.data.error})
+                }
+            }
         }
 
         if(response.status === 201){
@@ -88,11 +97,13 @@ export const login = data => {
             response = await usersService.login(data);
 
         }catch(e){
-            console.log(e.response.data);
-            if(e.response.status === 401)
-                return dispatch({ type: 'ERROR', payload: e.response.data.error });
-            if(e.response.status === 500)
-                return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
+            if(e.response !== undefined){
+                if(e.response.status === 401)
+                    return dispatch({ type: 'ERROR', payload: e.response.data.error });
+                
+                    if(e.response.status === 500)
+                    return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
+            }
         }
         if (response.status === 200) {            
            return dispatch({ type: 'LOGIN', payload: response.data });
@@ -108,7 +119,9 @@ export const me = () => {
             response = await usersService.fetchCurrentUser();
 
         }catch(e){
-            return dispatch({ type: 'ERROR', payload: 'Token invalid' });
+            if(e.response !== undefined){
+                return dispatch({ type: 'ERROR', payload: 'Token invalid' });
+            }
         }
         if(!response){
            return dispatch({ type: 'ERROR', payload: 'Token invalid' });
@@ -127,7 +140,9 @@ export const logout = () => {
             response = await usersService.logoutUser();
 
         }catch(e){
-            return dispatch({ type: 'ERROR', payload: 'Token invalid' });
+            if(e.response !== undefined){
+                return dispatch({ type: 'ERROR', payload: 'Token invalid' });
+            }
         }
         if(!response){
            return dispatch({ type: 'ERROR', payload: 'Token invalid' });
