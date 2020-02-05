@@ -137,7 +137,7 @@ class DoctorAppointments extends Component {
             <div>
                 {this.props.doctor === null ? '': this.props.doctor.selectedDoctor.appointments.length !== 0 ? <a href onClick = {this.toggleRequestAppointment}>Send custom request</a> : ''}
                 { this.props.doctor === null ? 'loading' : this.renderAppointments(this.props.doctor.selectedDoctor.appointments)}
-                <AppointmentDetailCheckout show={this.state.showCheckout} toggle={this.toggleCheckoutDialog} appointment = {this.state.appointment} />
+                <AppointmentDetailCheckout clinic={true} show={this.state.showCheckout} toggle={this.toggleCheckoutDialog} appointment = {this.state.appointment} />
                 <AppointmentRequest show = {this.state.showRequestAppointment} toggle = {this.toggleRequestAppointment} doctor = {this.props.doctor === null ? null : this.props.doctor.selectedDoctor} />
             </div>
         );

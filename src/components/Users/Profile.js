@@ -188,7 +188,7 @@ class Profile extends Component {
                                         {this.renderTable()}
                                     </MDBTableBody>
                                 </MDBTable>
-                                {this.state.editMode ? <MDBBtn gradient="blue"  onClick = {this.onSubmitClick}>Submit</MDBBtn> : ''}
+                                {this.state.editMode ? <MDBBtn color="blue" style={{"margin-left": "40%"}}  onClick = {this.onSubmitClick}>Submit</MDBBtn> : ''}
                             </TabPanel>
                             <TabPanel>
                                 <PatientsHistory appointments = {this.props.appointmentsHistory}/>
