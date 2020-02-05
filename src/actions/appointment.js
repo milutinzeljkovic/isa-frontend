@@ -22,11 +22,17 @@ export const defineAppointment = data => {
     }
 }
 
-export const reserveAppointment = id => {
+export const reserveAppointment = (id,clinic) => {
     return async dispatch => {
         try{
-            const response = await appointmentService.reserveAppointmen(id);
-            return dispatch({ type: 'APPOINTMENT_RESERVED', payload: response.data})
+            const response = await appointmentService.reserveAppointmen(id);            
+            if(clinic){
+                return dispatch({ type: 'APPOINTMENT_RESERVED', payload: response.data})
+
+            }else{                
+                return dispatch({ type: 'APPOINTMENT_RESERVED_APPOINTMENT', payload: response.data})
+
+            }
         }catch(e){
 
         }

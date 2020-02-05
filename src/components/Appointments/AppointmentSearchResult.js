@@ -46,7 +46,7 @@ class AppointmentSearchResult extends Component {
                             imageHeight="150"
                             roundedSize="0"
                             />
-                            <h5>{app.doctor.user.email}</h5>
+                            <small>{app.doctor.user.email}</small>
                             <ReactStars
                             count={5}
                             size={24}
@@ -56,7 +56,7 @@ class AppointmentSearchResult extends Component {
                         </MDBCol>
                         <MDBCol md="8">
                         <div >
-                        <h2 className="mb-1"   ><i className="fas fa-calendar"/> {app.date}</h2>
+                        <h5 className="mb-1"   ><i className="fas fa-calendar"/> {app.date}</h5>
                         <small>{app.clinic.address}</small>
                     </div>
                     <div>
