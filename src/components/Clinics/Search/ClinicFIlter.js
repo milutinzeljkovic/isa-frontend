@@ -161,7 +161,7 @@ class ClinicFIlter extends Component {
     renderFilters = () => {
         
         return(
-            <MDBCardBody>
+            <div>
                 <MDBInput
                     label="Clinic name"
                     group
@@ -189,7 +189,7 @@ class ClinicFIlter extends Component {
                 {
                     this.renderAppointmentTypes(this.props.appointmentTypes)
                 }
-            </MDBCardBody>
+            </div>
         )
     }
 
@@ -200,17 +200,16 @@ class ClinicFIlter extends Component {
             <div>
                 <MDBCard id='filter-card'>
                     <MDBCardBody>
-                        <MDBCardTitle>
-                            <MDBBadge  tag="a" onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}<i className="fas fa-filter"></i> </MDBBadge>
+                            <MDBBadge color= "blue"  tag="a" onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}<i className="fas fa-filter"></i> </MDBBadge>
 
-                        </MDBCardTitle>
-                    </MDBCardBody>
+                    
                     {
                         this.state.showFilters ? 
                         this.renderFilters()
                         :
                         ''
                     }
+                    </MDBCardBody>
                 </MDBCard>
             </div>
         );

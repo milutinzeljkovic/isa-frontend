@@ -154,7 +154,7 @@ class ClinicDetail extends Component {
                         <MDBCol md="8">
                         <div className="d-flex w-100 justify-content-between">
                             {
-                                doctor.user !== undefined
+                                doctor.user !== null
                                 ? 
                                 <h5 className="mb-1">{doctor.user.name + ' ' + doctor.user.last_name}</h5>
                                 :

@@ -4,6 +4,7 @@ import GoogleMap from './GoogleMap';
 
 class GoogleMapUpdater extends Component {
 
+
     resetCenter = () => {
         this.setState({
             center: {
@@ -14,11 +15,12 @@ class GoogleMapUpdater extends Component {
     }
 
     constructor(props){
+        
         super(props);
         this.state = {
             center: {
-                lat : 45.25167,
-                lng : 19.83694
+                lat : props.usersPosition !== null ? props.usersPosition.lat : 45.2323,
+                lng : props.usersPosition !== null ? props.usersPosition.lng : 19.83694, 
             }
         }
     }
@@ -47,7 +49,7 @@ class GoogleMapUpdater extends Component {
     render() {
         return (
             <div style={{ width: "100%", height: "100%" }}>
-                <GoogleMap center = {this.state.center} />
+                <GoogleMap center = {this.state.center} position = {this.props.usersPosition} />
             </div>
         )
     }

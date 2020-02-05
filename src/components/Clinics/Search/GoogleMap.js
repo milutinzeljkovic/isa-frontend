@@ -11,15 +11,15 @@ const mapStyles = {
 
 class GoogleMap extends Component {
 
-    renderUsersLocation(location) { 
-        console.log(location);
-        
-       /* const { latitude, longitude } = location;
-        return  <Marker key={'user'} id={10} position={{
-            lat: latitude,
-            lng: longitude
-          }}
-          onClick={() => console.log("You clicked me!")} />*/
+    renderUsersLocation(loc) { 
+        if(loc!==null){        
+            const { lat, lng } = loc;
+            return  <Marker key={'user'} id={10} position={{
+                lat,
+                lng
+            }}
+            />
+        }
     }
 
     renderMarkers(clinics) {        
@@ -28,7 +28,6 @@ class GoogleMap extends Component {
              lat: clinic.lat,
              lng: clinic.lng,
             }}
-           // onClick={() => this.handleMarkerClick(clinic)} 
             icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
            />
           })
@@ -43,7 +42,7 @@ class GoogleMap extends Component {
                     style={mapStyles}
                     center={this.props.center}
                     initialCenter={this.props.center}>
-                    {this.renderUsersLocation(this.props.usersLocation)}
+                    {this.renderUsersLocation(this.props.position)}
                     { this.props.clinics.all !== undefined ?  this.renderMarkers(this.props.clinics.all) : ''}
                 </Map>
             </div>

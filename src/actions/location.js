@@ -14,14 +14,11 @@ export const getSuggestedLocations = location => {
 }
 
 export const fetchUsersLoction = () => {
-    return async dispatch => {
-        await navigator.geolocation.getCurrentPosition((position) =>{
-            console.log('pozicija', position);
-            
-            dispatch({ type: 'FETCHED_USERS_LOCATION', payload: position })
-        });
+        navigator.geolocation.getCurrentPosition((position) =>{
+            return position;
 
-    }
+        });
+        
 }
 
 
