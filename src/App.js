@@ -40,6 +40,7 @@ import StartAppointmentDialog from './components/Doctor/StartAppointmentDialog';
 import ConfirmDenyVacation from './components/ClinicAdmin/ConfirmDenyVacation';
 import OperatingRoomCalendar from './components/ClinicAdmin/OperatingRoomCalendar';
 
+import OperationsRequest from './components/ClinicAdmin/OperationsRequest';
 class App extends Component {
 
   componentDidMount(){
@@ -73,6 +74,7 @@ class App extends Component {
         <Route path='/change-password' exact component = {ChangePassword}/>
         <Route path='/diagnose/add' exact component = {AddDiagnose}/>
         <Route path='/medicine/add' exact component = {AddMedicine}/>
+        <Route path='/operations-requests' exact component = {OperationsRequest}/>
 
         <Route path='/vacation' exact component = {Vacation}/>
         <Route path='/doctor/calendar' exact component = {WorkingCalendar}/>
