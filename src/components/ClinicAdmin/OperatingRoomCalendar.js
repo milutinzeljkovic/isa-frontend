@@ -6,7 +6,6 @@ import listPlugin from '@fullcalendar/list';
 
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import { connect } from 'react-redux';
-import browserHistory from '../../history';
 
 import _ from 'loadsh';
 

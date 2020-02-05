@@ -54,6 +54,12 @@ export const getClinicAdminClinic = () => {
     }
 }
 
+export const editOperation = (data) => {
+    return async dispatch => {
+        await clinicAdminService.editOperation(data);
+    }
+}
+
 export const getOperations = () => {
     return async dispatch => {
         let response;
@@ -61,6 +67,8 @@ export const getOperations = () => {
         return dispatch({type: 'GET_OPERATIONS', payload: response.data})
     }
 }
+
+
 
 export const updateClinic = (data) => {
     return async dispatch => {

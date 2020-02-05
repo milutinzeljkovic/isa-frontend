@@ -39,6 +39,17 @@ export const getAppointment = () =>{
   
 }
 
+export const getOperations = () =>{
+
+    return async dispatch => {
+        let response;
+        response = await doctorService.getOperations();
+        return dispatch({ type: 'GET_OPERATIONS', payload: response.data });
+    
+    }
+  
+}
+
 export const finishReport = (data) =>{
 
     return async dispatch => {

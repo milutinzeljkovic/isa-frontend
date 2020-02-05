@@ -27,6 +27,10 @@ class DoctorService extends Service{
         return this.getApiClient().get(`${resource}/get-data/${id}`);
     }
 
+    getOperations(){
+        return this.getApiClient().get(`${resource}/operations`);
+    }
+
   
 }
 
