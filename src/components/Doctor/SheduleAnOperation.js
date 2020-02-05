@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, } from 'mdbreact';
+import { MDBContainer, MDBBtn, MDBInput, MDBModal, MDBModalBody, MDBModalHeader, } from 'mdbreact';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 
-import {sheduleAnOperation} from '../../actions/doctors'; 
+import { sheduleAnOperation } from '../../actions/doctors';
 
 import {
     MuiPickersUtilsProvider,
@@ -17,7 +17,8 @@ class SheduleAnOperation extends Component {
         super(props);
         this.state = {
             date: new Date(),
-            time: new Date()
+            time: new Date(),
+            info:''
         };
     }
 
@@ -31,10 +32,12 @@ class SheduleAnOperation extends Component {
         this.setState({
             time: event
         })
-
-
-
     }
+
+    handleInfoChange = event => {
+        this.setState({ info: event.target.value });
+    }
+
 
 
     handleOnSubmit = (e) => {
@@ -50,8 +53,8 @@ class SheduleAnOperation extends Component {
         let textValue = hours + ':' + minutes + ':00';
 
 
-        let datas={appointment_id:this.props.appointment_id, date:final + ' ' + textValue};
-        
+        let datas = {info:this.state.info, appointment_id: this.props.appointment_id, date: final + ' ' + textValue };
+
         this.props.sheduleAnOperation(datas);
 
         this.props.toggle()
@@ -93,8 +96,18 @@ class SheduleAnOperation extends Component {
                                             'aria-label': 'change time',
                                         }}
                                     />
+                                
                                 </Grid>
                             </MuiPickersUtilsProvider>
+                            <MDBInput
+                                        label="Info"
+                                        group
+                                        type="text"
+                                        validate
+                                        required
+
+                                        onChange={(e) => this.handleInfoChange(e)}
+                                    />
                             <div className="text-center mt-4">
                                 <MDBBtn onClick={this.props.toggle} color="danger" outline >
                                     Cancel
@@ -113,4 +126,4 @@ class SheduleAnOperation extends Component {
 
 
 
-export default connect(null, {sheduleAnOperation})(SheduleAnOperation);
+export default connect(null, { sheduleAnOperation })(SheduleAnOperation);
