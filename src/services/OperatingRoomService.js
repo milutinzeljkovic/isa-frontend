@@ -27,6 +27,14 @@ class OperatingRoomService extends Service{
     searchOperatingRooms(data){
         return this.getApiClient().get(`${resource}?name=${data.name}&number=${data.number}&date=${data.date}`);
     }
+
+    getAppointmentsOpRoom(id){
+        return this.getApiClient().get(`${resource}/availability/${id}`);
+    }
+
+    getFirstFreeDate(id){
+        return this.getApiClient().get(`${resource}/recommendation/${id}`);
+    }
 }
 
 export default OperatingRoomService;

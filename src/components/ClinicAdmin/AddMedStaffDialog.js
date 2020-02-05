@@ -20,20 +20,20 @@ class AddMedStaffDialog extends Component {
             phone_number: '',
             password_confirmation: '',
             role: '',
-            mondayFrom: '',
-            mondayTo: '',
-            tuesdayFrom: '',
-            tuesdayTo: '',
-            wednesdayFrom: '',
-            wednesdayTo: '',
-            thursdayFrom: '',
-            thursdayTo: '',
-            fridayFrom: '',
-            fridayTo: '',
-            saturdayFrom: '',
-            saturdayTo: '',
-            sundayFrom: '',
-            sundayTo: ''
+            mondayFrom: null,
+            mondayTo: null,
+            tuesdayFrom: null,
+            tuesdayTo: null,
+            wednesdayFrom: null,
+            wednesdayTo: null,
+            thursdayFrom: null,
+            thursdayTo: null,
+            fridayFrom: null,
+            fridayTo: null,
+            saturdayFrom: null,
+            saturdayTo: null,
+            sundayFrom: null,
+            sundayTo: null
         };
     }
 
@@ -105,87 +105,171 @@ class AddMedStaffDialog extends Component {
     }
 
     handleMondayFromChange = (e) => {
-        this.setState({
-            mondayFrom: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                mondayFrom: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                mondayFrom: null
+            })
+        }
     }
 
     handleMondayToChange = (e) => {
-        this.setState({
-            mondayTo: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                mondayTo: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                mondayTo: null
+            })
+        }
     }
 
     handleTuesdayFromChange = (e) => {
-        this.setState({
-            tuesdayFrom: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                tuesdayFrom: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                tuesdayFrom: null
+            })
+        }
     }
 
     handleTuesdayToChange = (e) => {
-        this.setState({
-            tuesdayTo: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                tuesdayTo: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                tuesdayTo: null
+            })
+        }
     }
 
     handleWednesdayFromChange = (e) => {
-        this.setState({
-            wednesdayFrom: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                wednesdayFrom: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                wednesdayFrom: null
+            })
+        }
     }
 
     handleWednesdayToChange = (e) => {
-        this.setState({
-            wednesdayTo: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                wednesdayTo: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                wednesdayTo: null
+            })
+        }
     }
 
     handleThursdayFromChange = (e) => {
-        this.setState({
-            thursdayFrom: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                thursdayFrom: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                thursdayFrom: null
+            })
+        }
     }
 
     handleThursdayToChange = (e) => {
-        this.setState({
-            thursdayTo: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                thursdayTo: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                thursdayTo: null
+            })
+        }
     }
 
     handleFridayFromChange = (e) => {
-        this.setState({
-            fridayFrom: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                fridayFrom: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                fridayFrom: null
+            })
+        }
     }
 
     handleFridayToChange = (e) => {
-        this.setState({
-            fridayTo: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                fridayTo: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                fridayTo: null
+            })
+        }
     }
 
     handleSaturdayFromChange = (e) => {
-        this.setState({
-            saturdayFrom: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                saturdayFrom: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                saturdayFrom: null
+            })
+        }
     }
 
     handleSaturdayToChange = (e) => {
-        this.setState({
-            saturdayTo: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                saturdayTo: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                saturdayTo: null
+            })
+        }
     }
 
     handleSundayFromChange = (e) => {
-        this.setState({
-            sundayFrom: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                sundayFrom: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                sundayFrom: null
+            })
+        }
     }
 
     handleSundayToChange = (e) => {
-        this.setState({
-            sundayTo: e.target.value
-        })
+        if(e.target.value !== ''){
+            this.setState({
+                sundayTo: e.target.value + ":00"
+            })
+        }else {
+            this.setState({
+                sundayTo: null
+            })
+        }
     }
 
     handleOnSubmit = () => {
@@ -200,7 +284,7 @@ class AddMedStaffDialog extends Component {
                 <p className="h5 text-center mb-4">Add medical staff to your clinic</p>
                 <div className="grey-text">
                 <select name="select1" className="browser-default custom-select" onChange={(e) => this.handleRoleChange(e)}>
-                    <option disabled defaultValue>Choose type of medical staff</option>
+                    <option disabled selected defaultValue>Choose type of medical staff</option>
                     <option value="nurse">Nurse</option>
                     <option value="doctor">Doctor</option>
                 </select>
@@ -287,38 +371,38 @@ class AddMedStaffDialog extends Component {
                 <div style={{paddingBottom:"40px"}} name="hours">
                     <label htmlFor="1">Monday</label>
                     <div className="grey-text" name="1">
-                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleMondayFromChange(e)} type="number"></input>
-                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleMondayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                        <input style={{width:"180px"}} placeholder="From 09:00" onChange={(e) => this.handleMondayFromChange(e)} type="text"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleMondayToChange(e)} placeholder="To 17:00" type="text"></input>
                     </div>
                     <label htmlFor="2">Tuesday</label>
                     <div className="grey-text" name="2">
-                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleTuesdayFromChange(e)} min="0" max="24" type="number"></input>
-                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleTuesdayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                        <input style={{width:"180px"}} placeholder="From 09:00" onChange={(e) => this.handleTuesdayFromChange(e)} type="text"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleTuesdayToChange(e)} placeholder="To 17:00" type="text"></input>
                     </div>
                     <label htmlFor="3">Wednesday</label>
                     <div className="grey-text" name="3">
-                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleWednesdayFromChange(e)} min="0" max="24" type="number"></input>
-                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleWednesdayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                        <input style={{width:"180px"}} placeholder="From 09:00" onChange={(e) => this.handleWednesdayFromChange(e)} type="text"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleWednesdayToChange(e)} placeholder="To 17:00" type="text"></input>
                     </div>
                     <label htmlFor="4">Thursday</label>
                     <div className="grey-text" name="4">
-                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleThursdayFromChange(e)} min="0" max="24" type="number"></input>
-                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleThursdayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                        <input style={{width:"180px"}} placeholder="From 09:00" onChange={(e) => this.handleThursdayFromChange(e)} type="text"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleThursdayToChange(e)}  placeholder="To 17:00" type="text"></input>
                     </div>
                     <label htmlFor="5">Friday</label>
                     <div className="grey-text" name="5">
-                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleFridayFromChange(e)} min="0" max="24" type="number"></input>
-                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleFridayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                        <input style={{width:"180px"}} placeholder="From 09:00" onChange={(e) => this.handleFridayFromChange(e)} type="text"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleFridayToChange(e)} placeholder="To 17:00" type="text"></input>
                     </div>
                     <label htmlFor="6">Saturday</label>
                     <div className="grey-text" name="6">
-                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleSaturdayFromChange(e)} min="0" max="24" type="number"></input>
-                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleSaturdayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                        <input style={{width:"180px"}} placeholder="From 09:00" onChange={(e) => this.handleSaturdayFromChange(e)} type="text"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleSaturdayToChange(e)} placeholder="To 17:00" type="text"></input>
                     </div>
                     <label htmlFor="7">Sunday</label>
                     <div className="grey-text" name="7">
-                        <input style={{width:"180px"}} placeholder="From" onChange={(e) => this.handleSundayFromChange(e)} min="0" max="24" type="number"></input>
-                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleSundayToChange(e)} min="0" max="24" placeholder="To" type="number"></input>
+                        <input style={{width:"180px"}} placeholder="From 09:00" onChange={(e) => this.handleSundayFromChange(e)} type="text"></input>
+                        <input style={{width:"180px", marginLeft:"40px"}} onChange={(e) => this.handleSundayToChange(e)} placeholder="To 17:00" type="text"></input>
                     </div>
                 </div>
                 </div>

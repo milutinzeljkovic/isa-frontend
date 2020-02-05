@@ -16,9 +16,10 @@ class DeclineVacationForm extends Component{
     }
 
 
-    handleOnSubmit = (e) => {
+    handleOnSubmit = async (e) => {
         e.preventDefault();
-        this.props.declineVacationRequest(this.props.id,this.state.mailText);
+        await this.props.declineVacationRequest(this.props.id,this.state.mailText);
+        window.location.reload();
         this.props.toggle();
     }
     

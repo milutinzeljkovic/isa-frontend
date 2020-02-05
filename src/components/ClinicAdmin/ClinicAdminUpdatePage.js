@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBTable, MDBTableBody, MDBCollapse, MDBCard, MDBBtn, MDBRow, MDBTableHead } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBCollapse, MDBCard, MDBBtn, MDBRow, MDBTableHead} from 'mdbreact';
 import _ from 'loadsh';
 import { connect } from 'react-redux';
 import browserHistory from '../../history';
@@ -181,81 +181,165 @@ class ClinicAdminUpdatePage extends Component {
         switch(id){
             case 1:
                 if(string === 'from'){
-                    this.setState({
-                        mondayFrom: e.target.value
-                    });
-                }else {
-                    this.setState({
-                        mondayTo: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            mondayFrom: null
+                        });
+                    }else {
+                        this.setState({
+                            mondayFrom: e.target.value
+                        });
+                    }
+                }else{
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            mondayTo: null
+                        });
+                    }else {
+                        this.setState({
+                            mondayTo: e.target.value
+                        });
+                    }
                 }
             break;
             case 2:
                 if(string === 'from'){
-                    this.setState({
-                        tuesdayFrom: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            tuesdayFrom: null
+                        });
+                    }else {
+                        this.setState({
+                            tuesdayFrom: e.target.value
+                        });
+                    }
                 }else {
-                    this.setState({
-                        tuesdayTo: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            tuesdayTo: null
+                        });
+                    }else {
+                        this.setState({
+                            tuesdayTo: e.target.value
+                        });
+                    }
                 }
-            break
+            break;
             case 3:
                 if(string === 'from'){
-                    this.setState({
-                        wednesdayFrom: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            wednesdayFrom: null
+                        });
+                    }else {
+                        this.setState({
+                            wednesdayFrom: e.target.value
+                        });
+                    }
                 }else {
-                    this.setState({
-                        wednesdayTo: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            wednesdayTo: null
+                        });
+                    }else {
+                        this.setState({
+                            wednesdayTo: e.target.value
+                        });
+                    }
                 }
-            break
+            break;
             case 4:
                 if(string === 'from'){
-                    this.setState({
-                        thursdayFrom: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            thursdayFrom: null
+                        });
+                    }else {
+                        this.setState({
+                            thursdayFrom: e.target.value
+                        });
+                    }
                 }else {
-                    this.setState({
-                        thursdayTo: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            thursdayTo: null
+                        });
+                    }else {
+                        this.setState({
+                            thursdayTo: e.target.value
+                        });
+                    }
                 }
-            break
+            break;
             case 5:
                 if(string === 'from'){
-                    this.setState({
-                        fridayFrom: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            fridayFrom: null
+                        });
+                    }else {
+                        this.setState({
+                            fridayFrom: e.target.value
+                        });
+                    }
                 }else {
-                    this.setState({
-                        fridayTo: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            fridayTo: null
+                        });
+                    }else {
+                        this.setState({
+                            fridayTo: e.target.value
+                        });
+                    }
                 }
-            break
+            break;
             case 6:
                 if(string === 'from'){
-                    this.setState({
-                        saturdayFrom: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            saturdayFrom: null
+                        });
+                    }else {
+                        this.setState({
+                            saturdayFrom: e.target.value
+                        });
+                    }
                 }else {
-                    this.setState({
-                        saturdayTo: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            saturdayTo: null
+                        });
+                    }else {
+                        this.setState({
+                            saturdayTo: e.target.value
+                        });
+                    }
                 }
-            break
+            break;
             case 0:
                 if(string === 'from'){
-                    this.setState({
-                        sundayFrom: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            sundayFrom: null
+                        });
+                    }else {
+                        this.setState({
+                            sundayFrom: e.target.value
+                        });
+                    }
                 }else {
-                    this.setState({
-                        sundayTo: e.target.value
-                    });
+                    if(e.target.value === '' || e.target.value === 'FREE'){
+                        this.setState({
+                            sundayTo: null
+                        });
+                    }else {
+                        this.setState({
+                            sundayTo: e.target.value
+                        });
+                    }
                 }
-            break
+            break;
             default: 
         }
     }
@@ -291,7 +375,7 @@ class ClinicAdminUpdatePage extends Component {
                     <td>
                         <input type="text" 
                             className="form-control"  
-                            defaultValue ={hour.from}
+                            defaultValue ={hour.from === null ? 'FREE' : hour.from}
                             onChange = {e => this.onHoursChange(e,hour.id, 'from')}
                             disabled = {this.props.update.updatable[0] === "false" ? "" : "disabled"}
                         />
@@ -299,7 +383,7 @@ class ClinicAdminUpdatePage extends Component {
                     <td>
                         <input type="text" 
                             className="form-control"  
-                            defaultValue ={hour.to}
+                            defaultValue ={hour.to === null ? 'FREE' : hour.to}
                             onChange = {e => this.onHoursChange(e,hour.id, 'to')}
                             disabled = {this.props.update.updatable[0] === "false" ? "" : "disabled"}
                         />

@@ -94,3 +94,43 @@ export const searchOperatingRooms = (data) => {
         }
     }
 }
+
+export const setOperatingRoomCalendar = (data) => {
+    return dispatch => {
+        dispatch({ type: 'OPERATING-ROOM-CALENDAR', payload: data});
+    }
+}
+
+export const getAppointmentsOpRoom = (id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await operatingRoomService.getAppointmentsOpRoom(id);
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+
+        if(response.status === 200){
+            dispatch({type: 'SET-OPERATING-ROOM-APPOINTMENTS', payload: response.data});
+        }
+    }
+}
+
+export const getFirstFreeDate = (id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await operatingRoomService.getFirstFreeDate(id);
+        }catch(e){
+            if(e.response.status === 500){
+                return dispatch({ type: 'ERROR', payload: 'error' })
+            }
+        }
+
+        if(response.status === 200){
+            dispatch({type: 'SET-FIRST-FREE-DATE', payload: response.data});
+        }
+    }
+}
