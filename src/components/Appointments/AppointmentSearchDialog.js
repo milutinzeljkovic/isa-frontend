@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { MDBCard, MDBCardBody,  MDBCardTitle, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem,  MDBContainer, MDBBtn, MDBBadge} from "mdbreact";
-import DatePicker from "react-datepicker";
 import { connect } from 'react-redux';
 import { getAppointmentTypes } from '../../actions/appointmentType';
 import { searchAppointment } from '../../actions/appointment';
@@ -11,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import {
     MuiPickersUtilsProvider,
 
-    KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 

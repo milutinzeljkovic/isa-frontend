@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBCardBody, MDBInput, MDBCardTitle, MDBBadge} from "mdbreact";
+import { MDBCard, MDBCardBody, MDBInput,  MDBBadge} from "mdbreact";
 
 import {connect} from 'react-redux';
 import ReactStars from 'react-stars'

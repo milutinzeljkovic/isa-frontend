@@ -7,6 +7,7 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import { connect } from 'react-redux';
 import { getAppointment } from '../../actions/doctors';
+import { getOperations } from '../../actions/doctors';
 
 import { getDataForDoctor } from '../../actions/doctors';
 import browserHistory from '../../history';
@@ -44,11 +45,30 @@ class WorkingCalendar extends Component {
 
   async componentWillMount() {
     await this.props.getAppointment();
+    await this.props.getOperations();
 
   }
 
-  renderList(appointements) {
+  renderList(appointements, operations) {
     let events = [];
+
+    _.map(operations, operation => {
+      let event = {};
+
+      event.id = operation.id;
+      event.title = operation.patient.user.name + " " + operation.patient.user.last_name + " | " + operation.info;
+      event.start = operation.date;
+      let dateStart = new Date(operation.date);
+      let dateEnd = new Date(operation.date);
+      dateEnd.setTime(dateStart.getTime() + operation.duration * 60 * 60 * 1000);
+      let dateTime = dateEnd.toLocaleTimeString('it-IT').slice(0, 8);
+      let date = dateEnd.toISOString().slice(0, 10);
+      event.color= 'orange';
+
+      event.end = date + " " + dateTime;
+      events.push(event);
+
+    })
 
     _.map(appointements, appointement => {
       let event = {};
@@ -61,7 +81,7 @@ class WorkingCalendar extends Component {
       dateEnd.setTime(dateStart.getTime() + appointement.duration * 60 * 60 * 1000);
       let dateTime = dateEnd.toLocaleTimeString('it-IT').slice(0, 8);
       let date = dateEnd.toISOString().slice(0, 10);
-
+      event.color= 'yellow';
       event.end = date + " " + dateTime;
       events.push(event);
 
@@ -71,16 +91,17 @@ class WorkingCalendar extends Component {
 
   }
 
-  handleClick = async (info ) => {
-    await this.props.getDataForDoctor(info.event.id);
+  handleClick = async (info ) => {    
+    if(info.event.backgroundColor==='yellow'){
+      await this.props.getDataForDoctor(info.event.id);
 
 
 
-  
-    browserHistory.push({
-    pathname:`/doctor/start-appointment/${info.event.id}`,
-    });
-
+    
+      browserHistory.push({
+      pathname:`/doctor/start-appointment/${info.event.id}`,
+      });
+    }
     
 
 
@@ -96,6 +117,7 @@ class WorkingCalendar extends Component {
           <FullCalendar
             defaultView="dayGridMonth"
             timeZone='UTC'
+            
             header={{
               left: "prev,next today",
               center: "title",
@@ -104,8 +126,10 @@ class WorkingCalendar extends Component {
             selectable
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
             ref={this.calendarComponentRef}
-            events={this.props.doctors === null ? '' : this.renderList(this.props.doctors.doctorAppointments)}
-            eventClick={this.handleClick}
+            events={this.props.doctors === null ? '' : this.renderList(this.props.doctors.doctorAppointments,this.props.doctors.operations)}
+            eventClick={ 
+                this.handleClick
+            }
           />
 
         </MDBContainer>
@@ -128,4 +152,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {getDataForDoctor, getAppointment })(WorkingCalendar);
+export default connect(mapStateToProps, {getDataForDoctor,getOperations, getAppointment })(WorkingCalendar);

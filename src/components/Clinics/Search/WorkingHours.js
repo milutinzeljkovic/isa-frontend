@@ -12,10 +12,7 @@ weekday[0]="Sunday";
 
 class WorkingHours extends Component {
 
-    constructor(props){
-        super(props);
-        
-    }
+  
     renderWorkignHours = workingHours => {
         
         return _.map(workingHours, workingHour => {
