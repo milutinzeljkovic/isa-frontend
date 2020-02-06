@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody,MDBInput} from 'mdbreact';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody} from 'mdbreact';
 import { connect } from 'react-redux';
 import {editOperation} from '../../actions/clinicAdmin';
 import TextField from '@material-ui/core/TextField';
@@ -11,7 +11,6 @@ class AddDoctorsToOperation extends Component {
         super(props);
         this.state = {
             doctors: [],
-            duration:''
         };
     }
 
@@ -21,9 +20,7 @@ class AddDoctorsToOperation extends Component {
 
     }
 
-    handleDurationChange = event => {
-        this.setState({ duration: event.target.value });
-    }
+  
 
     renderDoctors(doctors) {
        let newDoctors = [];
@@ -80,14 +77,7 @@ class AddDoctorsToOperation extends Component {
                             />
                         )}
                     />
-                       <MDBInput
-                    label="Duration of operation"
-                    group
-                    validate
-                    error="wrong"
-                    success="right"
-                    onChange={(e) => this.handleDurationChange(e)}
-                />
+               
                     <div className="text-center mt-4">
                         <MDBBtn onClick={this.props.toggle} color="danger" outline  >
                             Close

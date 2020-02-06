@@ -60,6 +60,12 @@ export const editOperation = (data) => {
     }
 }
 
+export const addDuration = (data) => {
+    return async dispatch => {
+        await clinicAdminService.addDuration(data);
+    }
+}
+
 export const getOperations = () => {
     return async dispatch => {
         let response;
@@ -182,12 +188,30 @@ export const reserveRoom = app =>{
     return{type: 'RESERVE_ROOM',payload: app}
 }
 
+export const reserveRoomForOperation = app =>{
+    return{type: 'RESERVE_ROOM_FOR_OPERATION',payload: app}
+}
+
 export const reserveAppointment = (operations_room_id,appointment_id) => {
     return async dispatch => {
         let response;
         try{
             response = await clinicAdminService.reserveAppointment(operations_room_id,appointment_id);
             return dispatch({ type: 'ROOM_RESERVED', payload: response.data });
+            
+        }catch(e){
+            
+        }
+            
+    }
+}
+
+export const reserveOperation = (operations_room_id,operation_id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.reserveOperation(operations_room_id,operation_id);
+            return dispatch({ type: 'ROOM_RESERVED_FOR_OPERATION', payload: response.data });
             
         }catch(e){
             

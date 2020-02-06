@@ -5,7 +5,10 @@ import _ from 'loadsh';
 import { getOperations } from '../../actions/clinicAdmin';
 import { getClinicDoctors } from '../../actions/clinicAdmin';
 import AddDoctorsToOperation from './AddDoctorsToOperation';
+import AddDurationOperation from './AddDurationOperation';
 
+import { reserveRoomForOperation } from '../../actions/clinicAdmin';
+import browserHistory from '../../history';
 
 class OperationsRequest extends Component {
 
@@ -13,7 +16,8 @@ class OperationsRequest extends Component {
     super(props);
     this.state = {
       showAddDoctorsToOperationDialog: false,
-      operation_id:''
+      showAddDurationDialog: false,
+      operation_id: ''
     };
   }
 
@@ -30,11 +34,32 @@ class OperationsRequest extends Component {
     });
   }
 
+  hideDialog1 = () => {
+
+    this.setState({
+      showAddDurationDialog: !this.state.showAddDurationDialog,
+    });
+  }
+
+  bookRoom = (operation) => {
+    this.props.reserveRoomForOperation(operation);
+    browserHistory.push('/clinic-admin/all-operating-rooms');
+
+  }
+
+
   onEditClickHandler = (id) => {
 
     this.setState({
       showAddDoctorsToOperationDialog: !this.state.showAddDoctorsToOperationDialog,
-      operation_id:id
+      operation_id: id
+    });
+  }
+
+  addDuration = (id)=>{
+    this.setState({
+      showAddDurationDialog: !this.state.showAddDurationDialog,
+      operation_id: id
     });
   }
 
@@ -48,8 +73,10 @@ class OperationsRequest extends Component {
           <td>{operation.info}</td>
           <td>{operation.date}</td>
           <td>
-            {_.isEmpty(operation.doctors)?<MDBBtn color="info" onClick={() => this.onEditClickHandler(operation.id)} outline>Edit</MDBBtn>:''}
-            <MDBBtn color="info" outline >Book operation room</MDBBtn>
+
+            {operation.duration === null ? <MDBBtn color="info" onClick={() => this.addDuration(operation.id)} outline>Add duration</MDBBtn> : ''}
+            {operation.operations_rooms_id !== null ? <MDBBtn color="info" onClick={() => this.onEditClickHandler(operation.id)} outline>Add doctors</MDBBtn> : ''}
+            {operation.duration !== null && operation.operations_rooms_id === null ? <MDBBtn color="info" onClick={() => this.bookRoom(operation)} outline >Book operation room</MDBBtn> : '' }        
           </td>
 
         </tr>
@@ -58,12 +85,13 @@ class OperationsRequest extends Component {
 
   }
 
-  
+
 
   render() {
     return (
       <div>
-        {this.props.clinicAdmin===null?'': <AddDoctorsToOperation operation_id={this.state.operation_id} show={this.state.showAddDoctorsToOperationDialog} toggle={this.hideDialog} />}
+        <AddDurationOperation operation_id={this.state.operation_id} show={this.state.showAddDurationDialog} toggle={this.hideDialog1} />
+        {this.props.clinicAdmin === null ? '' : <AddDoctorsToOperation operation_id={this.state.operation_id} show={this.state.showAddDoctorsToOperationDialog} toggle={this.hideDialog} />}
         <MDBTable>
           <MDBTableHead color="info-color" textWhite>
             <tr>
@@ -90,4 +118,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { getClinicDoctors, getOperations })(OperationsRequest);
+export default connect(mapStateToProps, { reserveRoomForOperation, getClinicDoctors, getOperations })(OperationsRequest);

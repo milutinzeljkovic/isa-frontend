@@ -12,6 +12,10 @@ class ClinicAdminService extends Service{
         return this.getApiClient().post(`${resource}/edit-operations`, data);
     }
 
+    addDuration(data) {
+        return this.getApiClient().post(`${resource}/add-duration`, data);
+    }
+
     getAllDoctors(){
         return this.getApiClient().get(`${resource}/doctors`);
     }
@@ -49,6 +53,10 @@ class ClinicAdminService extends Service{
 
     reserveAppointment(operations_room_id,appointment_id){
         return this.getApiClient().post(`${resource}/reserve-appointment?operations_room_id=${operations_room_id}&appointment_id=${appointment_id}`);
+    }
+
+    reserveOperation(operations_room_id,operation_id){
+        return this.getApiClient().post(`${resource}/reserve-operation?operations_room_id=${operations_room_id}&operation_id=${operation_id}`);
     }
 }
 
