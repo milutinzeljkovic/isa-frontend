@@ -70,19 +70,9 @@ export const searchPatients = (data) => {
     }
 }
 
-export const seePatientProfile = (id) => {
-    return async dispatch => {
-        let response;
-        try {
-            response = await patientsService.getPatient(id);
-        }catch(e) {
-            if(e.response !== undefined){
-                if(e.response.status === 500){
-                    return dispatch({ type: 'ERROR', payload: 'error' })
-                }
-            }
-        }
-        return dispatch({type: 'GET_ONE_PATIENT', payload:response.data});
+export const seePatientProfile = (patient) => {
+    return dispatch => {
+        dispatch({type: 'GET_ONE_PATIENT', payload:patient});
     }
 }
 
@@ -99,5 +89,21 @@ export const getMedicalRecord = id => {
             }
         }
         return dispatch({type: 'MEDICAL_RECORD_FETCHED', payload:response.data});
+    }
+}
+
+export const getPatientsAppointments = id => {
+    return async dispatch => {
+        let response;
+        try {
+            response = await patientsService.getPatientAppointments(id);
+        }catch(e) {
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
+            }
+        }
+        return dispatch({type: 'PATIENTS_APPOINTMENTS', payload:response.data});
     }
 }

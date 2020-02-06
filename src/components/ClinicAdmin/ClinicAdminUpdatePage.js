@@ -24,7 +24,8 @@ class ClinicAdminUpdatePage extends Component {
             state: '',
             ensurance_id: '',
             number: '',
-            collapseID: false
+            collapseID: false,
+            collapseID1: false
         }
     }
 
@@ -74,6 +75,12 @@ class ClinicAdminUpdatePage extends Component {
     toggleCollapse = collapseID => () => {
         this.setState({
           collapseID: !this.state.collapseID
+        });
+    }
+
+    toggleCollapse1 = collapseID1 => () => {
+        this.setState({
+          collapseID1: !this.state.collapseID1
         });
     }
 
@@ -376,7 +383,7 @@ class ClinicAdminUpdatePage extends Component {
                         <input type="text" 
                             className="form-control"  
                             defaultValue ={hour.from === null ? 'FREE' : hour.from}
-                            onChange = {e => this.onHoursChange(e,hour.id, 'from')}
+                            onChange = {e => this.onHoursChange(e,hour.day, 'from')}
                             disabled = {this.props.update.updatable[0] === "false" ? "" : "disabled"}
                         />
                     </td>
@@ -384,7 +391,7 @@ class ClinicAdminUpdatePage extends Component {
                         <input type="text" 
                             className="form-control"  
                             defaultValue ={hour.to === null ? 'FREE' : hour.to}
-                            onChange = {e => this.onHoursChange(e,hour.id, 'to')}
+                            onChange = {e => this.onHoursChange(e,hour.day, 'to')}
                             disabled = {this.props.update.updatable[0] === "false" ? "" : "disabled"}
                         />
                     </td>
@@ -428,6 +435,8 @@ class ClinicAdminUpdatePage extends Component {
                                 </MDBTableBody>
                             </MDBTable>
                         </MDBCard>
+                        <MDBRow>
+                        <div style={{float:'left', paddingLeft:'25px'}}>
                         <>
                         <MDBRow>
                             {this.props.mode === 'Doctor mode' ? <MDBBtn color="primary" onClick={this.toggleCollapse("basicCollapse")} style={{ paddingLeft: '15px' }}><span style={{color: 'white'}}>See doctors working hours</span></MDBBtn> : ''}
@@ -449,8 +458,30 @@ class ClinicAdminUpdatePage extends Component {
                             </MDBCollapse>
                         </MDBRow>
                         </>
+                        </div>
+                        <div style={{float: 'right', paddingLeft:'100px'}}>
+                        <>
                         <MDBRow>
-                            {this.props.update.updatable[0] === "false" ? <MDBBtn gradient="blue" style={{float:"right"}} onClick={() => this.updateEntity(this.props.update.toUpdate)}>Edit</MDBBtn> : ''}
+                            {this.props.mode === 'Doctor mode' ? <MDBBtn color="primary" onClick={this.toggleCollapse1("basicCollapse2")} style={{ paddingLeft: '15px' }}><span style={{color: 'white'}}>Specialize doctor</span></MDBBtn> : ''}
+                        </MDBRow>
+                        <MDBRow>
+                            <MDBCollapse id="basicCollapse2" isOpen={this.state.collapseID1}>
+                            <MDBTable>
+                                <MDBTableHead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                    </tr>
+                                </MDBTableHead>
+                            </MDBTable>
+                            </MDBCollapse>
+                        </MDBRow>
+                        </>
+                        </div>
+                        </MDBRow>
+                        <MDBRow>
+                            {this.props.update.updatable[0] === "false" ? <MDBBtn gradient="blue" style={{ marginLeft: '15px'}} onClick={() => this.updateEntity(this.props.update.toUpdate)}>Edit</MDBBtn> : ''}
                         </MDBRow>
                     </div>
                 </div>

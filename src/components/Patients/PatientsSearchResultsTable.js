@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
 import { connect } from 'react-redux';
 import _ from 'loadsh';
-import {seePatientProfile} from '../../actions/patients';
+import {seePatientProfile, getPatientsAppointments} from '../../actions/patients';
 import browserHistory from '../../history';
 
 class PatientsSearchResultsTable extends Component {
@@ -14,14 +14,11 @@ class PatientsSearchResultsTable extends Component {
     }
   }
 
-  onSeeProfileClickHandler = id => {
-     this.props.seePatientProfile(id);
+  onSeeProfileClickHandler = async patient => {
+     await this.props.seePatientProfile(patient);
+     await this.props.getPatientsAppointments(patient.id); 
      browserHistory.push("/patient/profile");
   }
-
-  /*onSeeMedRecordClickHandler = id => {
-    //this.props.checkPrescriptions(id);
-  }*/
 
  componentDidUpdate(prevProps, prevState){
   if (prevProps.patients !== this.props.patients) {
@@ -45,10 +42,7 @@ class PatientsSearchResultsTable extends Component {
             <td>{patient.address}</td>
             <td>{patient.phone_number}</td>
             <td>
-              <MDBBtn color="primary" onClick = {() => this.onSeeProfileClickHandler(patient.id)}>See profile</MDBBtn>
-            </td>
-            <td>
-              <MDBBtn color="success" /*onClick = {() => this.onSeeMedRecordClickHandler(patient.id)}*/>See medical record</MDBBtn>
+              <MDBBtn color="primary" onClick = {() => this.onSeeProfileClickHandler(patient)}>See profile</MDBBtn>
             </td>
         </tr>
       )
@@ -68,8 +62,7 @@ class PatientsSearchResultsTable extends Component {
               <th>City</th>
               <th>Adress</th>
               <th>Phone number</th>
-              <th> </th>
-              <th> </th>
+              <th>See profile</th>
             </tr>
           </MDBTableHead>
           <MDBTableBody>
@@ -88,4 +81,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps,{seePatientProfile})(PatientsSearchResultsTable);
+export default connect(mapStateToProps,{seePatientProfile, getPatientsAppointments})(PatientsSearchResultsTable);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText} from 'mdbreact';
-import { MDBTable, MDBTableBody } from 'mdbreact';
+import { MDBCard, MDBCardImage, MDBBtn, MDBCardText} from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead, MDBRow, MDBCollapse } from 'mdbreact';
 import _ from 'loadsh';
 import { connect } from 'react-redux';
 
@@ -15,28 +15,33 @@ class PatientProfileSearch extends Component {
           address: '',
           city: '',
           state: '',
-          ensurance_id: ''
+          ensurance_id: '',
+          collapseID: false
         }
     }
     
     datas = ['name','last_name','address','city','state','ensurance_id']
 
-    componentDidUpdate(prevProps, prevState){  
-        if (prevProps.patients !== this.props.patients) {
-            if(this.props.patients !== undefined){                
-                this.setState({
-                    name: this.props.patients.selectedPatient.name,
-                    last_name: this.props.patients.selectedPatient.last_name,
-                    email: this.props.patients.selectedPatient.email,
-                    address: this.props.patients.selectedPatient.address,
-                    city: this.props.patients.selectedPatient.city,
-                    state: this.props.patients.selectedPatient.state,
-                    ensurance_id: this.props.patients.selectedPatient.ensurance_id,
-                    created_at: this.props.patients.selectedPatient.created_at
-                })
-            }
-        }
-        
+    toggleCollapse = collapseID => () => {
+        this.setState({
+          collapseID: !this.state.collapseID
+        });
+    }
+
+    randomFunction = appTypeID => {
+        //koleza rokaj ovde sta ti treba
+    }
+
+    componentDidMount(){  
+        this.setState({
+            name: this.props.patients.selectedPatient.name,
+            last_name: this.props.patients.selectedPatient.last_name,
+            email: this.props.patients.selectedPatient.email,
+            address: this.props.patients.selectedPatient.address,
+            city: this.props.patients.selectedPatient.city,
+            state: this.props.patients.selectedPatient.state,
+            ensurance_id: this.props.patients.selectedPatient.ensurance_id
+        })
     }
 
     renderTable = () => {
@@ -56,6 +61,37 @@ class PatientProfileSearch extends Component {
         })
     }
 
+    renderTableApps = () => {
+        return (
+            <MDBTable>
+                <MDBTableHead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Appointment type</th>
+                        <th>Cincila promeni ovo na sta hoces</th>
+                    </tr>
+                </MDBTableHead>
+                <MDBTableBody>
+                    {this.props.patients === undefined ? '' : this.renderTableBody(this.props.patients.patientsAppointments)}
+                </MDBTableBody>
+            </MDBTable>
+        )
+    }
+
+    renderTableBody = (appointments) => {
+        return _.map(appointments, appointment => {
+            return(
+                <tr key = {appointment.id}>
+                    <td>{(appointment.date).split(" ")[0]}</td>
+                    <td>{(appointment.date).split(" ")[1]}</td>
+                    <td>{appointment.appointment_type.name}</td>
+                    <td><MDBBtn color="primary" onClick = {() => this.randomFunction(appointment.id)}>Function</MDBBtn></td>
+                </tr>
+            )
+        })
+    }
+
     renderContent = () => {
         if(this.props.patients === undefined){
             return (
@@ -69,12 +105,9 @@ class PatientProfileSearch extends Component {
                     <div className="col-sm-4" id='patients-profile-card-1'>
                         <MDBCard style={{ width: "100%" }}>
                             <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />
-                            <MDBCardBody>
                             <MDBCardText>
-                                {this.props.patients === undefined ? '' : 'Registration date: ' + this.state.created_at}
+                                {this.state.name + ' ' + this.state.last_name + '\'s' + ' profile page'}
                             </MDBCardText>
-
-                            </MDBCardBody>
                         </MDBCard>
                     </div>
 
@@ -86,6 +119,17 @@ class PatientProfileSearch extends Component {
                                 </MDBTableBody>
                             </MDBTable>
                         </MDBCard>
+
+                        <>
+                        <MDBRow>
+                            <MDBBtn color="primary"><span style={{color: 'white'}} onClick={this.toggleCollapse("basicCollapse")}>See appointments</span></MDBBtn>
+                        </MDBRow>
+                        <MDBRow>
+                            <MDBCollapse id="basicCollapse" isOpen={this.state.collapseID}>
+                                {this.props.patients.patientsAppointments.length > 0 ? this.renderTableApps() : <p>This patient has had/has no appointments</p>} 
+                            </MDBCollapse>
+                        </MDBRow>
+                        </>
                     </div>
                 </div>
             )
