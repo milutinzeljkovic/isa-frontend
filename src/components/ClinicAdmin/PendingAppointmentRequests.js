@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getPendingRequests, reserveRoom } from "../../actions/clinicAdmin";
-import { MDBTable, MDBTableBody, MDBTableHead, MDBCollapse, MDBBtn, MDBRow, MDBInput, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead,  MDBBtn,   MDBCard, MDBCardBody } from 'mdbreact';
 import browserHistory from '../../history';
 
 import _ from 'loadsh';
