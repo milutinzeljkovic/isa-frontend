@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { me } from './actions/auth';
 import PatientTableByClinic from './components/Patients/PatientTableByClinic';
 import AddClinicAdmin from './components/ClinicalCenterAdmin/AddClinicAdmin';
+import PendingAppointmentRequests from './components/ClinicAdmin/PendingAppointmentRequests';
 import AddClinicalCenterAdmin from './components/ClinicalCenterAdmin/AddClinicalCenterAdmin';
 import AddMedStaffDialog from './components/ClinicAdmin/AddMedStaffDialog';
 import ChangePassword from './components/ChangePassword';
@@ -109,6 +110,8 @@ class App extends Component {
         <Route path='/clinic-admin/update-operating-rooms' exact render={(props) => <ClinicAdminUpdatePage {...props} mode={'Op room mode'}/>}/>
         <Route path='/vacation-requests' exact component = {ConfirmDenyVacation}/>
         <Route path='/operating-room/calendar' exact component = {OperatingRoomCalendar}/>
+        <Route path='/pending-appointment-requests' exact component = {PendingAppointmentRequests}/>
+        
       </Router>
     );
   }

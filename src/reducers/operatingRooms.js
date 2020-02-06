@@ -12,6 +12,8 @@ export default (state = null, action) => {
             return {...state, operatingRoomAppointments: action.payload};
         case 'SET-FIRST-FREE-DATE':
             return {...state, firstFreeDate: action.payload};
+        case 'RESERVE_ROOM':            
+            return {...state, appointment: action.payload}
         default: return state;
     }
 

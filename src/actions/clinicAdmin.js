@@ -155,3 +155,35 @@ export const getClinicDoctors = () => {
         }
     }
 }
+
+export const getPendingRequests = () => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.getRequests();
+            dispatch({ type: 'PENDING_REQUEST_FETCHED', payload: response.data });
+            
+        }catch(e){
+            
+        }
+            
+    }
+}
+
+export const reserveRoom = app =>{
+    return{type: 'RESERVE_ROOM',payload: app}
+}
+
+export const reserveAppointment = (operations_room_id,appointment_id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.reserveAppointment(operations_room_id,appointment_id);
+            return dispatch({ type: 'ROOM_RESERVED', payload: response.data });
+            
+        }catch(e){
+            
+        }
+            
+    }
+}

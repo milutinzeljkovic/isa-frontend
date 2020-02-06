@@ -39,6 +39,13 @@ class ClinicAdminService extends Service{
     seeIfBooked(id){
         return this.getApiClient().get(`/doctors/booked/${id}`);
     }
+    getRequests(){
+        return this.getApiClient().get(`${resource}/pending-appointment-requests`);
+    }
+
+    reserveAppointment(operations_room_id,appointment_id){
+        return this.getApiClient().post(`${resource}/reserve-appointment?operations_room_id=${operations_room_id}&appointment_id=${appointment_id}`);
+    }
 }
 
 

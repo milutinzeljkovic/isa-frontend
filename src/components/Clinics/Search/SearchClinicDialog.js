@@ -125,7 +125,9 @@ class SearchClinicDialog extends Component {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 }
-            })            
+            })           
+            console.log('pozicija',position );
+            
             
             return position;
         },(e)=>{

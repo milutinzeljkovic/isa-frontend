@@ -19,7 +19,8 @@ class AvailableAppointmentsDialog extends Component {
             operations_room_id: '',
             price: '',
             date: '',
-            app_type: ''
+            app_type: '',
+            duration: ''
         };
     }
 
@@ -47,6 +48,12 @@ class AvailableAppointmentsDialog extends Component {
         })
     }    
 
+    handleDurationChange = e => {
+        this.setState({
+            duration: e.target.value
+        })
+    }
+
     handleDateChange = (date1) => {
         this.datum = date1;
         let datum2 = date1.toISOString().split('.')[0];
@@ -73,11 +80,14 @@ class AvailableAppointmentsDialog extends Component {
             })
             
         }
-        
-        if(res.status !== 200){            
-            this.setState({
-                status: res.data.created ? res.data.created : res.data
-            })
+        try{
+            if(res.status !== 200){            
+                this.setState({
+                    status: res.data.created ? res.data.created : res.data
+                })
+            }
+        }catch(e){
+            
         }
         if(res.data.created){
             setTimeout(()=>this.close(),1000);
@@ -167,6 +177,14 @@ class AvailableAppointmentsDialog extends Component {
                     error="wrong"
                     success="right"
                     onChange={(e) => this.handlePriceChange(e)}
+                />
+                <MDBInput
+                    label="Duration"
+                    group
+                    validate
+                    error="wrong"
+                    success="right"
+                    onChange={(e) => this.handleDurationChange(e)}
                 />
                 </div>
                 <div className="text-center">

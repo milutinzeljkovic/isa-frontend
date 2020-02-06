@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { MDBTable, MDBTableBody, MDBTableHead, MDBCollapse, MDBBtn, MDBRow, MDBInput } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead, MDBCollapse, MDBBtn, MDBRow, MDBInput, MDBCardBody, MDBCard } from 'mdbreact';
 
 import { connect } from 'react-redux';
 import { getAllDoctors, setEntityToBeUpdated, seeIfBookedDoctor, deleteDoctor } from '../../actions/clinicAdmin';
 import { getAppointmentTypesClinic, deleteAppointmentType, seeIfUsedAppType } from '../../actions/appointmentType';
 import { getAllOpRooms, seeIfBookedOpRoom, deleteOperatingRoom, searchOperatingRooms, setOperatingRoomCalendar } from '../../actions/operatingRoom';
 import { getDoctorsWorkingHours } from '../../actions/workingHours';
+import { reserveAppointment } from '../../actions/clinicAdmin';
 import _ from 'loadsh';
 import FeedbackNotification from '../FeedbackNotification';
 import browserHistory from '../../history';
 import DatePicker from "react-datepicker";
+
 
 class AdminOptionPage extends Component {
 
@@ -27,7 +29,9 @@ class AdminOptionPage extends Component {
             dateSelected: c,
             name: '',
             number: '',
-            enteredDate: false
+            enteredDate: false,
+            reserved: false,
+            app: null
         }
     }
 
@@ -127,6 +131,16 @@ class AdminOptionPage extends Component {
         await this.props.setEntityToBeUpdated(appType);
         await this.props.seeIfUsedAppType(appType.id);
         browserHistory.push("/clinic-admin/update-appointment-types");
+    }
+
+     reserveRoom = async opRoom => {
+        let res =  await this.props.reserveAppointment(opRoom.id,this.props.requestedAppointment.id);
+        console.log(res);
+        
+        this.setState({
+            reserved: true,
+            app: res.payload
+        })
     }
 
     timeExit(){
@@ -253,6 +267,14 @@ class AdminOptionPage extends Component {
                 <td>
                   <MDBBtn color="info" onClick={() => this.seeAvailabilityCalendar(opRoom)}>Availability</MDBBtn>
                 </td>
+                {
+                    this.props.operatingRooms.appointment === undefined ?
+                    ""
+                    :
+                    <td>
+                        <MDBBtn color="danger" onClick={() => this.reserveRoom(opRoom)}>Reserve for appointment</MDBBtn>
+                    </td>
+                }
             </tr>
           )
         })
@@ -304,6 +326,14 @@ class AdminOptionPage extends Component {
                     <th>Delete</th>
                     <th>Update</th>
                     <th>See availability</th>
+                    {
+                    this.props.operatingRooms === null ||  this.props.operatingRooms.appointment=== undefined ?
+                    ""
+                    :
+                    <td>
+                        
+                    </td>
+                }
                 </tr>
             )
         }
@@ -348,12 +378,47 @@ class AdminOptionPage extends Component {
         </div>
         )
     }
+    goBack = () => {
+        browserHistory.push('/pending-appointment-requests');
+
+    }
+
+    tryAgain = () => {
+        this.setState({
+            app:null,
+            reserved: false
+
+        })
+    }
 
 
     render(){
-        return(
+        if(this.state.reserved ){
+            console.log('nije null', this.props.reserveAppointment);
+            
+            
+            return(
             <div className='container' style={{paddingTop:'50px'}}>
-                <MDBTable hover>
+                <MDBCard>
+                    <MDBCardBody>
+                        {this.state.app.error !== undefined ? 
+                            <p>{this.state.app.error.message}<a onClick ={this.tryAgain}> try again</a> </p>
+                            :
+                            <div>
+                                <p>
+                                    Appointment reserved
+                                    <MDBBtn color ="info" onClick = {this.goBack}>Back</MDBBtn>
+                                </p>
+                            </div>
+                        }
+                    </MDBCardBody>
+                </MDBCard>
+            </div>)
+
+        }else{
+        return(
+             <div className='container' style={{paddingTop:'50px'}}>
+                 <MDBTable hover>
                     <MDBTableHead color="info-color" textWhite>
                         {this.renderTableHead()}
                     </MDBTableHead>
@@ -368,6 +433,7 @@ class AdminOptionPage extends Component {
                 {this.state.showNotification === true ? <FeedbackNotification show={this.state.showNotification} notificationMessage={this.state.notificationMessage}/> : ''}
             </div>
         );
+        }
     }
 }
 
@@ -376,8 +442,10 @@ const mapStateToProps = (state) => {
       clinicAdmin: state.clinicAdmin,
       operatingRooms: state.operatingRooms,
       appointmentTypes: state.appointmentTypes,
-      update: state.update
+      update: state.update,
+      requestedAppointment: state.operatingRooms === null ? null : state.operatingRooms.appointment,
+      reservedAppointment: state.appointments === null ? null : state.appointments.appointmentReserved
     }
   }
   
-  export default connect(mapStateToProps, {getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor, searchOperatingRooms, setOperatingRoomCalendar})(AdminOptionPage);
+  export default connect(mapStateToProps, {reserveAppointment, getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor, searchOperatingRooms, setOperatingRoomCalendar})(AdminOptionPage);

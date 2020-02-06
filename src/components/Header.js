@@ -247,6 +247,8 @@ renderLinks = () => {
             <MDBDropdownItem><Link to='/get/myClinic' >My clinic</Link></MDBDropdownItem>
             <MDBDropdownItem><Link to='/vacation-requests' >Vacation requests</Link></MDBDropdownItem>
             <MDBDropdownItem><Link to='/operations-requests' >Operations requests</Link></MDBDropdownItem>
+            <MDBDropdownItem><Link to='/pending-appointment-requests' >Appointment requests</Link></MDBDropdownItem>
+            
 
           </MDBDropdownMenu>
         </MDBDropdown>
