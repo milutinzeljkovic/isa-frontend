@@ -26,7 +26,8 @@ class StartAppointmentDialog extends Component {
             diagnose: {},
             therapy: '',
             done: false,
-            sheduleAnOperationDialog: false
+            sheduleAnOperationDialog: false,
+            scheduleAnAppointmentDialog: false
         };
 
     }
@@ -35,6 +36,13 @@ class StartAppointmentDialog extends Component {
 
         this.setState({
             sheduleAnOperationDialog: !this.state.sheduleAnOperationDialog
+        });
+    }
+
+    toggleScheduleAnAppointmentDialog = () => {
+
+        this.setState({
+            scheduleAnAppointmentDialog: !this.state.scheduleAnAppointmentDialog
         });
     }
 
@@ -376,7 +384,7 @@ class StartAppointmentDialog extends Component {
 
                         onChange={(e) => this.handleTherapyChange(e)}
                     />
-                    <MDBBtn disabled={this.state.done}
+                    <MDBBtn disabled={this.state.done} onClick = {this.toggleScheduleAnAppointmentDialog}
                         color="info" outline  >
                         Zakazi pregled
                                 </MDBBtn>

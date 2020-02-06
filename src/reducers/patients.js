@@ -14,6 +14,8 @@ export default (state = null, action) => {
             return {...state, selectedPatient: action.payload}
         case 'MEDICAL_RECORD_FETCHED':
             return {...state, medicalRecord: action.payload}
+        case 'PATIENTS_APPOINTMENTS':
+            return {...state, patientsAppointments: action.payload}
         default: return state;
     }
 
