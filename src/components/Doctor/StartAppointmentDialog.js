@@ -216,7 +216,7 @@ class StartAppointmentDialog extends Component {
 
     previousPage() {
 
-        browserHistory.push('/doctor/calendar');
+        browserHistory.push('/home');
 
     }
 
@@ -228,7 +228,7 @@ class StartAppointmentDialog extends Component {
         const datas = { ...this.state, appointment_id: app_id };
 
         this.props.finishReport(datas);
-        browserHistory.push('/doctor/calendar');
+        browserHistory.push('/home');
     }
 
 
@@ -388,7 +388,7 @@ class StartAppointmentDialog extends Component {
                         color="info" outline  >
                         Zakazi pregled
                                 </MDBBtn>
-                    <MDBBtn   onClick = {this.toggleSheduleAnOperationDialog}
+                    <MDBBtn  disabled={this.state.done}  onClick = {this.toggleSheduleAnOperationDialog}
                         color="info" outline  >
                         Zakazi operaciju
                                 </MDBBtn>

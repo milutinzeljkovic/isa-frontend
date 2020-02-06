@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { MDBCard, MDBCardImage, MDBBtn, MDBCardText} from 'mdbreact';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBRow, MDBCollapse } from 'mdbreact';
 import _ from 'loadsh';
+
+import { getDataForDoctor } from '../../actions/doctors';
+import browserHistory from '../../history';
 import { connect } from 'react-redux';
 
 class PatientProfileSearch extends Component {
@@ -28,8 +31,15 @@ class PatientProfileSearch extends Component {
         });
     }
 
-    randomFunction = appTypeID => {
-        //koleza rokaj ovde sta ti treba
+    randomFunction = async appTypeID => {
+        await this.props.getDataForDoctor(appTypeID);
+
+
+
+    
+        browserHistory.push({
+        pathname:`/doctor/start-appointment/${appTypeID}`,
+        });
     }
 
     componentDidMount(){  
@@ -69,7 +79,7 @@ class PatientProfileSearch extends Component {
                         <th>Date</th>
                         <th>Time</th>
                         <th>Appointment type</th>
-                        <th>Cincila promeni ovo na sta hoces</th>
+                        <th></th>
                     </tr>
                 </MDBTableHead>
                 <MDBTableBody>
@@ -86,7 +96,7 @@ class PatientProfileSearch extends Component {
                     <td>{(appointment.date).split(" ")[0]}</td>
                     <td>{(appointment.date).split(" ")[1]}</td>
                     <td>{appointment.appointment_type.name}</td>
-                    <td><MDBBtn color="primary" onClick = {() => this.randomFunction(appointment.id)}>Function</MDBBtn></td>
+                    <td><MDBBtn color="primary" onClick = {() => this.randomFunction(appointment.id)}>View appointment</MDBBtn></td>
                 </tr>
             )
         })
@@ -106,7 +116,7 @@ class PatientProfileSearch extends Component {
                         <MDBCard style={{ width: "100%" }}>
                             <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />
                             <MDBCardText>
-                                {this.state.name + ' ' + this.state.last_name + '\'s' + ' profile page'}
+                                {this.state.name + ' ' + this.state.last_name + '\'s profile page'}
                             </MDBCardText>
                         </MDBCard>
                     </div>
@@ -147,8 +157,9 @@ class PatientProfileSearch extends Component {
 
 const mapStateToProps = state => {
     return{
-        patients: state.patients
+        patients: state.patients,
+        doctors: state.doctors
     }
 };
 
-export default connect(mapStateToProps)(PatientProfileSearch);
+export default connect(mapStateToProps,{getDataForDoctor})(PatientProfileSearch);
