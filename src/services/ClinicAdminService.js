@@ -8,6 +8,10 @@ class ClinicAdminService extends Service{
         return this.getApiClient().post(`/auth/register/staff`, medStaff);
     }
 
+    editOperation(data) {
+        return this.getApiClient().post(`${resource}/edit-operations`, data);
+    }
+
     getAllDoctors(){
         return this.getApiClient().get(`${resource}/doctors`);
     }

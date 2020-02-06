@@ -144,7 +144,7 @@ class AvailableAppointmentsDialog extends Component {
         if(this.state.error === true){
             return(
                 <div>
-                    <p>Error when creating appointment <a onClick = {this.resetState}>click here to try again</a></p>
+                    <p>Error when creating appointment <a href="/#" onClick = {this.resetState}>click here to try again</a></p>
                 </div>
             )
         }else{
