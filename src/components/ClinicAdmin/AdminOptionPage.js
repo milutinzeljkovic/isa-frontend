@@ -426,7 +426,6 @@ class AdminOptionPage extends Component {
 
     render() {
         if (this.state.reserved) {
-            console.log('nije null', this.props.reserveAppointment);
             return (
                 <div className='container' style={{ paddingTop: '50px' }}>
                     <MDBCard>
