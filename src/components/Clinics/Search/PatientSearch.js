@@ -36,7 +36,7 @@ class PatientSearch extends Component {
     handleOnSubmit = async () => {
         const datas = {...this.state};
         console.log(datas);
-        this.props.searchPatients(datas);
+        await this.props.searchPatients(datas);
         this.props.toggle();
         browserHistory.push("/patients/searchResults");
     }

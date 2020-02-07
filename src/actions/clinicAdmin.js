@@ -222,6 +222,40 @@ export const reserveOperation = (operations_room_id,operation_id) => {
         }catch(e){
             
         }
+    }
+}
             
+export const getDoctorsByAppType = (id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.getDoctorsByAppType(id);
+        }catch(e){
+            
+        }
+            
+        if(response.status === 200){
+            return dispatch({ type: 'DOCTORS_BY_APP_TYPES', payload: response.data });
+        }
+    }
+}
+
+export const specializeDoctor = (data, id) => {
+    return async dispatch => {
+        try{
+            await clinicAdminService.specializeDoctor(id,data);
+        }catch(e){
+            
+        }
+    }
+}
+
+export const updateAppointmentRequest = (data) => {
+    return async dispatch => {
+        try{
+            await clinicAdminService.updateAppointmentRequest(data);
+        }catch(e){
+            
+        }
     }
 }

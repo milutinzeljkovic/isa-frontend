@@ -14,6 +14,8 @@ export default (state = null, action) => {
             return { ...state, clinic: action.payload };
         case 'DELETE-DOCTOR':
             return state.filter(val => val.id !== action.payload);
+        case 'DOCTORS_BY_APP_TYPES':
+            return {...state, clinicDoctors: action.payload};
         default: return state;
     }
 

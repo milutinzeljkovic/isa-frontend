@@ -3,10 +3,12 @@ import { MDBTable, MDBTableBody, MDBCollapse, MDBCard, MDBBtn, MDBRow, MDBTableH
 import _ from 'loadsh';
 import { connect } from 'react-redux';
 import browserHistory from '../../history';
-import { updateDoctor } from '../../actions/clinicAdmin';
+import { updateDoctor, specializeDoctor } from '../../actions/clinicAdmin';
 import { updateAppType } from '../../actions/appointmentType';
 import { updateOpRoom } from '../../actions/operatingRoom';
 import { updateDoctorsWorkingDay } from '../../actions/workingHours';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 
 class ClinicAdminUpdatePage extends Component {
 
@@ -25,7 +27,8 @@ class ClinicAdminUpdatePage extends Component {
             ensurance_id: '',
             number: '',
             collapseID: false,
-            collapseID1: false
+            collapseID1: false,
+            appTypes: []
         }
     }
 
@@ -70,6 +73,30 @@ class ClinicAdminUpdatePage extends Component {
             });
         }
         
+    }
+
+    handleAppTypeChange = (event, value) => {
+        this.setState({ appTypes: value });
+    }
+
+    renderAppointmentTypes(appTypes) {
+        let newAppTypes = [];
+ 
+         _.map(appTypes, appType => {
+             let newAppType = {};
+ 
+             newAppType.name = appType.name;
+             newAppType.id = appType.id;
+ 
+             newAppTypes.push(newAppType);
+ 
+         })
+         return newAppTypes;
+     }
+
+    specializeDoctor = async (id) => {
+        await this.props.specializeDoctor(this.state.appTypes, id);
+        browserHistory.push("/clinic-admin/all-doctors");
     }
 
     toggleCollapse = collapseID => () => {
@@ -459,22 +486,30 @@ class ClinicAdminUpdatePage extends Component {
                         </MDBRow>
                         </>
                         </div>
-                        <div style={{float: 'right', paddingLeft:'100px'}}>
+                        <div style={{float: 'right', paddingLeft:'300px'}}>
                         <>
                         <MDBRow>
                             {this.props.mode === 'Doctor mode' ? <MDBBtn color="primary" onClick={this.toggleCollapse1("basicCollapse2")} style={{ paddingLeft: '15px' }}><span style={{color: 'white'}}>Specialize doctor</span></MDBBtn> : ''}
                         </MDBRow>
                         <MDBRow>
                             <MDBCollapse id="basicCollapse2" isOpen={this.state.collapseID1}>
-                            <MDBTable>
-                                <MDBTableHead>
-                                    <tr>
-                                        <th>Day</th>
-                                        <th>From</th>
-                                        <th>To</th>
-                                    </tr>
-                                </MDBTableHead>
-                            </MDBTable>
+                            <Autocomplete
+                                multiple
+                                options={this.renderAppointmentTypes(this.props.update.allAppointments)}
+                                getOptionLabel={option => option.name}
+                                onChange={this.handleAppTypeChange}
+                                style={{width:'200px'}}
+                                renderInput={params => (
+                                    <TextField
+                                        {...params}
+                                        variant="standard"
+                                        label="Appointment"
+                                        placeholder="Appointment"
+                                        fullWidth
+                                    />
+                                )}
+                            />
+                            <MDBBtn color="primary" style={{width:'150px'}} onClick={() => this.specializeDoctor(this.props.update.toUpdate.id)}>Done</MDBBtn>
                             </MDBCollapse>
                         </MDBRow>
                         </>
@@ -505,4 +540,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, {updateDoctor, updateOpRoom, updateAppType, updateDoctorsWorkingDay})(ClinicAdminUpdatePage);
+export default connect(mapStateToProps, {specializeDoctor, updateDoctor, updateOpRoom, updateAppType, updateDoctorsWorkingDay})(ClinicAdminUpdatePage);

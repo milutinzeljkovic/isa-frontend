@@ -6,6 +6,8 @@ export default (state = null, action) => {
             return {...state, updatable: action.payload};
         case 'SET-WORKING-HOURS':
             return {...state, workingHoursUpdate: action.payload};
+        case 'DOCTORS-OPTIONS-APP-TYPE':
+            return {...state, allAppointments: action.payload};
         default: return state;
     }
     

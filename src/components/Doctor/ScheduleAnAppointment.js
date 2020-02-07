@@ -3,8 +3,8 @@ import { MDBContainer, MDBBtn, MDBInput, MDBModal, MDBModalBody, MDBModalHeader,
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-
-import { sheduleAnOperation } from '../../actions/doctors';
+import _ from 'loadsh';
+import { scheduleAnAppointment } from '../../actions/doctors';
 
 import {
     MuiPickersUtilsProvider,
@@ -12,13 +12,15 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-class SheduleAnOperation extends Component {
+
+class ScheduleAnAppointment extends Component {
     constructor(props) {
         super(props);
         this.state = {
             date: new Date(),
             time: new Date(),
-            info:''
+            price:'',
+            appType: ''
         };
     }
 
@@ -34,31 +36,44 @@ class SheduleAnOperation extends Component {
         })
     }
 
-    handleInfoChange = event => {
-        this.setState({ info: event.target.value });
+    handlePriceChange = event => {
+        this.setState({ price: event.target.value });
     }
 
+    handleAppTypeChange = event => {
+        this.setState({ appType: event.target.value });
+    }
 
+    handleDiscountChange = event => {
+        this.setState({ discount: event.target.value });
+    }
 
     handleOnSubmit = (e) => {
         e.preventDefault();
-        let date = new Date(this.state.date)
-        let mnth = ("0" + (date.getMonth() + 1)).slice(-2)
-        let day = ("0" + date.getDate()).slice(-2)
+        let date = new Date(this.state.date);
+        let mnth = ("0" + (date.getMonth() + 1)).slice(-2);
+        let day = ("0" + date.getDate()).slice(-2);
         let final = date.getFullYear() + '-' + mnth + '-' + day;
 
 
         let hours = this.state.time.getHours().toString().padStart(2, "0");
-        let minutes = this.state.time.getMinutes().toString().padStart(2, "0")
+        let minutes = this.state.time.getMinutes().toString().padStart(2, "0");
         let textValue = hours + ':' + minutes + ':00';
 
+        let datas = {price:this.state.price, appointment_id: this.props.appointment_id, date: final + ' ' + textValue, appointmentType: this.state.appType};
 
-        let datas = {info:this.state.info, appointment_id: this.props.appointment_id, date: final + ' ' + textValue };
+        this.props.scheduleAnAppointment(datas);
+        //console.log(datas);
 
-        this.props.sheduleAnOperation(datas);
+        this.props.toggle();
+    }
 
-        this.props.toggle()
-
+    renderAppTypeOptions = (appTypes) =>{
+        return _.map(appTypes, appointmentType => {
+            return(
+                <option key={appointmentType.id} value={appointmentType.id}>{appointmentType.name}</option>
+            )
+        })
     }
 
 
@@ -69,7 +84,7 @@ class SheduleAnOperation extends Component {
                     <MDBModalHeader toggle={this.props.toggle} />
                     <MDBModalBody>
                         <form onSubmit={(e) => this.handleOnSubmit(e)}>
-                            <p className="h4 text-center mb-4">Date and time of operation</p>
+                            <p className="h4 text-center mb-4">Date and time of appointment</p>
                             <MuiPickersUtilsProvider utils={DateFnsUtils} >
                                 <Grid container justify="space-around">
 
@@ -99,14 +114,18 @@ class SheduleAnOperation extends Component {
                                 
                                 </Grid>
                             </MuiPickersUtilsProvider>
+                            <label htmlFor="select" style={{paddingTop:'40px'}}>Select appointment type</label>
+                            <select style={{marginLeft:'30px'}} onChange={e => this.handleAppTypeChange(e)}>
+                                {this.props.appointments === null ? '' : this.renderAppTypeOptions(this.props.appointments.appointmentTypeOptions)}
+                            </select>
                             <MDBInput
-                                        label="Info"
+                                        label="Price"
                                         group
                                         type="text"
                                         validate
                                         required
 
-                                        onChange={(e) => this.handleInfoChange(e)}
+                                        onChange={(e) => this.handlePriceChange(e)}
                                     />
                             <div className="text-center mt-4">
                                 <MDBBtn onClick={this.props.toggle} color="danger" outline >
@@ -124,6 +143,10 @@ class SheduleAnOperation extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        appointments: state.appointments
+    }
+}
 
-
-export default connect(null, { sheduleAnOperation })(SheduleAnOperation);
+export default connect(mapStateToProps, {scheduleAnAppointment })(ScheduleAnAppointment);
