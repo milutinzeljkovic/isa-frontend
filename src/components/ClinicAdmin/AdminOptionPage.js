@@ -3,7 +3,7 @@ import { MDBTable, MDBTableBody, MDBTableHead, MDBCollapse, MDBBtn, MDBRow, MDBI
 
 import { connect } from 'react-redux';
 import { getAllDoctors, setEntityToBeUpdated, seeIfBookedDoctor, deleteDoctor } from '../../actions/clinicAdmin';
-import { getAppointmentTypesClinic, deleteAppointmentType, seeIfUsedAppType } from '../../actions/appointmentType';
+import { getAppointmentTypesClinic, deleteAppointmentType, seeIfUsedAppType, getDoctorsOptionsAppTypes } from '../../actions/appointmentType';
 import { getAllOpRooms, seeIfBookedOpRoom, deleteOperatingRoom, searchOperatingRooms, setOperatingRoomCalendar } from '../../actions/operatingRoom';
 import { getDoctorsWorkingHours } from '../../actions/workingHours';
 import { reserveAppointment } from '../../actions/clinicAdmin';
@@ -118,6 +118,7 @@ class AdminOptionPage extends Component {
         await this.props.setEntityToBeUpdated(doctor);
         await this.props.seeIfBookedDoctor(doctor.id);
         await this.props.getDoctorsWorkingHours(doctor.id);
+        await this.props.getDoctorsOptionsAppTypes(doctor.id)
         browserHistory.push("/clinic-admin/update-doctor");
     }
 
@@ -166,6 +167,7 @@ class AdminOptionPage extends Component {
             })
             this.timeExit();
         }
+        window.location.reload();
     }
 
     deleteOperatingRoom = async (opRoomId, opRoomNumber) =>{
@@ -184,7 +186,7 @@ class AdminOptionPage extends Component {
             })
             this.timeExit();
         }
-        
+        window.location.reload();
     }
 
     deleteAppType = async (appTypeId) => {
@@ -196,13 +198,13 @@ class AdminOptionPage extends Component {
             })
             this.timeExit();
         }else {
-            this.props.deleteAppointmentType(appTypeId);
+            await this.props.deleteAppointmentType(appTypeId);
             this.setState({
                 showNotification: !this.state.showNotification,
                 notificationMessage: 'You have successfully deleted this appointment type'
             })
-            this.timeExit();
         }
+        window.location.reload();
     }
 
     seeAvailabilityCalendar = async opRoom => {
@@ -448,4 +450,4 @@ const mapStateToProps = (state) => {
     }
   }
   
-  export default connect(mapStateToProps, {reserveAppointment, getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor, searchOperatingRooms, setOperatingRoomCalendar})(AdminOptionPage);
+  export default connect(mapStateToProps, {getDoctorsOptionsAppTypes, reserveAppointment, getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor, searchOperatingRooms, setOperatingRoomCalendar})(AdminOptionPage);

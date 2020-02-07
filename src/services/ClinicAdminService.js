@@ -50,6 +50,14 @@ class ClinicAdminService extends Service{
     reserveAppointment(operations_room_id,appointment_id){
         return this.getApiClient().post(`${resource}/reserve-appointment?operations_room_id=${operations_room_id}&appointment_id=${appointment_id}`);
     }
+
+    getDoctorsByAppType(id){
+        return this.getApiClient().get(`${resource}/doctors-can-perform/${id}`);
+    }
+
+    specializeDoctor(id,data){
+        return this.getApiClient().post(`${resource}/specialize-doctor/${id}`, data);
+    }
 }
 
 

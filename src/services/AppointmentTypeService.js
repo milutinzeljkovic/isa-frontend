@@ -27,6 +27,10 @@ class AppointmentTypeService extends Service{
     seeIfUsed(id){
         return this.getApiClient().get(`${resource}/used/${id}`);
     }
+
+    getDoctorsOptionsAppTypes(id){
+        return this.getApiClient().get(`${resource}/options/${id}`);
+    }
 }
 
 
