@@ -388,7 +388,7 @@ class StartAppointmentDialog extends Component {
                         color="info" outline  >
                         Zakazi pregled
                                 </MDBBtn>
-                    <MDBBtn  disabled={this.state.done}  onClick = {this.toggleSheduleAnOperationDialog}
+                    <MDBBtn   onClick = {this.toggleSheduleAnOperationDialog}
                         color="info" outline  >
                         Zakazi operaciju
                                 </MDBBtn>

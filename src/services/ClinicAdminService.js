@@ -36,6 +36,10 @@ class ClinicAdminService extends Service{
         return this.getApiClient().put(`/doctors/update/${data.id}`, data);
     }
 
+    changeDateoOfOperation(data){
+        return this.getApiClient().post(`${resource}/change-date-operation`, data);
+    }
+
     deleteDoctor(id){
         return this.getApiClient().delete(`/doctors/delete/${id}`);
     }

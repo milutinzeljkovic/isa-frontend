@@ -20,6 +20,7 @@ import "@fullcalendar/list/main.js";
 
 import { MDBContainer } from "mdbreact";
 import { getAppointmentsOpRoom, getFirstFreeDate } from '../../actions/operatingRoom';
+import ChangeDateOfOperation from './ChangeDateOfOperation';
 
 class OperatingRoomCalendar extends Component {
   calendarComponentRef = React.createRef();
@@ -29,13 +30,23 @@ class OperatingRoomCalendar extends Component {
     this.state = {
       showStartAppointmentDialog: false,
       data: {},
-      done:''
+      done: '',
+      room_id:'',
+      operation_id:'',
+      dialog:false,
+      date:''
     }
   }
 
   hideStartAppointmentDialog = () => {
     this.setState({
       showStartAppointmentDialog: !this.state.showStartAppointmentDialog
+    })
+  }
+
+  hideDialog = () => {
+    this.setState({
+      dialog: !this.state.dialog
     })
   }
 
@@ -65,10 +76,10 @@ class OperatingRoomCalendar extends Component {
     })
 
     let event = {};
-    if(this.props.operatingRoom.firstFreeDate !== undefined){
-      console.log(this.props.operatingRoom.firstFreeDate);
+    if (this.props.operatingRoom.firstFreeDate !== undefined) {
       event.title = 'This date is available for whatever you need!';
-      event.start = new Date(new Date(this.props.operatingRoom.firstFreeDate).getTime() + 60*60*1000);
+      event.color = 'red';
+      event.start = new Date(new Date(this.props.operatingRoom.firstFreeDate).getTime() + 60 * 60 * 1000);
       events.push(event);
     }
 
@@ -76,20 +87,35 @@ class OperatingRoomCalendar extends Component {
 
   }
 
-  /*handleClick = async (info ) => {
-    await this.props.getDataForDoctor(info.event.id);
-    browserHistory.push({
-    pathname:`/doctor/start-appointment/${info.event.id}`,
-    });
-  }*/
+  handleClick = async (info) => {
+    console.log(info.event);
+    
+
+    if (info.event.backgroundColor === 'red') {
+      if (this.props.operatingRoom.operation !== undefined) {
+        this.setState({
+          dialog: true,
+          room_id: this.props.operatingRoom.calendarOpRoom.id,
+          operation_id: this.props.operatingRoom.operation.id,
+          date: info.event.start
+
+        })
+
+      
+      }
+
+    }
+  }
 
 
 
   render() {
     return (
       <div>
+        <ChangeDateOfOperation operation_id={this.state.operation_id} date={this.state.date} roomId={this.state.room_id} show={this.state.dialog} toggle={this.hideDialog} />
+
         <MDBContainer>
-        {this.props.operatingRoom === null ? <p>Loading</p> : <p><span style={{fontSize: '20px'}}>Calendar for operating room number {this.props.operatingRoom.calendarOpRoom.number}</span></p>}
+          {this.props.operatingRoom === null ? <p>Loading</p> : <p><span style={{ fontSize: '20px' }}>Calendar for operating room number {this.props.operatingRoom.calendarOpRoom.number}</span></p>}
           <FullCalendar
             defaultView="dayGridMonth"
             timeZone='UTC'
@@ -102,7 +128,7 @@ class OperatingRoomCalendar extends Component {
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
             ref={this.calendarComponentRef}
             events={this.props.operatingRoom === null ? '' : this.renderList(this.props.operatingRoom.operatingRoomAppointments)}
-            //eventClick={this.handleClick}
+            eventClick={this.handleClick}
           />
 
         </MDBContainer>
@@ -123,4 +149,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {getAppointmentsOpRoom, getFirstFreeDate})(OperatingRoomCalendar);
+export default connect(mapStateToProps, { getAppointmentsOpRoom, getFirstFreeDate })(OperatingRoomCalendar);

@@ -60,6 +60,12 @@ export const editOperation = (data) => {
     }
 }
 
+export const changeDateoOfOperation = (data) => {
+    return async dispatch => {
+        await clinicAdminService.changeDateoOfOperation(data);
+    }
+}
+
 export const addDuration = (data) => {
     return async dispatch => {
         await clinicAdminService.addDuration(data);
