@@ -95,6 +95,9 @@ export const login = data => {
         let response;
         try{
             response = await usersService.login(data);
+            if (response.status === 200) {            
+                return dispatch({ type: 'LOGIN', payload: response.data });
+            } 
 
         }catch(e){
             if(e.response !== undefined){
@@ -105,9 +108,6 @@ export const login = data => {
                     return dispatch({ type: 'ERROR', payload: 'Failed to sign in' });
             }
         }
-        if (response.status === 200) {            
-           return dispatch({ type: 'LOGIN', payload: response.data });
-        } 
     }
 }
 

@@ -70,7 +70,7 @@ class AppointmentDetailCheckout extends Component {
                     <div className="d-inline-flex p-2 bd-highlight">
                         <h5 className="mb-1" >room number: </h5>
                         <span className = 'a'>
-                            <MDBBadge tag="a" color="default">{appointment.operations_room.number}</MDBBadge>
+                            <MDBBadge tag="a" color="default">{appointment.operations_room === null ? '' :appointment.operations_room.number}</MDBBadge>
                         </span>
                     </div>
                     <div className="d-inline-flex p-2 bd-highlight">

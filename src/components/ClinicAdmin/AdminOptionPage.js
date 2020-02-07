@@ -393,16 +393,14 @@ class AdminOptionPage extends Component {
 
 
     render(){
-        if(this.state.reserved ){
-            console.log('nije null', this.props.reserveAppointment);
-            
+        if(this.state.reserved ){            
             
             return(
             <div className='container' style={{paddingTop:'50px'}}>
                 <MDBCard>
                     <MDBCardBody>
                         {this.state.app.error !== undefined ? 
-                            <p>{this.state.app.error.message}<a onClick ={this.tryAgain}> try again</a> </p>
+                            <p>{JSON.stringify(this.state.app.message)}<a onClick ={this.tryAgain}> try again</a> </p>
                             :
                             <div>
                                 <p>
