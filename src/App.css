@@ -83,6 +83,12 @@
 }
 
 @media only screen and (max-width: 600px) {
+
+  #root{
+    max-height: 1000px;
+    overflow: scroll;
+  }
+
   #patients-profile-card-2{
     margin-top: 2%;
   }
@@ -96,8 +102,5 @@
     height: 300px!important;
 
   }
-  #clinics_result{
-    max-height: 300px;
-    overflow: scroll;
-  }
+
 }

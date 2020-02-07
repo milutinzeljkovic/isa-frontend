@@ -2,6 +2,8 @@ export default (state = null, action) => {
     switch(action.type){
         case 'APPOINTMENT_RESERVED_APPOINTMENT':
             const newApp = state.appointments.filter(element => element.id !== action.payload.id);
+            console.log(newApp, action.payload);
+            
             return {...state, appointments: newApp}
         case 'PENDING_REQUEST_FETCHED':
             
