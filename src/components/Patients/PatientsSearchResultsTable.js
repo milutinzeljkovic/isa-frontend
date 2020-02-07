@@ -15,6 +15,8 @@ class PatientsSearchResultsTable extends Component {
   }
 
   onSeeProfileClickHandler = async patient => {
+    console.log(patient);
+    
      await this.props.seePatientProfile(patient);
      await this.props.getPatientsAppointments(patient.id); 
      browserHistory.push("/patient/profile");
@@ -35,12 +37,12 @@ class PatientsSearchResultsTable extends Component {
     return _.map(patients, patient => {
       return(
         <tr key={patient.id}>
-            <td>{patient.name}</td>
-            <td>{patient.last_name}</td>
-            <td>{patient.email}</td>
-            <td>{patient.city}</td>
-            <td>{patient.address}</td>
-            <td>{patient.phone_number}</td>
+            <td>{patient.user.name}</td>
+            <td>{patient.user.last_name}</td>
+            <td>{patient.user.email}</td>
+            <td>{patient.user.city}</td>
+            <td>{patient.user.address}</td>
+            <td>{patient.user.phone_number}</td>
             <td>
               <MDBBtn color="primary" onClick = {() => this.onSeeProfileClickHandler(patient)}>See profile</MDBBtn>
             </td>

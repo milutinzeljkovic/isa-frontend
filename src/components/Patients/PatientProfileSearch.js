@@ -25,7 +25,9 @@ class PatientProfileSearch extends Component {
     
     datas = ['name','last_name','address','city','state','ensurance_id']
 
-    toggleCollapse = collapseID => () => {
+    toggleCollapse = collapseID  => {
+        console.log('collapse');
+        
         this.setState({
           collapseID: !this.state.collapseID
         });
@@ -44,13 +46,13 @@ class PatientProfileSearch extends Component {
 
     componentDidMount(){  
         this.setState({
-            name: this.props.patients.selectedPatient.name,
-            last_name: this.props.patients.selectedPatient.last_name,
-            email: this.props.patients.selectedPatient.email,
-            address: this.props.patients.selectedPatient.address,
-            city: this.props.patients.selectedPatient.city,
-            state: this.props.patients.selectedPatient.state,
-            ensurance_id: this.props.patients.selectedPatient.ensurance_id
+            name: this.props.patients.selectedPatient.user.name,
+            last_name: this.props.patients.selectedPatient.user.last_name,
+            email: this.props.patients.selectedPatient.user.email,
+            address: this.props.patients.selectedPatient.user.address,
+            city: this.props.patients.selectedPatient.user.city,
+            state: this.props.patients.selectedPatient.user.state,
+            ensurance_id: this.props.patients.selectedPatient.user.ensurance_id
         })
     }
 
@@ -83,13 +85,15 @@ class PatientProfileSearch extends Component {
                     </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                    {this.props.patients === undefined ? '' : this.renderTableBody(this.props.patients.patientsAppointments)}
+                    {this.props.patients === undefined ? '' : this.renderTableBody(this.props.patients.selectedPatient.appointments)}
                 </MDBTableBody>
             </MDBTable>
         )
     }
 
     renderTableBody = (appointments) => {
+        console.log(appointments);
+        
         return _.map(appointments, appointment => {
             return(
                 <tr key = {appointment.id}>
@@ -132,7 +136,7 @@ class PatientProfileSearch extends Component {
 
                         <>
                         <MDBRow>
-                            <MDBBtn color="primary"><span style={{color: 'white'}} onClick={this.toggleCollapse("basicCollapse")}>See appointments</span></MDBBtn>
+                            <MDBBtn color="primary"><span style={{color: 'white'}} onClick={ () => this.toggleCollapse("basicCollapse")}>See appointments</span></MDBBtn>
                         </MDBRow>
                         <MDBRow>
                             <MDBCollapse id="basicCollapse" isOpen={this.state.collapseID}>
