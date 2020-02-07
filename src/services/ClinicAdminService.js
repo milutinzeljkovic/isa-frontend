@@ -58,6 +58,10 @@ class ClinicAdminService extends Service{
     specializeDoctor(id,data){
         return this.getApiClient().post(`${resource}/specialize-doctor/${id}`, data);
     }
+
+    updateAppointmentRequest(data){
+        return this.getApiClient().put(`${resource}/update-appointment-request`, data);
+    }
 }
 
 

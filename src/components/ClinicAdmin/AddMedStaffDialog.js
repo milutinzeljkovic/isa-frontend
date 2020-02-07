@@ -19,7 +19,7 @@ class AddMedStaffDialog extends Component {
             password: '',
             phone_number: '',
             password_confirmation: '',
-            role: '',
+            role: 'doctor',
             mondayFrom: null,
             mondayTo: null,
             tuesdayFrom: null,
@@ -286,7 +286,7 @@ class AddMedStaffDialog extends Component {
                 <select name="select1" className="browser-default custom-select" onChange={(e) => this.handleRoleChange(e)}>
                     <option disabled selected defaultValue>Choose type of medical staff</option>
                     <option value="nurse">Nurse</option>
-                    <option value="doctor">Doctor</option>
+                    <option selected defaultValue value="doctor">Doctor</option>
                 </select>
                 <MDBInput
                     label="Type the name"

@@ -15,7 +15,8 @@ export default (state = null, action) => {
             return {...state, appointments: action.payload}
         case 'ROOM_RESERVED':
             return {...state, appointmentReseved: action.payload}
-        
+        case 'DOCTORS_APP_TYPES':
+            return {...state, appointmentTypeOptions: action.payload}
             
         default: return state;
     }
