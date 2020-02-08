@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBModal, MDBModalBody , MDBModalHeader, MDBInput, MDBBtn} from 'mdbreact';
 import { connect } from 'react-redux';
 import DateTimePicker from 'react-datetime-picker';
-import { getClinicDoctors } from '../../actions/clinicAdmin';
+import { getClinicDoctors, getDoctorsByAppType } from '../../actions/clinicAdmin';
 import {getAppointmentTypesClinic} from '../../actions/appointmentType';
 import { getAllOpRooms } from '../../actions/operatingRoom';
 import { defineAppointment } from '../../actions/appointment';
@@ -63,10 +63,11 @@ class AvailableAppointmentsDialog extends Component {
         })
     }
 
-    handleAppTypeChange = e => {
+    handleAppTypeChange = async e => {
         this.setState({
             app_type: e.target.value
         })
+        await this.props.getDoctorsByAppType(e.target.value);
     }
 
     handleOnSubmit = async () => {
@@ -117,7 +118,7 @@ class AvailableAppointmentsDialog extends Component {
         return _.map(appTypes, appointmentType => {            
           return(
             <option key={appointmentType.id} value={appointmentType.id}
-                onClick={()=>this.handleAppType(appointmentType.id)}
+                onClick={()=>this.handleAppTypeChange(appointmentType.id)}
             >
                 {appointmentType.name}
             </option>
@@ -168,7 +169,7 @@ class AvailableAppointmentsDialog extends Component {
                 <label htmlFor="select12">Choose your doctor</label>
                 <select name="select12" className="browser-default custom-select" onChange = {(e) => this.handleDoctorChange(e)}>
                 <option disabled  selected defaultValue>Select a doctor</option>
-                { this.props.clinicAdmin === null ? '' : this.renderDoctorOptions(this.props.clinicDoctors)}
+                { this.props.clinicAdmin === null || this.props.clinicAdmin.clinicDoctors===undefined? '' : this.renderDoctorOptions(this.props.clinicAdmin.clinicDoctors)}
                 </select>
                 <MDBInput
                     label="Type the cost of the checkup"
@@ -227,4 +228,4 @@ const mapStateToProps = (state)=> {
 
 
 
-export default connect(mapStateToProps,{getClinicDoctors, getAppointmentTypesClinic, getAllOpRooms, defineAppointment})(AvailableAppointmentsDialog);
+export default connect(mapStateToProps,{getClinicDoctors, getDoctorsByAppType, getAppointmentTypesClinic, getAllOpRooms, defineAppointment})(AvailableAppointmentsDialog);

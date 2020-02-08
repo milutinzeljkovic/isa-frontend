@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPendingRequests, reserveRoom } from "../../actions/clinicAdmin";
-import { MDBTable, MDBTableBody, MDBTableHead,  MDBBtn,   MDBCard, MDBCardBody } from 'mdbreact';
+import { getPendingRequests, reserveRoom, updateAppointmentRequest } from "../../actions/clinicAdmin";
+import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn, MDBInput, MDBCard, MDBCardBody } from 'mdbreact';
 import browserHistory from '../../history';
 
 import _ from 'loadsh';
@@ -11,7 +11,9 @@ class PendingAppointmentRequests extends Component {
     constructor(props){
         super(props);
         this.state = {
-            appointment: null
+            appointment: null,
+            discount: '',
+            duration: ''
         }
     }
 
@@ -30,10 +32,25 @@ class PendingAppointmentRequests extends Component {
 
     }
 
-    addRoom = () => {
+    addRoom = async () => {
+        const datas = {app:this.state.appointment.id, discount: this.state.discount, duration: this.state.duration}
+        //console.log(datas);
+        await this.props.updateAppointmentRequest(datas)
         this.props.reserveRoom(this.state.appointment);
         browserHistory.push('/clinic-admin/all-operating-rooms');
         
+    }
+
+    handleDiscountChange = (e) => {
+        this.setState({
+            discount: e.target.value
+        })
+    }
+
+    handleDurationChange = (e) => {
+        this.setState({
+            duration: e.target.value
+        })
     }
 
     renderRequests = appointments => {
@@ -93,6 +110,24 @@ class PendingAppointmentRequests extends Component {
                                 <td><h5>{appointment.date}</h5></td>
                             </tr>
                             <tr>
+                                <td>appointment duration:</td>
+                                <td>
+                                    <MDBInput type="text"
+                                    onChange={(e) => this.handleDurationChange(e)}
+                                    required
+                                    validate
+                                    /></td>
+                            </tr>
+                            <tr>
+                                <td>appointment discount:</td>
+                                <td>
+                                <MDBInput type="text"
+                                    onChange={(e) => this.handleDiscountChange(e)}
+                                    required
+                                    validate
+                                    /></td>
+                            </tr>
+                            <tr>
                                 <td><MDBBtn onClick = {() => this.addRoom()}>Add room</MDBBtn></td>
                             </tr>
                         </MDBTableBody>
@@ -138,4 +173,4 @@ const mapStateToProps = state =>{
     }
 }
 
-export default connect(mapStateToProps,{getPendingRequests, reserveRoom})(PendingAppointmentRequests);
+export default connect(mapStateToProps,{updateAppointmentRequest, getPendingRequests, reserveRoom})(PendingAppointmentRequests);

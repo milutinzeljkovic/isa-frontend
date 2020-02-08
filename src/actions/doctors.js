@@ -68,3 +68,18 @@ export const sheduleAnOperation = (data) =>{
     }
   
 }
+
+export const getDoctorsOptions = () => {
+    return async dispatch => {
+        let response;
+        response = await doctorService.getDoctorsOptions();
+        return dispatch({ type: 'DOCTORS_APP_TYPES', payload: response.data});
+    
+    }
+}
+
+export const scheduleAnAppointment = (data) =>{
+    return async dispatch => {
+        await doctorService.scheduleAnAppointment(data);
+    }
+}

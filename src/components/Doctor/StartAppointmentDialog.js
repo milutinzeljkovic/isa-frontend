@@ -3,11 +3,12 @@ import { MDBContainer, MDBBtn, MDBInput } from 'mdbreact';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { connect } from 'react-redux';
-import { finishReport } from '../../actions/doctors';
+import { finishReport, getDoctorsOptions } from '../../actions/doctors';
 import browserHistory from '../../history';
 import { getMedicines } from '../../actions/medicines';
 import { getDiagnoses } from '../../actions/diagnose';
 import SheduleAnOperation from './SheduleAnOperation';
+import ScheduleAnAppointment from './ScheduleAnAppointment';
 
 import _ from 'loadsh';
 
@@ -39,8 +40,10 @@ class StartAppointmentDialog extends Component {
         });
     }
 
-    toggleScheduleAnAppointmentDialog = () => {
-
+    toggleScheduleAnAppointmentDialog = async () => {
+        if(!this.scheduleAnAppointmentDialog){
+            await this.props.getDoctorsOptions();
+        }
         this.setState({
             scheduleAnAppointmentDialog: !this.state.scheduleAnAppointmentDialog
         });
@@ -238,7 +241,7 @@ class StartAppointmentDialog extends Component {
         return (
             <MDBContainer>
                 <SheduleAnOperation appointment_id={ this.props.location.pathname.split('/')[3]} show={this.state.sheduleAnOperationDialog} toggle={this.toggleSheduleAnOperationDialog} />
-
+                <ScheduleAnAppointment appointment_id={ this.props.location.pathname.split('/')[3]} show={this.state.scheduleAnAppointmentDialog} toggle={this.toggleScheduleAnAppointmentDialog} />
                 <form onSubmit={(e) => this.handleOnSubmit(e)}>
                     <label>
                         Medical record
@@ -386,11 +389,11 @@ class StartAppointmentDialog extends Component {
                     />
                     <MDBBtn disabled={this.state.done} onClick = {this.toggleScheduleAnAppointmentDialog}
                         color="info" outline  >
-                        Zakazi pregled
+                        Schedule appointment
                                 </MDBBtn>
-                    <MDBBtn  disabled={this.state.done}  onClick = {this.toggleSheduleAnOperationDialog}
+                    <MDBBtn   onClick = {this.toggleSheduleAnOperationDialog}
                         color="info" outline  >
-                        Zakazi operaciju
+                        Schedule operation
                                 </MDBBtn>
                     <div className="text-center mt-4">
                         <MDBBtn onClick={this.previousPage} color="danger" outline  >
@@ -417,4 +420,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { getMedicines, getDiagnoses, finishReport })(StartAppointmentDialog);
+export default connect(mapStateToProps, { getDoctorsOptions, getMedicines, getDiagnoses, finishReport })(StartAppointmentDialog);

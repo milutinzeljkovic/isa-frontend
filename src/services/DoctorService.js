@@ -31,7 +31,13 @@ class DoctorService extends Service{
         return this.getApiClient().get(`${resource}/operations`);
     }
 
-  
+    getDoctorsOptions(){
+        return this.getApiClient().get(`${resource}/appointment-types`);
+    }
+
+    scheduleAnAppointment(data){
+        return this.getApiClient().post(`${resource}/schedule-appointment`,data);
+    }
 }
 
 

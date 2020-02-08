@@ -36,6 +36,10 @@ class ClinicAdminService extends Service{
         return this.getApiClient().put(`/doctors/update/${data.id}`, data);
     }
 
+    changeDateoOfOperation(data){
+        return this.getApiClient().post(`${resource}/change-date-operation`, data);
+    }
+
     deleteDoctor(id){
         return this.getApiClient().delete(`/doctors/delete/${id}`);
     }
@@ -57,6 +61,18 @@ class ClinicAdminService extends Service{
 
     reserveOperation(operations_room_id,operation_id){
         return this.getApiClient().post(`${resource}/reserve-operation?operations_room_id=${operations_room_id}&operation_id=${operation_id}`);
+    }
+    
+    getDoctorsByAppType(id){
+        return this.getApiClient().get(`${resource}/doctors-can-perform/${id}`);
+    }
+
+    specializeDoctor(id,data){
+        return this.getApiClient().post(`${resource}/specialize-doctor/${id}`, data);
+    }
+
+    updateAppointmentRequest(data){
+        return this.getApiClient().put(`${resource}/update-appointment-request`, data);
     }
 }
 

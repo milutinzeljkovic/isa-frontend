@@ -132,6 +132,25 @@ export const getAppointmentsOpRoom = (id) => {
     }
 }
 
+export const getOperationsOpRoom = (id) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await operatingRoomService.getOperationsOpRoom(id);
+        }catch(e){
+            if(e.response !== undefined){
+                if(e.response.status === 500){
+                    return dispatch({ type: 'ERROR', payload: 'error' })
+                }
+            }
+        }
+
+        if(response.status === 200){
+            dispatch({type: 'SET-OPERATING-ROOM-OPERATIONS', payload: response.data});
+        }
+    }
+}
+
 export const getFirstFreeDate = (id) => {
     return async dispatch => {
         let response;
