@@ -10,6 +10,8 @@ export default (state = null, action) => {
             return { ...state, calendarOpRoom: action.payload };
         case 'SET-OPERATING-ROOM-APPOINTMENTS':
             return { ...state, operatingRoomAppointments: action.payload };
+        case 'SET-OPERATING-ROOM-OPERATIONS':
+            return { ...state, operatingRoomOperations: action.payload };
         case 'SET-FIRST-FREE-DATE':
             return { ...state, firstFreeDate: action.payload };
         case 'RESERVE_ROOM':
@@ -17,7 +19,7 @@ export default (state = null, action) => {
         case 'RESERVE_ROOM_FOR_OPERATION':
             return { ...state, operation: action.payload }
         case 'ROOM_RESERVED_FOR_OPERATION':
-            return {...state, operationRoomReserved: action.payload}    
+            return { ...state, operationRoomReserved: action.payload }
         default: return state;
     }
 

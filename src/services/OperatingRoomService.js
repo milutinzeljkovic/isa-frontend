@@ -32,6 +32,10 @@ class OperatingRoomService extends Service{
         return this.getApiClient().get(`${resource}/availability/${id}`);
     }
 
+    getOperationsOpRoom(id){
+        return this.getApiClient().get(`${resource}/availabilityOp/${id}`);
+    }
+
     getFirstFreeDate(id){
         return this.getApiClient().get(`${resource}/recommendation/${id}`);
     }

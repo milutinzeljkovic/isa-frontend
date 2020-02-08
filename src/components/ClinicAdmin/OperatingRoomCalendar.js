@@ -19,7 +19,7 @@ import "@fullcalendar/list/main.css";
 import "@fullcalendar/list/main.js";
 
 import { MDBContainer } from "mdbreact";
-import { getAppointmentsOpRoom, getFirstFreeDate } from '../../actions/operatingRoom';
+import { getAppointmentsOpRoom,getOperationsOpRoom, getFirstFreeDate } from '../../actions/operatingRoom';
 import ChangeDateOfOperation from './ChangeDateOfOperation';
 
 class OperatingRoomCalendar extends Component {
@@ -52,11 +52,30 @@ class OperatingRoomCalendar extends Component {
 
   async componentWillMount() {
     await this.props.getAppointmentsOpRoom(this.props.operatingRoom.calendarOpRoom.id);
+    await this.props.getOperationsOpRoom(this.props.operatingRoom.calendarOpRoom.id);
     await this.props.getFirstFreeDate(this.props.operatingRoom.calendarOpRoom.id);
   }
 
-  renderList(appointements) {
+  renderList(appointements,operations) {
     let events = [];
+
+    _.map(operations, operation => {
+      let event = {};
+
+      event.id = operation.id;
+      event.title = operation.patient.user.name + " " + operation.patient.user.last_name + " | " + operation.info;
+      event.start = operation.date;
+      let dateStart = new Date(operation.date);
+      let dateEnd = new Date(operation.date);
+      dateEnd.setTime(dateStart.getTime() + operation.duration * 60 * 60 * 1000);
+      let dateTime = dateEnd.toLocaleTimeString('it-IT').slice(0, 8);
+      let date = dateEnd.toISOString().slice(0, 10);
+      event.color= 'orange';
+
+      event.end = date + " " + dateTime;
+      events.push(event);
+
+    })
 
     _.map(appointements, appointement => {
       let event = {};
@@ -127,7 +146,7 @@ class OperatingRoomCalendar extends Component {
             selectable
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
             ref={this.calendarComponentRef}
-            events={this.props.operatingRoom === null ? '' : this.renderList(this.props.operatingRoom.operatingRoomAppointments)}
+            events={this.props.operatingRoom === null ? '' : this.renderList(this.props.operatingRoom.operatingRoomAppointments,this.props.operatingRoom.operatingRoomOperations)}
             eventClick={this.handleClick}
           />
 
@@ -149,4 +168,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { getAppointmentsOpRoom, getFirstFreeDate })(OperatingRoomCalendar);
+export default connect(mapStateToProps, {getOperationsOpRoom, getAppointmentsOpRoom, getFirstFreeDate })(OperatingRoomCalendar);
