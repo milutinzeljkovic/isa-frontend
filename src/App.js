@@ -78,6 +78,8 @@ class App extends Component {
         <Route path='/operations-requests' exact component = {OperationsRequest}/>
 
         <Route path='/vacation' exact component = {Vacation}/>
+        <Route path='/calendar' exact component = {Vacation}/>
+
         <Route path='/doctor/calendar' exact component = {WorkingCalendar}/>
 
         <Route path='/prescriptions' exact component = {PrescriptionsTable}/>
