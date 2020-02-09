@@ -220,7 +220,7 @@ class ClinicFIlter extends Component {
 
 const mapStateToProps = state => {
     return{
-        appointmentTypes: state.appointmentTypes
+        appointmentTypes: state.appointmentTypes !== null ? state.appointmentTypes.allAppTypes : null
     }
 }
 
