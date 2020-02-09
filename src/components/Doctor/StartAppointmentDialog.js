@@ -349,6 +349,8 @@ class StartAppointmentDialog extends Component {
                             <Autocomplete
                                 options={this.renderDiagnoses(this.props.diagnoses)}
                                 getOptionLabel={option => option.name}
+                                defaultValue={this.state.diagnoses}
+
                                 onChange={(event, value) => this.handleDiagnoseChange(event, value)}
                                 renderInput={params => (
                                     <TextField
@@ -391,7 +393,7 @@ class StartAppointmentDialog extends Component {
                         color="info" outline  >
                         Schedule appointment
                                 </MDBBtn>
-                    <MDBBtn   onClick = {this.toggleSheduleAnOperationDialog}
+                    <MDBBtn disabled={this.state.done}   onClick = {this.toggleSheduleAnOperationDialog}
                         color="info" outline  >
                         Schedule operation
                                 </MDBBtn>

@@ -285,7 +285,7 @@ class AdminOptionPage extends Component {
                             ""
                             :
                             <td>
-                                <MDBBtn color="danger" onClick={() => this.reserveRoom(opRoom)}>Reserve for appointment</MDBBtn>
+                                <MDBBtn dusk='reserveR' color="danger" onClick={() => this.reserveRoom(opRoom)}>Reserve for appointment</MDBBtn>
                             </td>
                     }
 

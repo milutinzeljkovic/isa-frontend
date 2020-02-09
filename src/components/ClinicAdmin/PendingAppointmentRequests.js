@@ -60,8 +60,8 @@ class PendingAppointmentRequests extends Component {
                     <td>{app.date}</td>
                     <td>{app.patient.user.name}</td>
                     <td>{app.doctor.user.name}</td>
-                    <td><MDBBtn onClick = {() => this.settings(app)}>Accept</MDBBtn></td>
-                    <td><MDBBtn color="orange" onClick = {() => this.decline(app)}>Decline</MDBBtn></td>
+                    <td><MDBBtn dusk='accept' onClick = {() => this.settings(app)}>Accept</MDBBtn></td>
+                    <td><MDBBtn  color="orange" onClick = {() => this.decline(app)}>Decline</MDBBtn></td>
                 </tr>
             )
         })
@@ -115,6 +115,7 @@ class PendingAppointmentRequests extends Component {
                                     <MDBInput type="text"
                                     onChange={(e) => this.handleDurationChange(e)}
                                     required
+                                    name='duration'
                                     validate
                                     /></td>
                             </tr>
@@ -125,10 +126,11 @@ class PendingAppointmentRequests extends Component {
                                     onChange={(e) => this.handleDiscountChange(e)}
                                     required
                                     validate
+                                    name='discount'
                                     /></td>
                             </tr>
                             <tr>
-                                <td><MDBBtn onClick = {() => this.addRoom()}>Add room</MDBBtn></td>
+                                <td><MDBBtn dusk='addRoom' onClick = {() => this.addRoom()}>Add room</MDBBtn></td>
                             </tr>
                         </MDBTableBody>
                     </MDBTable>
