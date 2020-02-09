@@ -16,6 +16,16 @@ export default (state = null, action) => {
             return state.filter(val => val.id !== action.payload);
         case 'DOCTORS_BY_APP_TYPES':
             return {...state, clinicDoctors: action.payload};
+        case 'CLINIC_AVERAGE_RATING':
+            return {...state, clinicRatingAvg: action.payload};
+        case 'DOCTORS_AVERAGE_RATING':
+            return {...state, doctorsRatings: action.payload};
+        case 'EARNED_MONEY':
+            return {...state, earnedMoney: action.payload};
+        case 'WEEKLY_REPORT':
+            return {...state, weeklyReport: action.payload};
+        case 'MONTHLY_REPORT':
+            return {...state, monthlyReport: action.payload.reverse()};
         default: return state;
     }
 

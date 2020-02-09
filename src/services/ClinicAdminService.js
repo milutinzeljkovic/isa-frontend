@@ -74,6 +74,26 @@ class ClinicAdminService extends Service{
     updateAppointmentRequest(data){
         return this.getApiClient().put(`${resource}/update-appointment-request`, data);
     }
+
+    getClinicAverageRating(){
+        return this.getApiClient().get(`${resource}/average-rating`);
+    }
+
+    getDoctorsAverageRating(){
+        return this.getApiClient().get(`${resource}/doctor-average-rating`);
+    }
+
+    getMoneyEarned(startDate,endDate){
+        return this.getApiClient().get(`${resource}/money-earned-in-period?start=${startDate}&end=${endDate}`);
+    }
+
+    getWeeklyReport(){
+        return this.getApiClient().get(`${resource}/weekly-report`);
+    }
+
+    getMonthlyReport(){
+        return this.getApiClient().get(`${resource}/monthly-report`);
+    }
 }
 
 
