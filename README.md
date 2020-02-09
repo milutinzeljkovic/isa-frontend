@@ -14,5 +14,7 @@ Neophodno za pokretanje projekta:
           yarn install 
     - za pokretanje 
           yarn start
+### link 
+https://isa-front-test.herokuapp.com/
  
 ### TIM32 - Milutin Zeljković, Mihailo Stanarević, Ivan Činčurak
