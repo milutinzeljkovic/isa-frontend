@@ -244,7 +244,7 @@ class Header extends Component {
               <MDBDropdownItem><Link to='/vacation-requests' >Vacation requests</Link></MDBDropdownItem>
               <MDBDropdownItem><Link to='/operations-requests' >Operations requests</Link></MDBDropdownItem>
               <MDBDropdownItem><Link to='/pending-appointment-requests' >Appointment requests</Link></MDBDropdownItem>
-
+              <MDBDropdownItem><Link to='/business-info' >Business information</Link></MDBDropdownItem>
 
             </MDBDropdownMenu>
           </MDBDropdown>

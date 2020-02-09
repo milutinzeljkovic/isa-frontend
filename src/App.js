@@ -42,6 +42,7 @@ import ConfirmDenyVacation from './components/ClinicAdmin/ConfirmDenyVacation';
 import OperatingRoomCalendar from './components/ClinicAdmin/OperatingRoomCalendar';
 
 import OperationsRequest from './components/ClinicAdmin/OperationsRequest';
+import BusinessInformation from './components/ClinicAdmin/BusinessInformation';
 class App extends Component {
 
   componentDidMount(){
@@ -113,7 +114,7 @@ class App extends Component {
         <Route path='/vacation-requests' exact component = {ConfirmDenyVacation}/>
         <Route path='/operating-room/calendar' exact component = {OperatingRoomCalendar}/>
         <Route path='/pending-appointment-requests' exact component = {PendingAppointmentRequests}/>
-        
+        <Route path='/business-info' exact component = {BusinessInformation}/>
       </Router>
     );
   }

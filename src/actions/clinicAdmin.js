@@ -259,3 +259,63 @@ export const updateAppointmentRequest = (data) => {
         }
     }
 }
+
+export const clinicAverageRating = () => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.getClinicAverageRating();
+            return dispatch({ type: 'CLINIC_AVERAGE_RATING', payload: response.data });
+        }catch(e){
+            
+        }
+    }
+}
+
+export const getDoctorsAverageRating = () => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.getDoctorsAverageRating();
+            return dispatch({ type: 'DOCTORS_AVERAGE_RATING', payload: response.data });
+        }catch(e){
+            
+        }
+    }
+}
+
+export const getMoneyEarned = (startDate, endDate) => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.getMoneyEarned(startDate,endDate);
+            return dispatch({ type: 'EARNED_MONEY', payload: response.data });
+        }catch(e){
+            
+        }
+    }
+}
+
+export const getMonthlyReport = () => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.getMonthlyReport();
+            return dispatch({ type: 'WEEKLY_REPORT', payload: response.data });
+        }catch(e){
+            
+        }
+    }
+}
+
+export const getWeeklyReport = () => {
+    return async dispatch => {
+        let response;
+        try{
+            response = await clinicAdminService.getWeeklyReport();
+            return dispatch({ type: 'MONTHLY_REPORT', payload: response.data });
+        }catch(e){
+            
+        }
+    }
+}
