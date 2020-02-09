@@ -171,6 +171,7 @@ class ClinicFIlter extends Component {
                 <MDBInput
                     label="Clinic address"
                     group
+                    dusk='adresa'
                     type="text"
                     onChange={(e) => this.onAddressChange(e)}
                 />
@@ -200,7 +201,7 @@ class ClinicFIlter extends Component {
             <div>
                 <MDBCard id='filter-card'>
                     <MDBCardBody>
-                            <MDBBadge color= "blue"  tag="a" onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}<i className="fas fa-filter"></i> </MDBBadge>
+                            <MDBBadge dusk='showFilter' color= "blue"  tag="a" onClick = {this.toggleFilters}>{this.state.showFilters ? 'Hide filters' : 'Show filters'}<i className="fas fa-filter"></i> </MDBBadge>
 
                     
                     {

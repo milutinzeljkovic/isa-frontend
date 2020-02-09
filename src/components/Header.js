@@ -127,7 +127,7 @@ renderRight = () => {
     return(
       <MDBNavbarNav right>
         <MDBNavItem>
-          <MDBNavLink to="/login" onClick = {this.toggleLoginDialog}>Login</MDBNavLink>
+          <MDBNavLink to="/login" dusk='loginbtn' onClick = {this.toggleLoginDialog}>Login</MDBNavLink>
         </MDBNavItem>
         <MDBNavItem>
           <MDBNavLink to="/register" onClick = {this.toggleRegisterDialog}>Register</MDBNavLink>
@@ -153,7 +153,7 @@ renderRight = () => {
           <MDBNavLink to="/profile"><i className="fas fa-user-circle"></i> {this.props.auth.currentUser.email}</MDBNavLink>
         </MDBNavItem>
         <MDBNavItem>
-          <MDBNavLink to="/" onClick = {()=> this.handleLogoutButtonClick()}><i className="fas fa-sign-out-alt"></i> Logout</MDBNavLink>
+          <MDBNavLink dusk='logout' to="/" onClick = {()=> this.handleLogoutButtonClick()}><i className="fas fa-sign-out-alt"></i> Logout</MDBNavLink>
         </MDBNavItem>
       </MDBNavbarNav>
     )
@@ -260,7 +260,7 @@ renderLinks = () => {
       <MDBNavItem>
       <MDBDropdown>
               <MDBDropdownToggle nav caret>
-                <span className="mr-2"><i className="fas fa-bars"></i> Menu</span>
+                <span  className="mr-2"><i className="fas fa-bars"></i> Menu</span>
               </MDBDropdownToggle>
               <MDBDropdownMenu>
                 <MDBDropdownItem><Link to='/clinics'><i className="fas fa-clinic-medical"></i> Clinics</Link></MDBDropdownItem>
@@ -309,7 +309,7 @@ renderLeft = () => {
     return(
         <MDBNavbarNav left>
           <MDBNavItem>
-            <MDBNavLink to="/home"><i className="fas fa-home"></i> Home</MDBNavLink>
+            <MDBNavLink  to="/home"><i className="fas fa-home"></i> Home</MDBNavLink>
           </MDBNavItem>
           {this.renderLinks()}
         </MDBNavbarNav>

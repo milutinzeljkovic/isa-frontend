@@ -112,7 +112,7 @@ class AppointmentSearchDialog extends Component {
                                         
                                         </div>
                                         <div className="text-center py-4 mt-3">
-                                            <MDBBtn color="blue" type="submit" onClick = { (e) => this.onSearch(e)}>
+                                            <MDBBtn color="blue" dusk='search' type="submit" onClick = { (e) => this.onSearch(e)}>
                                                 Search
                                             </MDBBtn>
                                         </div>

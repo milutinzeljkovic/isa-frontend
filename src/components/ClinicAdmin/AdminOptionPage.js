@@ -484,4 +484,4 @@ const mapStateToProps = (state) => {
     }
   }
   
-  export default connect(mapStateToProps, {getDoctorsOptionsAppTypes, reserveAppointment, getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor, searchOperatingRooms, setOperatingRoomCalendar})(AdminOptionPage);
+  export default connect(mapStateToProps, {reserveOperation,getDoctorsOptionsAppTypes, reserveAppointment, getAllDoctors, getAllOpRooms, getAppointmentTypesClinic, deleteAppointmentType, getDoctorsWorkingHours, seeIfBookedOpRoom,  seeIfBookedDoctor, seeIfUsedAppType, setEntityToBeUpdated, deleteOperatingRoom, deleteDoctor, searchOperatingRooms, setOperatingRoomCalendar})(AdminOptionPage);

@@ -117,6 +117,7 @@ class LoginDialog extends Component {
                         group
                         type="email"
                         validate
+                        name='email'
                         error="wrong"
                         success="right"
                         onChange={(e) => this.handleEmailChange(e)}
@@ -132,6 +133,8 @@ class LoginDialog extends Component {
                         group
                         type="password"
                         validate
+                        name='pass'
+
 
                         required
 
@@ -145,7 +148,7 @@ class LoginDialog extends Component {
                     </div>
                     </div>
                     <div className="text-center">
-                    <MDBBtn onClick = {() => this.handleSubmit()}>Login</MDBBtn>
+                    <MDBBtn dusk='loginbtn1' onClick = {() => this.handleSubmit()}>Login</MDBBtn>
                     <MDBBtn outline color="danger" onClick = { this.props.toggle}>Close</MDBBtn>
                     <p>{this.props.auth.loginStatus === null ? '' : this.props.auth.loginStatus}</p>
                     </div>

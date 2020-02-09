@@ -242,7 +242,7 @@ class SearchClinicDialog extends Component {
                     </small>
 
                     </div>
-                    <MDBBadge  tag="a" color="teal" onClick = {() => this.onClinicClickHandle(clinic)}>details <i className="fas fa-info"></i></MDBBadge>
+                    <MDBBadge dusk='badgeDetails'  tag="a" color="teal" onClick = {() => this.onClinicClickHandle(clinic)}>details <i className="fas fa-info"></i></MDBBadge>
                     {canRate ? <MDBBadge tag="a" style={{ margin: "1%" }} color="danger">visited</MDBBadge> : ''}
                     {distanceKm === null ? '' : <MDBBadge style={{ margin: "1%" }} color="blue" > {distanceKm} km <i class="fas fa-thumbtack"></i></MDBBadge> }
                     <p className="mb-1">{clinic.description}</p>

@@ -253,7 +253,7 @@ class ClinicDetail extends Component {
                             />
                             </MDBCol>
                             </MDBRow>
-                            <MDBBadge tag="a" color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i className="fas fa-user-md"></i></MDBBadge>
+                            <MDBBadge dusk='showDoctors' tag="a" color='orange darken-4' onClick = {this.handleOnDoctorsClick}>{this.state.showDoctors === true ? 'Hide doctors' : 'Show doctors'} <i className="fas fa-user-md"></i></MDBBadge>
                             <div>
                                 {this.renderDoctorsFilter()}
                             </div>

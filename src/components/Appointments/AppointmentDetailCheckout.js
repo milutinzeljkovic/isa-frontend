@@ -80,7 +80,7 @@ class AppointmentDetailCheckout extends Component {
                         </span>
                     </div>
                     <div>
-                    <MDBBtn outline color="danger" onClick = {this.onReserveButtonClick}>Reserve</MDBBtn>
+                    <MDBBtn dusk='reserve' outline color="danger" onClick = {this.onReserveButtonClick}>Reserve</MDBBtn>
 
 
                     </div>

@@ -63,7 +63,7 @@ class AppointmentSearchResult extends Component {
                         <small>room: {app.operations_room === null ? '' : app.operations_room.number}</small>
                     </div>
                     <div>
-                        <MDBBadge tag="a" color="teal" onClick = {()=>this.onReserveClick(app)}>info <i className="fas fa-info"/></MDBBadge>
+                        <MDBBadge dusk='badge' tag="a" color="teal" onClick = {()=>this.onReserveClick(app)}>info <i className="fas fa-info"/></MDBBadge>
                     </div>
                         </MDBCol>
                     </MDBRow>
