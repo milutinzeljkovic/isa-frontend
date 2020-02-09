@@ -1,7 +1,7 @@
 ### Projekat ISA-PSW 2019/20 (FrontEnd)
 Neophodno za pokretanje projekta: 
-- Node.js
-- Yarn
+- Node server
+- Yarn package manager
 
 ### Preuzeti projekat sa linka sa komandom:
 - git clone https://github.com/milutinzeljkovic/isa-frontend
